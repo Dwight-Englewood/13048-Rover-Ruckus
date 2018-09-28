@@ -1,0 +1,71 @@
+package org.firstinspires.ftc.teamcode;
+
+/**
+ * Created by joonsoolee on 9/21/18.
+ */
+    import com.qualcomm.hardware.bosch.BNO055IMU;
+        import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
+        import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+        import com.qualcomm.robotcore.util.Range;
+        import com.qualcomm.robotcore.hardware.*;
+        import org.firstinspires.ftc.robotcore.external.Telemetry;
+        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+        import java.util.*;
+
+public class bot {
+    static DcMotor BL, BR, FL, FR;
+    HardwareMap map;
+    Telemetry tele;
+    BNO055IMU.Parameters parameters;
+    Orientation angles;
+    Double powerModifier = 0.02;
+    ModernRoboticsI2cColorSensor colorSensor;
+    public bot() {}
+
+    public void init(HardwareMap map, Telemetry tele, boolean auton){
+        this.map = map;
+        this.tele = tele;
+        this.runWithoutEncoder();
+        BL = this.map.get(DcMotor.class, "BL");
+        BR = this.map.get(DcMotor.class, "BR");
+        FL = this.map.get(DcMotor.class, "FL");
+        FR = this.map.get(DcMotor.class, "FR");
+        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setPower(0);
+        BL.setPower(0);
+        FL.setPower(0);
+        FR.setPower(0);
+    }
+    public void runToPosition(){
+        BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void runToEncoder(){
+        BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runWithoutEncoder(){
+        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+
+    public void drive(double in) {
+        BL.setPower(in);
+        BR.setPower(in);
+        FR.setPower(in);
+        FL.setPower(in);
+    }
+}
