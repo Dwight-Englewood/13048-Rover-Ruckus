@@ -72,7 +72,15 @@ public class TeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        robot.drive((double) gamepad1.left_stick_y);
+        /*
+        if(gamepad1.left_stick_x > 0.15 || gamepad1.left_stick_x < -0.15){
+            robot.turn((double) gamepad1.left_stick_x);
+        }
+        else
+            robot.drive((double) gamepad1.left_stick_y);
+
+        */
+        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
 //        else if((gamepad1.right_stick_x > 0.15 || gamepad1.right_stick_x < -0.15)) {
 //            robot.strafe((double) gamepad1.right_stick_x);
 //            telemetry.addData("turn: ", true);
