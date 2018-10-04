@@ -38,30 +38,21 @@ public class bot {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.runWithoutEncoder();
+
+        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         FR.setPower(0);
         BL.setPower(0);
         FL.setPower(0);
         FR.setPower(0);
     }
-    public void runToPosition(){
-        BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    public void changeRunMode(DcMotor.RunMode runMode){
+        BL.setMode(runMode);
+        BR.setMode(runMode);
+        FL.setMode(runMode);
+        FR.setMode(runMode);
     }
-    public void runToEncoder(){
-        BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-    public void runWithoutEncoder(){
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
+
 
 
     public void drive(double in) {
