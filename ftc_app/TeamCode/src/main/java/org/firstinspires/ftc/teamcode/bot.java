@@ -18,7 +18,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
-    static DcMotor BL, BR, FL, FR;
+    static DcMotor BL, BR, FL, FR,lift ;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -34,6 +34,7 @@ public class bot {
         BR = this.map.get(DcMotor.class, "BR");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
+
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
