@@ -18,7 +18,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
-    static DcMotor BL, BR, FL, FR,lift ;
+    static DcMotor BL, BR, FL, FR,lift,intake ;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
