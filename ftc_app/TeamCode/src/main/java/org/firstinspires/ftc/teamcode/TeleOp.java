@@ -74,19 +74,27 @@ public class TeleOp extends OpMode {
     public void loop() {
         //TODO add intake stuff [In Progress]
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-      //  robot.extension(gamepad2.right_stick_y); [Can Delete]
-      //  robot.intake(gamepad2.right_trigger);    [Can Delete]
+        //robot.extension(gamepad2.right_stick_y); [In Progress]
+        //robot.intake(gamepad2.right_trigger);    [Can Delete]
 
         robot.intake.setPower(gamepad2.right_trigger);
-        robot.extension.setPower(gamepad2.right_stick_y);
+        //robot.extension.setPosition(gamepad2.y, gamepad2.a, gamepad2.b); [In Progress]
 
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(0.5);
-        }
-        else{
+        } else {
             robot.intake.setPower(0);
         }
-        //TODO add the hinge thing [In Progress]
+
+        //TODO add the hinge thing [Done]
+        if(gamepad1.dpad_up) {
+            robot.hinge.setPower(0.65);
+        } else if (gamepad1.dpad_down) {
+            robot.hinge.setPower(-0.65);
+        } else {
+            robot.hinge.setPower(0);
+        }
+
 
         if (gamepad2.dpad_up) {
             robot.lift.setPower(0.25);
@@ -96,6 +104,14 @@ public class TeleOp extends OpMode {
             robot.lift.setPower(0);
         }
 
+        //TODO add extension thing [Done]
+        if (gamepad2.y) {
+            robot.extension.setPosition(1);
+        } else if (gamepad2.a) {
+            robot.extension.setPosition(0);
+        } else if (gamepad2.b) {
+            robot.extension.setPosition(0.5);
+        }
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
