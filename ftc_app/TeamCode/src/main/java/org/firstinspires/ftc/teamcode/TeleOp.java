@@ -72,24 +72,18 @@ public class TeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        /*
-        if(gamepad1.left_stick_x > 0.15 || gamepad1.left_stick_x < -0.15){
-            robot.turn((double) gamepad1.left_stick_x);
-        }
-        else
-            robot.drive((double) gamepad1.left_stick_y);
 
-        */
-        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-//        else if((gamepad1.right_stick_x > 0.15 || gamepad1.right_stick_x < -0.15)) {
-//            robot.strafe((double) gamepad1.right_stick_x);
-//            telemetry.addData("turn: ", true);
-//            telemetry.update();
-//        }
-//        else if((gamepad1.right_trigger > 0.15))
-//            robot.turn(1.0);
-//        else if(gamepad1.left_trigger > 0.15)
-//            robot.turn(-1.0);
+          robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
+
+        if(gamepad2.dpad_up){
+            robot.lift.setPower(0.25);
+        }
+       else if (gamepad2.dpad_down){
+            robot.lift.setPower(-0.25);
+        }
+        else{
+            robot.lift.setPower(0);
+        }
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
