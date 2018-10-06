@@ -72,12 +72,12 @@ public class TeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        //TODO add intake stuff
+        //TODO add intake stuff [In Progress]
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-     //   robot.extension(gamepad2.right_stick_y);
-      //  robot.intake(gamepad2.right_trigger);
+      //  robot.extension(gamepad2.right_stick_y); [Can Delete]
+      //  robot.intake(gamepad2.right_trigger);    [Can Delete]
 
-
+        robot.intake.setPower(gamepad2.right_trigger);
         robot.extension.setPower(gamepad2.right_stick_y);
 
         if(gamepad2.right_trigger > .3){
@@ -86,7 +86,7 @@ public class TeleOp extends OpMode {
         else{
             robot.intake.setPower(0);
         }
-        //TODO add the hinge thing
+        //TODO add the hinge thing [In Progress]
 
         if (gamepad2.dpad_up) {
             robot.lift.setPower(0.25);
