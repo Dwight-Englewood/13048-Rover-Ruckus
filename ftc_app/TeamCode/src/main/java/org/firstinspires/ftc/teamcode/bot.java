@@ -18,7 +18,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
-    static DcMotor BL, BR, FL, FR,lift,intake ;
+    static DcMotor BL, BR, FL, FR, lift, intake, extension, hinge;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -44,6 +44,7 @@ public class bot {
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //TODO: Set lift zero power mode
 
         FR.setPower(0);
         BL.setPower(0);
