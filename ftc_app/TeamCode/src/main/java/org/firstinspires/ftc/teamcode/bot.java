@@ -18,7 +18,9 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
+    //TODO add vex motor
     static DcMotor BL, BR, FL, FR, lift, intake, extension, hinge;
+    Servo dump;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -45,6 +47,7 @@ public class bot {
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //TODO: Set lift zero power mode
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         FR.setPower(0);
         BL.setPower(0);
