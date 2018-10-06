@@ -34,11 +34,14 @@ public class bot {
         BR = this.map.get(DcMotor.class, "BR");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
+        lift = this.map.get(DcMotor.class, "lift");
+
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.FORWARD);
+        lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
