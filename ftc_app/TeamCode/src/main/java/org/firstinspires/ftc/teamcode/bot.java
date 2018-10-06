@@ -29,6 +29,7 @@ public class bot {
     ModernRoboticsI2cColorSensor colorSensor;
     public bot() {}
 
+    //TODO: Get Extension Stuff [Done]
     public void init(HardwareMap map, Telemetry tele, boolean auton){
         this.map = map;
         this.tele = tele;
@@ -37,17 +38,25 @@ public class bot {
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
         lift = this.map.get(DcMotor.class, "lift");
-
+        hinge = this.map.get(DcMotor.class, "hinge");
+        intake = this.map.get(DcMotor.class, "intake");
+        extension = this.map.get(Servo.class, "extension");
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.FORWARD);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
+        hinge.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        extension.setDirection(Servo.Direction.FORWARD);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //TODO: Set lift zero power mode
+        //TODO: Set lift zero power mode [Done]
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extension.setPosition(MIN_POSITION);
 
         FR.setPower(0);
         BL.setPower(0);
