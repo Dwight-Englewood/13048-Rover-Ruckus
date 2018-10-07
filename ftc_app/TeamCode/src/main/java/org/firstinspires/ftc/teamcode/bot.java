@@ -30,11 +30,10 @@ public class bot {
     ModernRoboticsI2cColorSensor colorSensor;
     public bot() {}
 
-    //TODO: Get Extension Stuff [Done]
+    //TODO: Get Extension Stuff [In Progress]
     public void init(HardwareMap map, Telemetry tele, boolean auton){
         this.map = map;
         this.tele = tele;
-
 
         BL = this.map.get(DcMotor.class, "BL");
         BR = this.map.get(DcMotor.class, "BR");
@@ -61,14 +60,14 @@ public class bot {
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //TODO: Set lift zero power mode [Done]
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         FR.setPower(0);
         BL.setPower(0);
@@ -101,8 +100,8 @@ public class bot {
         leftStick *= i;
         rightStick *= i;
 
-        FL.setPower(-leftStick);
-        FR.setPower(-rightStick);
+        FL.setPower(leftStick);
+        FR.setPower(rightStick);
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
     }
@@ -169,7 +168,7 @@ public class bot {
     public void turn(double in){
         BL.setPower(-in);
         BR.setPower(in);
-        FR.setPower(in);
-        FL.setPower(-in);
+        FR.setPower(-in);
+        FL.setPower(in);
     }
 }

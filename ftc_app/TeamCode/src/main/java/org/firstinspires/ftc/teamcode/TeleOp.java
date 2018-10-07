@@ -125,6 +125,14 @@ public class TeleOp extends OpMode {
             robot.hook.setPower(0);
         }
 
+        if (gamepad2.x) {
+            robot.extend.setPosition(1.0);
+        } else if (gamepad2.y){
+            robot.extend.setPosition(0.5);
+        } else {
+            robot.extend.setPosition(0.0);
+        }
+
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
 //        robot.testServos(telemetry);
