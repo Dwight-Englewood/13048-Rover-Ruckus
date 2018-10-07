@@ -18,8 +18,14 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
+<<<<<<< HEAD
     //TODO add vex motor as a Servo
     static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge;
+=======
+    
+    static DcMotor BL, BR, FL, FR, lift, intake, extension, hinge;
+   //TODO add vex motor as a server 
+>>>>>>> f82d97936dc9cb1d2c36d65ab6a033ce5a314f13
     Servo dump;
     HardwareMap map;
     Telemetry tele;
