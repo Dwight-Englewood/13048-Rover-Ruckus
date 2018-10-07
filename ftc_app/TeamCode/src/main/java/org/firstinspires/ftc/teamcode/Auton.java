@@ -42,6 +42,9 @@ public class Auton {
         if(runtime.milliseconds() >= 2000){
             robot.hook.setPower(-0.5);
         }
+        else {
+            robot.hook.setPower(0);
+        }
     }
 
     @Override
