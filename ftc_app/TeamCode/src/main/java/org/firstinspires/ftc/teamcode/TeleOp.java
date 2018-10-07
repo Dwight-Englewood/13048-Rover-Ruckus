@@ -89,9 +89,9 @@ public class TeleOp extends OpMode {
 
         //TODO add the hinge thing [Done]
         if(gamepad1.dpad_up) {
-            robot.hinge.setPower(0.65);
+            robot.hinge.setPower(0.5);
         } else if (gamepad1.dpad_down) {
-            robot.hinge.setPower(-0.65);
+            robot.hinge.setPower(-0.5);
         } else {
             robot.hinge.setPower(0);
         }
