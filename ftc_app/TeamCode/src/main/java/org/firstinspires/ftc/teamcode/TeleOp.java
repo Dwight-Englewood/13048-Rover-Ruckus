@@ -65,7 +65,10 @@ public class TeleOp extends OpMode {
     }
 
     @Override
-    public void start() {timer.reset();}
+    public void start() {
+        timer.reset();
+        robot.dump.setPosition(0.0);
+    }
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -96,6 +99,12 @@ public class TeleOp extends OpMode {
             robot.hinge.setPower(0);
         }
 
+        if(gamepad2.a){
+            robot.dump.setPosition(1.0);
+        }
+        else if (gamepad2.b){
+            robot.dump.setPosition(0.0);
+        }
 
         if (gamepad2.dpad_up) {
             robot.lift.setPower(0.25);
