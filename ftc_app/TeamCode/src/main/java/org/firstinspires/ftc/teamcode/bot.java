@@ -36,6 +36,8 @@ public class bot {
     public void init(HardwareMap map, Telemetry tele, boolean auton){
         this.map = map;
         this.tele = tele;
+
+
         BL = this.map.get(DcMotor.class, "BL");
         BR = this.map.get(DcMotor.class, "BR");
         FL = this.map.get(DcMotor.class, "FL");
@@ -44,6 +46,10 @@ public class bot {
         hinge = this.map.get(DcMotor.class, "hinge");
         intake = this.map.get(DcMotor.class, "intake");
         hook = this.map.get(DcMotor.class, "hook");
+
+        dump = this.map.get(Servo.class,"dump");
+
+
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
