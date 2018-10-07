@@ -78,7 +78,7 @@ public class TeleOp extends OpMode {
 
         //TODO add intake stuff [In Progress]
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-        robot.intake.setPower(gamepad2.right_trigger);
+//        robot.intake.setPower(gamepad2.right_trigger);
         //robot.hinge.setPower(gamepad2.dpad_up, gamepad2.dpad_down); [In Progress]
         //robot.hook.setPosition(gamepad2.y, gamepad2.a, gamepad2.b); [In Progress]
         //robot.hook(gamepad2.right_stick_y); [Can Delete]
@@ -106,6 +106,7 @@ public class TeleOp extends OpMode {
             robot.dump.setPosition(0.0);
         }
 
+        //Change direction
         if (gamepad2.dpad_up) {
             robot.lift.setPower(0.25);
         } else if (gamepad2.dpad_down) {
