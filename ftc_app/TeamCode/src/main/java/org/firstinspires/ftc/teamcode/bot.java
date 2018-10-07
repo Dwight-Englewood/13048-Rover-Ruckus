@@ -18,8 +18,8 @@ package org.firstinspires.ftc.teamcode;
 
 
 public class bot {
-    //TODO add vex motor
-    static DcMotor BL, BR, FL, FR, lift, intake, extension, hinge;
+    //TODO add vex motor as a Servo
+    static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge;
     Servo dump;
     HardwareMap map;
     Telemetry tele;
@@ -40,7 +40,7 @@ public class bot {
         lift = this.map.get(DcMotor.class, "lift");
         hinge = this.map.get(DcMotor.class, "hinge");
         intake = this.map.get(DcMotor.class, "intake");
-        extension = this.map.get(Servo.class, "extension");
+        hook = this.map.get(DcMotor.class, "hook");
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -49,14 +49,19 @@ public class bot {
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
         hinge.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        extension.setDirection(Servo.Direction.FORWARD);
+        hook.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         //TODO: Set lift zero power mode [Done]
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extension.setPosition(MIN_POSITION);
+        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         FR.setPower(0);
         BL.setPower(0);
@@ -69,7 +74,6 @@ public class bot {
         FL.setMode(runMode);
         FR.setMode(runMode);
     }
-
 
     public void drive(double in) {
         BL.setPower(in);

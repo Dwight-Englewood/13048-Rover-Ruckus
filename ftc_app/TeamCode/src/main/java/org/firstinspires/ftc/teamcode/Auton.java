@@ -19,24 +19,26 @@ package org.firstinspires.ftc.teamcode;
     import org.firstinspires.ftc.teamcode.bot;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="autonomous",group="Autonomous")
-
-@Override
-public void init() {
+public class Auton {
+    @Override
+    public void init() {
         robot.init(hardwareMap, telemetry, false);
         telemetry.addData("Status", "Initialized");
-        }
+    }
 
-@Override
-public void init_loop() {
+    @Override
+    public void init_loop() {
 
-        }
+    }
 
-@Override
-public void loop() {
+    @Override
+    public void loop() {
 
-        }
+    }
 
-@Override
-public void stop() {
+    @Override
+    public void stop() {
 
-        }
+    }
+
+}
