@@ -56,7 +56,7 @@ public class TeleOp extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-//        robot.resetServo();
+//      robot.resetServo();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -72,13 +72,14 @@ public class TeleOp extends OpMode {
      */
     @Override
     public void loop() {
+
         //TODO add intake stuff [In Progress]
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-        //robot.extension(gamepad2.right_stick_y); [In Progress]
-        //robot.intake(gamepad2.right_trigger);    [Can Delete]
-
         robot.intake.setPower(gamepad2.right_trigger);
+        //robot.hinge.setPower(gamepad2.dpad_up, gamepad2.dpad_down); [In Progress]
         //robot.extension.setPosition(gamepad2.y, gamepad2.a, gamepad2.b); [In Progress]
+        //robot.extension(gamepad2.right_stick_y); [Can Delete]
+        //robot.intake(gamepad2.right_trigger);    [Can Delete]
 
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(0.5);
