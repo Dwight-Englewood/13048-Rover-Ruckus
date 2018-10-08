@@ -88,27 +88,33 @@ public class TeleOp extends OpMode {
 
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(0.5);
-        } else {
+        } else if(gamepad2.left_trigger > .3){
+            robot.intake.setPower(-0.5);
+
+        }
+        else {
             robot.intake.setPower(0);
         }
 
         //TODO add the hinge thing [Done]
-        if(gamepad1.dpad_up) {
+        if(gamepad2.right_bumper) {
             robot.hinge.setPower(0.5);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.left_bumper) {
             robot.hinge.setPower(-0.5);
         } else {
             robot.hinge.setPower(0);
         }
 
         if(gamepad2.a) {
-            pos += (0.25);
+           // pos += (0.25);
+            robot.dump.setPosition(1.0);
         }
         else if (gamepad2.b){
-            robot.dump.setPosition(0.0);
+          //  pos -= (0.25);
+            robot.dump.setPosition(0);
         }
 
-
+       // robot.dump.setPosition(pos);
 
         //Change direction
         if (gamepad2.dpad_up) {
@@ -129,8 +135,14 @@ public class TeleOp extends OpMode {
             robot.hook.setPower(0);
         }
 
+        if(gamepad2.x){
+            robot.extend.setPosition(1.0);
+        }
+        else if (gamepad2.y){
+            robot.extend.setPosition(0);
+        }
 
-
+/*
         if(gamepad2.x){
             extPos += 0.25;
         }
@@ -139,6 +151,8 @@ public class TeleOp extends OpMode {
         }
 
         robot.extend.setPosition(extPos);
+
+        */
       //  if (gamepad2.x) {
       //      robot.extend.setPosition(1.0);
        // } else if (gamepad2.y){

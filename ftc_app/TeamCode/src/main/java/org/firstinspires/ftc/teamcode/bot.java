@@ -19,7 +19,8 @@ package org.firstinspires.ftc.teamcode;
 
 public class bot {
 
-    //TODO add vex motor as a Servo
+    //TODO add vex motor as a Servo for extension
+    // TODO change dump mechanism to a vex motor? 
     static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge;
     Servo dump, extend;
     HardwareMap map;
@@ -52,7 +53,7 @@ public class bot {
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        lift.setDirection(DcMotorSimple.Direction.FORWARD);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
         hinge.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -111,6 +112,7 @@ public class bot {
         FR.setPower(power);
         BR.setPower(power);
     }
+    //TODO fix the the driver values and restrict the motor values
     public void drive(MovementEnum movement, double power) {
         switch (movement) {
             case FORWARD:
@@ -129,16 +131,16 @@ public class bot {
 
             case LEFTSTRAFE:
                 FL.setPower(power);
-                FR.setPower(-power);
-                BL.setPower(-power);
-                BR.setPower(power);
+                FR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(-power);
                 break;
 
             case RIGHTSTRAFE:
                 FL.setPower(-power);
-                FR.setPower(power);
-                BL.setPower(power);
-                BR.setPower(-power);
+                FR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(power);
                 break;
 
 
