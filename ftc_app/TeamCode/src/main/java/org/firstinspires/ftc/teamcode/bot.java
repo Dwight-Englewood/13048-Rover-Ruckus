@@ -31,7 +31,6 @@ public class bot {
     ModernRoboticsI2cColorSensor colorSensor;
     public bot() {}
 
-    //TODO: Get Extension Stuff [In Progress]
     public void init(HardwareMap map, Telemetry tele, boolean auton){
         this.map = map;
         this.tele = tele;

@@ -78,14 +78,9 @@ public class TeleOp extends OpMode {
     @Override
     public void loop() {
 
-        //TODO add intake stuff [In Progress]
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-//        robot.intake.setPower(gamepad2.right_trigger);
-        //robot.hinge.setPower(gamepad2.dpad_up, gamepad2.dpad_down); [In Progress]
-        //robot.hook.setPosition(gamepad2.y, gamepad2.a, gamepad2.b); [In Progress]
-        //robot.hook(gamepad2.right_stick_y); [Can Delete]
-        //robot.intake(gamepad2.right_trigger);    [Can Delete]
 
+        //intake
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(0.5);
         } else if(gamepad2.left_trigger > .3){
@@ -96,7 +91,7 @@ public class TeleOp extends OpMode {
             robot.intake.setPower(0);
         }
 
-        //TODO add the hinge thing [Done]
+        //hinge
         if(gamepad2.right_bumper) {
             robot.hinge.setPower(0.5);
         } else if (gamepad2.left_bumper) {
@@ -105,6 +100,7 @@ public class TeleOp extends OpMode {
             robot.hinge.setPower(0);
         }
 
+        //dump
         if(gamepad2.a) {
            // pos += (0.25);
             robot.dump.setPosition(1.0);
@@ -116,6 +112,7 @@ public class TeleOp extends OpMode {
 
        // robot.dump.setPosition(pos);
 
+        //lift
         //Change direction
         if (gamepad2.dpad_up) {
             robot.lift.setPower(0.25);
@@ -125,7 +122,7 @@ public class TeleOp extends OpMode {
             robot.lift.setPower(0);
         }
 
-        //TODO add extension thing [Done]
+        //hook
         if (gamepad1.a) {
             robot.hook.setPower(0.75);
         } else if (gamepad1.b) {
@@ -135,6 +132,7 @@ public class TeleOp extends OpMode {
             robot.hook.setPower(0);
         }
 
+        //extend
         if(gamepad2.x){
             robot.extend.setPosition(1.0);
         }
