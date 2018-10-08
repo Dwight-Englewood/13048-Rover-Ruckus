@@ -52,6 +52,8 @@ public class TeleOp extends OpMode {
     // Declare OpMode members.
     private ElapsedTime timer = new ElapsedTime();
     bot robot = new bot();
+    int pos = 0;
+    int extPos = 0;
 
     @Override
     public void init() {
@@ -99,12 +101,14 @@ public class TeleOp extends OpMode {
             robot.hinge.setPower(0);
         }
 
-        if(gamepad2.a){
-            robot.dump.setPosition(1.0);
+        if(gamepad2.a) {
+            pos += (0.25);
         }
         else if (gamepad2.b){
             robot.dump.setPosition(0.0);
         }
+
+
 
         //Change direction
         if (gamepad2.dpad_up) {
@@ -125,13 +129,23 @@ public class TeleOp extends OpMode {
             robot.hook.setPower(0);
         }
 
-        if (gamepad2.x) {
-            robot.extend.setPosition(1.0);
-        } else if (gamepad2.y){
-            robot.extend.setPosition(0.5);
-        } else {
-            robot.extend.setPosition(0.0);
+
+
+        if(gamepad2.x){
+            extPos += 0.25;
         }
+        else if (gamepad2.y){
+            extPos -=0.25;
+        }
+
+        robot.extend.setPosition(extPos);
+      //  if (gamepad2.x) {
+      //      robot.extend.setPosition(1.0);
+       // } else if (gamepad2.y){
+       //     robot.extend.setPosition(0.5);
+       // } else {
+        //    robot.extend.setPosition(0.0);
+       // }
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();

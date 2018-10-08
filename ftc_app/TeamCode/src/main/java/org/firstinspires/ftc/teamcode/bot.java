@@ -21,7 +21,7 @@ public class bot {
 
     //TODO add vex motor as a Servo
     static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge;
-    Servo dump;
+    Servo dump, extend;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -45,11 +45,11 @@ public class bot {
         hook = this.map.get(DcMotor.class, "hook");
 
         dump = this.map.get(Servo.class,"dump");
-
+        extend = this.map.get(Servo.class,"extend");
 
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        BL.setDirection(DcMotorSimple.Direction.FORWARD);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.FORWARD);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
