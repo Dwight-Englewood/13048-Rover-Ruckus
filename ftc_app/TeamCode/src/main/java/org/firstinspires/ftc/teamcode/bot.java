@@ -50,8 +50,8 @@ public class bot {
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        FL.setDirection(DcMotorSimple.Direction.REVERSE);
-        FR.setDirection(DcMotorSimple.Direction.FORWARD);
+        FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
         hinge.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -69,7 +69,7 @@ public class bot {
         //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        FR.setPower(0);
+        BR.setPower(0);
         BL.setPower(0);
         FL.setPower(0);
         FR.setPower(0);
@@ -130,16 +130,16 @@ public class bot {
 
             case LEFTSTRAFE:
                 FL.setPower(power);
-                FR.setPower(power);
-                BL.setPower(power);
-                BR.setPower(-power);
+                FR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(power);
                 break;
 
             case RIGHTSTRAFE:
                 FL.setPower(-power);
-                FR.setPower(-power);
-                BL.setPower(-power);
-                BR.setPower(power);
+                FR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(-power);
                 break;
 
 

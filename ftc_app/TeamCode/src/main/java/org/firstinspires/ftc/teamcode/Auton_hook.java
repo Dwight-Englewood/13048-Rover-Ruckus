@@ -92,10 +92,13 @@ public class Auton_hook extends OpMode
      */
     @Override
     public void loop() {
-        if(runtime.milliseconds() >= 2000){
-            robot.hook.setPower(-0.5);
+        if(runtime.milliseconds() <= 10000){
+            robot.hook.setPower(0.5);
         }
-        else {
+        else if(runtime.milliseconds() > 10000){
+            robot.hook.setPower(0);
+        }
+        else{
             robot.hook.setPower(0);
         }
     }
