@@ -38,7 +38,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.*;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry; //[Why did you import telemetry twice?]
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -78,7 +78,7 @@ public class TeleOp extends OpMode {
     @Override
     public void loop() {
 
-        robot.tankDrive( gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
+        robot.tankDrive(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
 
         //intake
         if(gamepad2.right_trigger > .3){

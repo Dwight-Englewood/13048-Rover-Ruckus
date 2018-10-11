@@ -37,7 +37,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.bot;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaRoverRuckus;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+//import org.firstinspires.ftc.robotcore.external.navigation.VuforiaRoverRuckus;
+
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -101,7 +103,19 @@ public class Auton_hook extends OpMode
         else{
             robot.hook.setPower(0);
         }
+
+        if(runtime.milliseconds() > 12000){
+            robot.autoTankDrive(LEFTTURN, 0.5, runtime.milliseconds(2000));
+        }
+
+        if(runtime.milliseconds() > 15000) {
+            robot.autoTankDrive(FORWARD, 0.5, runtime.milliseconds(3000));
+        }
+
+        if(runtime.milliseconds() > 20000) {
+            robot.autoTankDrive(FORWARD, 0.2, runtime.milliseconds(500));
     }
+
 
     /*
      * Code to run ONCE after the driver hits STOP

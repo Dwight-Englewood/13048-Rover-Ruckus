@@ -74,6 +74,7 @@ public class bot {
         FL.setPower(0);
         FR.setPower(0);
     }
+
     public void changeRunMode(DcMotor.RunMode runMode){
         BL.setMode(runMode);
         BR.setMode(runMode);
@@ -87,6 +88,7 @@ public class bot {
         FR.setPower(in);
         FL.setPower(in);
     }
+
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
         double i = invert ? -0.75:0.75;
         if (leftTrigger > .3) {
@@ -105,6 +107,7 @@ public class bot {
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
     }
+
     public void setPower(double power){
         FL.setPower(power);
         BL.setPower(power);
@@ -164,8 +167,62 @@ public class bot {
                 BR.setPower(0);
                 break;
         }
-
     }
+
+    public void autoTankDrive(MovementEnum movement, double power, ElapsedTime timer) {
+        switch (movement) {
+            case FORWARD:
+                FL.setPower(power);
+                FR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(power);
+                break;
+
+            case BACKWARD:
+                FL.setPower(-power);
+                FR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(-power);
+                break;
+
+            case LEFTSTRAFE:
+                FL.setPower(power);
+                FR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(power);
+                break;
+
+            case RIGHTSTRAFE:
+                FL.setPower(-power);
+                FR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(-power);
+                break;
+
+
+            case LEFTTURN:
+                FL.setPower(-power);
+                FR.setPower(power);
+                BL.setPower(-power);
+                BR.setPower(power);
+                break;
+
+            case RIGHTTURN:
+                FL.setPower(power);
+                FR.setPower(-power);
+                BL.setPower(power);
+                BR.setPower(-power);
+                break;
+
+            case STOP:
+                FL.setPower(0);
+                FR.setPower(0);
+                BL.setPower(0);
+                BR.setPower(0);
+                break;
+        }
+    }
+
     public void turn(double in){
         BL.setPower(-in);
         BR.setPower(in);
