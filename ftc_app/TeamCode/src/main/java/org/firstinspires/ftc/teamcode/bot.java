@@ -169,60 +169,6 @@ public class bot {
         }
     }
 
-    public void autoTankDrive(MovementEnum movement, double power, ElapsedTime timer) {
-        switch (movement) {
-            case FORWARD:
-                FL.setPower(power);
-                FR.setPower(power);
-                BL.setPower(power);
-                BR.setPower(power);
-                break;
-
-            case BACKWARD:
-                FL.setPower(-power);
-                FR.setPower(-power);
-                BL.setPower(-power);
-                BR.setPower(-power);
-                break;
-
-            case LEFTSTRAFE:
-                FL.setPower(power);
-                FR.setPower(-power);
-                BL.setPower(-power);
-                BR.setPower(power);
-                break;
-
-            case RIGHTSTRAFE:
-                FL.setPower(-power);
-                FR.setPower(power);
-                BL.setPower(power);
-                BR.setPower(-power);
-                break;
-
-
-            case LEFTTURN:
-                FL.setPower(-power);
-                FR.setPower(power);
-                BL.setPower(-power);
-                BR.setPower(power);
-                break;
-
-            case RIGHTTURN:
-                FL.setPower(power);
-                FR.setPower(-power);
-                BL.setPower(power);
-                BR.setPower(-power);
-                break;
-
-            case STOP:
-                FL.setPower(0);
-                FR.setPower(0);
-                BL.setPower(0);
-                BR.setPower(0);
-                break;
-        }
-    }
-
     public void turn(double in){
         BL.setPower(-in);
         BR.setPower(in);

@@ -102,20 +102,21 @@ public class Auton_hook extends OpMode
         }
         else{
             robot.hook.setPower(0);
+            Thread.sleep(1000)
         }
-
-        if(runtime.milliseconds() > 12000){
-            robot.autoTankDrive(LEFTTURN, 0.5, runtime.milliseconds(2000));
-        }
-
-        if(runtime.milliseconds() > 15000) {
-            robot.autoTankDrive(FORWARD, 0.5, runtime.milliseconds(3000));
-        }
-
-        if(runtime.milliseconds() > 20000) {
-            robot.autoTankDrive(FORWARD, 0.2, runtime.milliseconds(500));
+            robot.drive(LEFTTURN, 0.5);
+            Thread.sleep(2000);
+            robot.drive(FORWARD, 0.5);
+            Thread.sleep(1000);
     }
 
+
+//        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+//        telemetry.update();
+//        robot.testServos(telemetry);
+//        telemetry.update();
+//        telemetry.addData("Status", "Run Time: " + runtime.toString());
+//        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
 
     /*
      * Code to run ONCE after the driver hits STOP
