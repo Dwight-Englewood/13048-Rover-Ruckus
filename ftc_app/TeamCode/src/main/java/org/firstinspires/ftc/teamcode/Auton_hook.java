@@ -100,15 +100,21 @@ public class Auton_hook extends OpMode
             robot.hook.setPower(0);
         } else {
             robot.hook.setPower(0);
-            Thread.sleep(1000)
-        } else if (runtime.milliseconds() >= 12000) {
-            robot.drive(MovementEnum.LEFTTURN, 0.5);
-            Thread.sleep(2000);
-            robot.drive(MovementEnum.FORWARD, 0.5);
-            Thread.sleep(1000);
         }
 
-    }
+        if (runtime.milliseconds() >= 12000) {
+            robot.drive(MovementEnum.LEFTTURN, 0.5);
+        } else if (runtime.milliseconds() >= 160000) {
+            robot.drive(MovementEnum.FORWARD, 0.5);
+        }
+            else {
+            robot.BR.setPower(0);
+            robot.BL.setPower(0);
+            robot.FL.setPower(0);
+            robot.FR.setPower(0);
+            }
+        }
+
 
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
