@@ -22,7 +22,7 @@ public class bot {
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
     static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge, left, right;
-    Servo dump, extend;
+    Servo dump, extend, claw;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -49,6 +49,8 @@ public class bot {
 
         dump = this.map.get(Servo.class,"dump");
         extend = this.map.get(Servo.class,"extend");
+
+        claw = this.map.get(Servo.class, "claw" );
 
         left.setDirection(DcMotorSimple.Direction.FORWARD);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -132,8 +134,8 @@ public class bot {
                 break;
 
             case BACKWARD:
-                FL.setPower(-power);
-                FR.setPower(-power);
+                left.setPower(-power);
+                right.setPower(-power);
                 BL.setPower(-power);
                 BR.setPower(-power);
                 break;
