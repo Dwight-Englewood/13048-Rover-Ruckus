@@ -5,7 +5,8 @@ package org.firstinspires.ftc.teamcode;
  */
     import com.qualcomm.hardware.bosch.BNO055IMU;
         import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
-        import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+    import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+    import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
         import com.qualcomm.robotcore.util.Range;
         import com.qualcomm.robotcore.hardware.*;
         import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -29,6 +30,12 @@ public class bot {
     Orientation angles;
     Double powerModifier = 0.02;
     ModernRoboticsI2cColorSensor colorSensor;
+    Double turnSpeed;
+
+    boolean isStopRequested;
+    int sleep;
+    boolean idle;
+
     public bot() {}
 
     public void init(HardwareMap map, Telemetry tele, boolean auton){
@@ -78,6 +85,9 @@ public class bot {
         BL.setPower(0);
         FL.setPower(0);
         FR.setPower(0);
+    }
+    public void gyroTurn(double turnSpeed, double angle) {
+
     }
 
     public void changeRunMode(DcMotor.RunMode runMode){
