@@ -78,8 +78,8 @@ public class TeleOp extends OpMode {
     @Override
     public void loop() {
 
-        robot.tankDrive(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-
+      //  robot.tankDrive(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
+        robot.tankDriveNoStrafe(gamepad1.left_stick_y,gamepad2.right_stick_y);
         //intake
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(0.5);
