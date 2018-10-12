@@ -102,6 +102,39 @@ public class Auton_hook extends OpMode
             robot.hook.setPower(0);
         }
 
+        if (runtime.milliseconds() >= 12000) {
+            //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+        } else if (runtime.milliseconds() > 14000) {
+            robot.drive(MovementEnum.FORWARD, 0.65);
+
+        } else if (runtime.milliseconds() > 16000) {
+            robot.gyroTurn(0.5, -45.0);
+
+        } else if (runtime.milliseconds() > 19000) {
+            robot.drive(MovementEnum.FORWARD, 1);
+
+        } else if (runtime.milliseconds() > 20000) {
+            robot.claw.setPosition(1);
+
+        } else if (runtime.milliseconds() > 21000) {
+            robot.drive(MovementEnum.BACKWARD, 1);
+
+        } else if (runtime.milliseconds() > 22000) {
+            robot.gyroTurn(0.5, -90.0);
+
+        } else if (runtime.milliseconds() > 25000) {
+            robot.drive(MovementEnum.FORWARD, 0.25);
+
+        } else if (runtime.milliseconds() > 25500) {
+            robot.gyroTurn(0.5, -90.0);
+
+        } else if (runtime.milliseconds() > 27000) {
+            robot.drive(MovementEnum.FORWARD, 1);
+
+        } else {
+            robot.drive(MovementEnum.STOP, 0);
+        }
+
       
         //if gold color (RGB value) is detected return value. G
         // Go forward,  go backwards, and turn left.
