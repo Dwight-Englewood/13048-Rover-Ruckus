@@ -104,8 +104,11 @@ public class Auton_hook extends OpMode
 
         if (runtime.milliseconds() >= 12000) {
             robot.drive(MovementEnum.LEFTTURN, 0.5);
-        } else if (runtime.milliseconds() >= 160000) {
-            robot.drive(MovementEnum.FORWARD, 0.5);
+            //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+        }  else if (runtime.milliseconds() >= 14000) {
+            robot.drive(MovementEnum.LEFTSTRAFE, 0.5);
+        }  else if (runtime.milliseconds() > 16000) {
+            robot.drive(MovementEnum.RIGHTSTRAFE, 0.75);
         }
             else {
             robot.BR.setPower(0);
@@ -113,10 +116,17 @@ public class Auton_hook extends OpMode
             robot.FL.setPower(0);
             robot.FR.setPower(0);
             }
+
+            //if gold color (RGB value) is detected return value. G
+        // Go forward,  go backwards, and turn left.
+        // Go forward until distance to wall is 6 inches.
+        // Turn 45 degrees, and go forward.
+        // Drop the team marker, then back up into the crater.
+
+            if (runtime.milliseconds() >= 18000) {
+
+            }
         }
-
-
-
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
 //        robot.testServos(telemetry);
