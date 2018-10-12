@@ -57,9 +57,8 @@ public class bot {
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
 
-        //TODO: Set lift zero power mode [Done]
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -144,7 +143,6 @@ public class bot {
                 BL.setPower(power);
                 BR.setPower(-power);
                 break;
-
 
             case LEFTTURN:
                 FL.setPower(-power);

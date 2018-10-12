@@ -98,14 +98,13 @@ public class Auton_hook extends OpMode
             robot.hook.setPower(0.5);
         } else if (runtime.milliseconds() > 10000) {
             robot.hook.setPower(0);
-            break;
         } else {
             robot.hook.setPower(0);
             Thread.sleep(1000)
         } else if (runtime.milliseconds() >= 12000) {
-            robot.drive(LEFTTURN, 0.5);
+            robot.drive(MovementEnum.LEFTTURN, 0.5);
             Thread.sleep(2000);
-            robot.drive(FORWARD, 0.5);
+            robot.drive(MovementEnum.FORWARD, 0.5);
             Thread.sleep(1000);
         }
 
