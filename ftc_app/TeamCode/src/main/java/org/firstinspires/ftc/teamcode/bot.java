@@ -22,8 +22,8 @@ public class bot {
 
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
-    static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge, left, right;
-    Servo dump, extend, claw;
+    static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge, left, right, extend ;
+    Servo dump,  claw;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
@@ -53,9 +53,10 @@ public class bot {
         hinge = this.map.get(DcMotor.class, "hinge");
         intake = this.map.get(DcMotor.class, "intake");
         hook = this.map.get(DcMotor.class, "hook");
+        extend = this.map.get(DcMotor.class, "extend");
 
         dump = this.map.get(Servo.class,"dump");
-        extend = this.map.get(Servo.class,"extend");
+
 
         claw = this.map.get(Servo.class, "claw" );
 
@@ -69,6 +70,7 @@ public class bot {
         hinge.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
+        extend.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
 
