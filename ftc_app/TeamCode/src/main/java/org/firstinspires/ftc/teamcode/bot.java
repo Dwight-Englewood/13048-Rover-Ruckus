@@ -58,7 +58,7 @@ public class bot {
         dump = this.map.get(Servo.class,"dump");
 
 
-        claw = this.map.get(Servo.class, "claw" );
+   //     claw = this.map.get(Servo.class, "claw" );
 
         left.setDirection(DcMotorSimple.Direction.FORWARD);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -83,20 +83,18 @@ public class bot {
         //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        BR.setPower(0);
-        BL.setPower(0);
-        FL.setPower(0);
-        FR.setPower(0);
+       left.setPower(0);
+       right.setPower(0);
     }
     public void gyroTurn(double turnSpeed, double angle) {
 
     }
 
     public void changeRunMode(DcMotor.RunMode runMode){
-        BL.setMode(runMode);
-        BR.setMode(runMode);
-        FL.setMode(runMode);
-        FR.setMode(runMode);
+        left.setMode(runMode);
+        right.setMode(runMode);
+        lift.setMode(runMode);
+        intake.setMode(runMode);
     }
 
     public void drive(double in) {
@@ -107,7 +105,7 @@ public class bot {
     }
     public void tankDriveNoStrafe (double leftStick, double rightStick){
         left.setPower(leftStick);
-        right.setPower(-rightStick);
+        right.setPower(rightStick);
 
     }
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
