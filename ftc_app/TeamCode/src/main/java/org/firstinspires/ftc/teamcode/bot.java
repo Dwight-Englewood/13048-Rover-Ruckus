@@ -86,9 +86,7 @@ public class bot {
        left.setPower(0);
        right.setPower(0);
     }
-    public void gyroTurn(double turnSpeed, double angle) {
-
-    }
+    public void gyroTurn(double turnSpeed, double angle) {}
 
     public void changeRunMode(DcMotor.RunMode runMode){
         left.setMode(runMode);
