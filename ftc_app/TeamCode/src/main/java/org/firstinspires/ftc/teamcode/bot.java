@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 /**
  * Created by joonsoolee on 9/21/18.
  */
+    import android.text.StaticLayout;
+
     import com.qualcomm.hardware.bosch.BNO055IMU;
         import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
     import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
@@ -23,18 +25,21 @@ public class bot {
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
     static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge, left, right, extend ;
-    Servo dump,  claw;
+    Servo dump, claw;
     HardwareMap map;
     Telemetry tele;
     BNO055IMU.Parameters parameters;
     Orientation angles;
     Double powerModifier = 0.02;
     ModernRoboticsI2cColorSensor colorSensor;
-    Double turnSpeed;
+    //Double turnSpeed = 0.5;
+    //Integer angle = -45;
 
-    boolean isStopRequested;
-    int sleep;
-    boolean idle;
+    //Gyroscope gyro;
+    //Static Gyro QLEFTTURN, QRIGHTTURN;
+    //boolean isStopRequested;
+    //int sleep;
+    //boolean idle;
 
     public bot() {}
 
@@ -56,9 +61,7 @@ public class bot {
         extend = this.map.get(DcMotor.class, "extend");
 
         dump = this.map.get(Servo.class,"dump");
-
-
-   //     claw = this.map.get(Servo.class, "claw" );
+        claw = this.map.get(Servo.class, "claw" );
 
         left.setDirection(DcMotorSimple.Direction.FORWARD);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -86,7 +89,12 @@ public class bot {
        left.setPower(0);
        right.setPower(0);
     }
-    public void gyroTurn(double turnSpeed, double angle) {}
+    //public void gyroTurn(double turnSpeed, int angle) {
+       // QLEFTTURN.setPower(turnSpeed);
+       // QLEFTTURN.setAngle(angle);
+      //  QRIGHTTURN.setPower(turnSpeed);
+      //  QRIGHTTURN.setAngle(angle);
+ //   }
 
     public void changeRunMode(DcMotor.RunMode runMode){
         left.setMode(runMode);

@@ -38,8 +38,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import org.firstinspires.ftc.robotcore.external.navigation.VuforiaRoverRuckus;
-
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -69,7 +67,7 @@ public class Auton_hook extends OpMode
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-//      robot.resetServo();
+      //robot.resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
     }
@@ -107,35 +105,33 @@ public class Auton_hook extends OpMode
         } else if (runtime.milliseconds() > 14000) {
             robot.drive(MovementEnum.FORWARD, 0.65);
 
-        } else if (runtime.milliseconds() > 16000) {
-            robot.gyroTurn(0.5, -45.0);
+    //    } else if (runtime.milliseconds() > 1600) {
+     //       robot.gyroTurn(0.5, -45.0);
 
-        } else if (runtime.milliseconds() > 19000) {
+        } else if (runtime.milliseconds() > 16750) {
             robot.drive(MovementEnum.FORWARD, 1);
 
-        } else if (runtime.milliseconds() > 20000) {
+        } else if (runtime.milliseconds() > 18750) {
             robot.claw.setPosition(1);
 
-        } else if (runtime.milliseconds() > 21000) {
+        } else if (runtime.milliseconds() > 20000) {
             robot.drive(MovementEnum.BACKWARD, 1);
 
         } else if (runtime.milliseconds() > 22000) {
-            robot.gyroTurn(0.5, -90.0);
+            robot.drive(MovementEnum.LEFTTURN, 0.5);
 
-        } else if (runtime.milliseconds() > 25000) {
+        } else if (runtime.milliseconds() > 22750) {
             robot.drive(MovementEnum.FORWARD, 0.25);
 
-        } else if (runtime.milliseconds() > 25500) {
-            robot.gyroTurn(0.5, -90.0);
+        } else if (runtime.milliseconds() > 24750) {
+            robot.drive(MovementEnum.LEFTTURN, 0.5);
 
-        } else if (runtime.milliseconds() > 27000) {
+        } else if (runtime.milliseconds() > 26000) {
             robot.drive(MovementEnum.FORWARD, 1);
 
         } else {
             robot.drive(MovementEnum.STOP, 0);
         }
-
-      
         //if gold color (RGB value) is detected return value. G
         // Go forward,  go backwards, and turn left.
         // Go forward until distance to wall is 6 inches.

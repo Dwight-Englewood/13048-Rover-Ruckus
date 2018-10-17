@@ -70,6 +70,7 @@ public class TeleOp extends OpMode {
     public void start() {
         timer.reset();
         robot.dump.setPosition(0.0);
+        robot.claw.setPosition(0.0);
     }
 
     /*
@@ -144,6 +145,12 @@ public class TeleOp extends OpMode {
             robot.extend.setPower(0);
         }
 
+        if(gamepad1.x){
+            robot.claw.setPosition(0.0);
+        }
+        else if (gamepad1.y){
+            robot.claw.setPosition(1.0);
+        }
 /*
         if(gamepad2.x){
             extPos += 0.25;
