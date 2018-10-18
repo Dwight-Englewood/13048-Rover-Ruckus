@@ -50,8 +50,8 @@ public class bot {
 
         left = this.map.get(DcMotor.class, "left");
         right = this.map.get(DcMotor.class, "right");
-    //    BL = this.map.get(DcMotor.class, "BL");
-     //   BR = this.map.get(DcMotor.class, "BR");
+      //  BL = this.map.get(DcMotor.class, "BL");
+      //  BR = this.map.get(DcMotor.class, "BR");
       //  FL = this.map.get(DcMotor.class, "FL");
       //  FR = this.map.get(DcMotor.class, "FR");
         lift = this.map.get(DcMotor.class, "lift");
@@ -66,9 +66,9 @@ public class bot {
         left.setDirection(DcMotorSimple.Direction.FORWARD);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
        // BR.setDirection(DcMotorSimple.Direction.FORWARD);
-      //  BL.setDirection(DcMotorSimple.Direction.FORWARD);
-      //  FL.setDirection(DcMotorSimple.Direction.FORWARD);
-      //  FR.setDirection(DcMotorSimple.Direction.REVERSE);
+       // BL.setDirection(DcMotorSimple.Direction.FORWARD);
+       // FL.setDirection(DcMotorSimple.Direction.FORWARD);
+       // FR.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
         hinge.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -139,6 +139,7 @@ public class bot {
         FR.setPower(power);
         BR.setPower(power);
     }
+
     //TODO fix the the driver values and restrict the motor values
     public void drive(MovementEnum movement, double power) {
         switch (movement) {

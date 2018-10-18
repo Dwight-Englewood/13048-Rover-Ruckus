@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -55,8 +57,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name="Autonomous", group="Iterative Opmode")
 //@Disabled
-public class Auton_hook extends OpMode
-{
+public class Auton_hook extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
@@ -67,7 +68,7 @@ public class Auton_hook extends OpMode
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-      //robot.resetServo();
+        //robot.resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
     }
@@ -92,53 +93,83 @@ public class Auton_hook extends OpMode
      */
     @Override
     public void loop() {
-        if (runtime.milliseconds() <= 10000) {
-            robot.hook.setPower(0.5);
-        } else if (runtime.milliseconds() > 10000) {
-            robot.hook.setPower(0);
-        } else {
-            robot.hook.setPower(0);
+        public void autonSequence(AutonBase autonSteps) {
+            switch (autonSteps) {
+
+                case ZERO:
+                    if (runtime.milliseconds() <= 10000) {
+                        robot.hook.setPower(0.5);
+                    } else if (runtime.milliseconds() > 10000) {
+                        robot.hook.setPower(0);
+                    } else {
+                        robot.hook.setPower(0);
+                    }
+                    break;
+
+                case ONE:
+                    // if (runtime.milliseconds() >= 12000) {
+                    //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+                    if (runtime.milliseconds() > 14000) {
+                        robot.drive(MovementEnum.FORWARD, 0.65);
+                    }
+                    break;
+                //    } else if (runtime.milliseconds() > 1600) {
+                //       robot.gyroTurn(0.5, -45.0);
+
+                case TWO:
+                    if (runtime.milliseconds() > 16750) {
+                        robot.drive(MovementEnum.FORWARD, 1);
+                    }
+                    break;
+
+                case THREE:
+                    if (runtime.milliseconds() > 18750) {
+                        robot.claw.setPosition(1);
+                    }
+                    break;
+
+                case FOUR:
+                    if (runtime.milliseconds() > 20000) {
+                        robot.drive(MovementEnum.BACKWARD, 1);
+                    }
+                    break;
+
+                case FIVE:
+                    if (runtime.milliseconds() > 22000) {
+                        robot.drive(MovementEnum.LEFTTURN, 0.5);
+                    }
+                    break;
+
+                case SIX:
+                    if (runtime.milliseconds() > 22750) {
+                        robot.drive(MovementEnum.FORWARD, 0.25);
+                    }
+                    break;
+
+                case SEVEN:
+                    if (runtime.milliseconds() > 24750) {
+                        robot.drive(MovementEnum.LEFTTURN, 0.5);
+                    }
+                    break;
+
+                case EIGHT:
+                    if (runtime.milliseconds() > 26000) {
+                        robot.drive(MovementEnum.FORWARD, 1);
+                    }
+                    break;
+
+                default: {
+                    robot.drive(MovementEnum.STOP, 0);
+                }
+                break;
+                //if gold color (RGB value) is detected return value. G
+                // Go forward,  go backwards, and turn left.
+                // Go forward until distance to wall is 6 inches.
+                // Turn 45 degrees, and go forward.
+                // Drop the team marker, then back up into the crater.
+            }
         }
-
-        if (runtime.milliseconds() >= 12000) {
-            //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-        } else if (runtime.milliseconds() > 14000) {
-            robot.drive(MovementEnum.FORWARD, 0.65);
-
-    //    } else if (runtime.milliseconds() > 1600) {
-     //       robot.gyroTurn(0.5, -45.0);
-
-        } else if (runtime.milliseconds() > 16750) {
-            robot.drive(MovementEnum.FORWARD, 1);
-
-        } else if (runtime.milliseconds() > 18750) {
-            robot.claw.setPosition(1);
-
-        } else if (runtime.milliseconds() > 20000) {
-            robot.drive(MovementEnum.BACKWARD, 1);
-
-        } else if (runtime.milliseconds() > 22000) {
-            robot.drive(MovementEnum.LEFTTURN, 0.5);
-
-        } else if (runtime.milliseconds() > 22750) {
-            robot.drive(MovementEnum.FORWARD, 0.25);
-
-        } else if (runtime.milliseconds() > 24750) {
-            robot.drive(MovementEnum.LEFTTURN, 0.5);
-
-        } else if (runtime.milliseconds() > 26000) {
-            robot.drive(MovementEnum.FORWARD, 1);
-
-        } else {
-            robot.drive(MovementEnum.STOP, 0);
-        }
-        //if gold color (RGB value) is detected return value. G
-        // Go forward,  go backwards, and turn left.
-        // Go forward until distance to wall is 6 inches.
-        // Turn 45 degrees, and go forward.
-        // Drop the team marker, then back up into the crater.
-
-
+        this.autonSequence = autonSequence;
     }
 
 
@@ -155,5 +186,5 @@ public class Auton_hook extends OpMode
     @Override
     public void stop() {
     }
-
 }
+
