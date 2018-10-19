@@ -41,6 +41,8 @@ import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameMana
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import static org.firstinspires.ftc.teamcode.AutonBase.*;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -61,7 +63,7 @@ public class Auton_hook extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
-    AutonBase AutonSequence = new AutonBase;
+    AutonBase auto = ZERO;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -94,85 +96,94 @@ public class Auton_hook extends OpMode {
      */
     @Override
     public void loop() {
-        public void autonSteps(AutonSequence autonSteps){
-            switch (autonSteps) {
+        switch (auto) {
 
-                case ZERO:
-                    if (runtime.milliseconds() <= 10000) {
-                        robot.hook.setPower(0.5);
-                    } else if (runtime.milliseconds() > 10000) {
-                        robot.hook.setPower(0);
-                    } else {
-                        robot.hook.setPower(0);
-                    }
-                    break;
+            case ZERO:
+                if (runtime.milliseconds() <= 10000) {
+                    robot.hook.setPower(0.5);
+                } else if (runtime.milliseconds() > 10000) {
+                    robot.hook.setPower(0);
+                } else {
+                    robot.hook.setPower(0);
+                }
+                auto = ONE;
+                break;
 
-                case ONE:
-                    // if (runtime.milliseconds() >= 12000) {
-                    //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-                    if (runtime.milliseconds() > 14000) {
-                        robot.drive(MovementEnum.FORWARD, 0.65);
-                    }
+            case ONE:
+                // if (runtime.milliseconds() >= 12000) {
+                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+                if (runtime.milliseconds() > 14000) {
+                    robot.drive(MovementEnum.FORWARD, 0.65);
+                }
+                auto = TWO;
+                break;
+            //    } else if (runtime.milliseconds() > 1600) {
+            //       robot.gyroTurn(0.5, -45.0);
 
-                    break;
-                //    } else if (runtime.milliseconds() > 1600) {
-                //       robot.gyroTurn(0.5, -45.0);
+            case TWO:
+                if (runtime.milliseconds() > 16750) {
+                    robot.drive(MovementEnum.FORWARD, 1);
+                }
+                auto = THREE;
+                break;
 
-                case TWO:
-                    if (runtime.milliseconds() > 16750) {
-                        robot.drive(MovementEnum.FORWARD, 1);
-                    }
-                    break;
+            case THREE:
+                if (runtime.milliseconds() > 18750) {
+                    robot.claw.setPosition(1);
+                }
+                auto = FOUR;
+                break;
 
-                case THREE:
-                    if (runtime.milliseconds() > 18750) {
-                        robot.claw.setPosition(1);
-                    }
-                    break;
-
-                case FOUR:
-                    if (runtime.milliseconds() > 20000) {
-                        robot.drive(MovementEnum.BACKWARD, 1);
-                    }
-                    break;
-
-                case FIVE:
-                    if (runtime.milliseconds() > 22000) {
-                        robot.drive(MovementEnum.LEFTTURN, 0.5);
-                    }
-                    break;
-
-                case SIX:
-                    if (runtime.milliseconds() > 22750) {
-                        robot.drive(MovementEnum.FORWARD, 0.25);
-                    }
-                    break;
-
-                case SEVEN:
-                    if (runtime.milliseconds() > 24750) {
-                        robot.drive(MovementEnum.LEFTTURN, 0.5);
-                    }
-                    break;
-
-                case EIGHT:
-                    if (runtime.milliseconds() > 26000) {
-                        robot.drive(MovementEnum.FORWARD, 1);
-                    }
-                    break;
-
-                default: {
-                    robot.drive(MovementEnum.STOP, 0);
+            case FOUR:
+                if (runtime.milliseconds() > 20000) {
+                    robot.drive(MovementEnum.BACKWARD, 1);
                 }
                 break;
-                //if gold color (RGB value) is detected return value. G
-                // Go forward,  go backwards, and turn left.
-                // Go forward until distance to wall is 6 inches.
-                // Turn 45 degrees, and go forward.
-                // Drop the team marker, then back up into the crater.
-            }
 
+            /**      case FIVE:
+             if (runtime.milliseconds() > 22000) {
+             robot.drive(MovementEnum.LEFTTURN, 0.5);
+             }
+             break;
+
+             case SIX:
+             if (runtime.milliseconds() > 22750) {
+             robot.drive(MovementEnum.FORWARD, 0.25);
+             }
+             break;
+
+             case SEVEN:
+             if (runtime.milliseconds() > 24750) {
+             robot.drive(MovementEnum.LEFTTURN, 0.5);
+             }
+             break;
+
+             case EIGHT:
+             if (runtime.milliseconds() > 26000) {
+             robot.drive(MovementEnum.FORWARD, 1);
+             }
+             break;
+
+             default: {
+             robot.drive(MovementEnum.STOP, 0);
+             }
+             break;
+             //if gold color (RGB value) is detected return value. G
+             // Go forward,  go backwards, and turn left.
+             // Go forward until distance to wall is 6 inches.
+             // Turn 45 degrees, and go forward.
+             // Drop the team marker, then back up into the crater.
+             **/
+            case FIVE:
+                break;
+            case SIX:
+                break;
+            case SEVEN:
+                break;
+            case EIGHT:
+                break;
         }
-        this.autonSteps();
+
     }
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
