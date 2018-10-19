@@ -99,14 +99,14 @@ public class Auton_TeamMarker extends OpMode {
         switch (auto) {
 
             case ZERO:
-                if (runtime.milliseconds() <= 5000) {
+                if (runtime.milliseconds() <= 6000) {
                     robot.hook.setPower(0.5);
-                } else if (runtime.milliseconds() > 5000) {
+                } else if (runtime.milliseconds() > 6000) {
                     robot.hook.setPower(0);
                 } else {
                     robot.hook.setPower(0);
                 }
-                auto = ONE;
+              //   auto = SEVEN;
                 break;
 
             case ONE:
@@ -146,7 +146,8 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
              default: {
-             robot.drive(MovementEnum.STOP, 0);
+             robot.twoDrive(MovementEnum.STOP, 0);
+
              }
              break;
              //if gold color (RGB value) is detected return value. G
