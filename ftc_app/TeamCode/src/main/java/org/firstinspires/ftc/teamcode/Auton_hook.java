@@ -61,6 +61,7 @@ public class Auton_hook extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
+    AutonBase AutonSequence = new AutonBase;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -93,10 +94,10 @@ public class Auton_hook extends OpMode {
      */
     @Override
     public void loop() {
-   //     public void autonSteps(AutonSequence autonSteps) {
-   //        switch (autonSteps) {
+        public void autonSteps(AutonSequence autonSteps){
+            switch (autonSteps) {
 
-     //           case ZERO:
+                case ZERO:
                     if (runtime.milliseconds() <= 10000) {
                         robot.hook.setPower(0.5);
                     } else if (runtime.milliseconds() > 10000) {
@@ -104,73 +105,75 @@ public class Auton_hook extends OpMode {
                     } else {
                         robot.hook.setPower(0);
                     }
-           //         break;
+                    break;
 
-          //      case ONE:
+                case ONE:
                     // if (runtime.milliseconds() >= 12000) {
                     //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
                     if (runtime.milliseconds() > 14000) {
                         robot.drive(MovementEnum.FORWARD, 0.65);
                     }
-        //            break;
+
+                    break;
                 //    } else if (runtime.milliseconds() > 1600) {
                 //       robot.gyroTurn(0.5, -45.0);
 
-        //        case TWO:
+                case TWO:
                     if (runtime.milliseconds() > 16750) {
                         robot.drive(MovementEnum.FORWARD, 1);
                     }
-         //           break;
+                    break;
 
-       //         case THREE:
+                case THREE:
                     if (runtime.milliseconds() > 18750) {
                         robot.claw.setPosition(1);
                     }
-        //            break;
+                    break;
 
-         //       case FOUR:
+                case FOUR:
                     if (runtime.milliseconds() > 20000) {
                         robot.drive(MovementEnum.BACKWARD, 1);
                     }
-           //         break;
+                    break;
 
-         //       case FIVE:
+                case FIVE:
                     if (runtime.milliseconds() > 22000) {
                         robot.drive(MovementEnum.LEFTTURN, 0.5);
                     }
-           //         break;
+                    break;
 
-          //      case SIX:
+                case SIX:
                     if (runtime.milliseconds() > 22750) {
                         robot.drive(MovementEnum.FORWARD, 0.25);
                     }
-            //        break;
+                    break;
 
-             //   case SEVEN:
+                case SEVEN:
                     if (runtime.milliseconds() > 24750) {
                         robot.drive(MovementEnum.LEFTTURN, 0.5);
                     }
-               //     break;
+                    break;
 
-             //   case EIGHT:
+                case EIGHT:
                     if (runtime.milliseconds() > 26000) {
                         robot.drive(MovementEnum.FORWARD, 1);
                     }
-            //        break;
+                    break;
 
-           //     default: {
-                    else
+                default: {
                     robot.drive(MovementEnum.STOP, 0);
                 }
-            //    break;
+                break;
                 //if gold color (RGB value) is detected return value. G
                 // Go forward,  go backwards, and turn left.
                 // Go forward until distance to wall is 6 inches.
                 // Turn 45 degrees, and go forward.
                 // Drop the team marker, then back up into the crater.
+            }
 
-      //  this.autonSequence();
-
+        }
+        this.autonSteps();
+    }
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
