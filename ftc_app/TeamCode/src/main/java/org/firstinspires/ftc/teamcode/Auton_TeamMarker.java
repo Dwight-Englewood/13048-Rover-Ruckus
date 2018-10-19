@@ -59,7 +59,7 @@ import static org.firstinspires.ftc.teamcode.AutonBase.*;
 
 @Autonomous(name="Autonomous", group="Iterative Opmode")
 //@Disabled
-public class Auton_hook extends OpMode {
+public class Auton_TeamMarker extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
@@ -113,12 +113,10 @@ public class Auton_hook extends OpMode {
                 // if (runtime.milliseconds() >= 12000) {
                 //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
                 if (runtime.milliseconds() > 14000) {
-                    robot.drive(MovementEnum.FORWARD, 0.65);
+                    robot.drive(MovementEnum.RIGHTTURN, 0.65);
                 }
                 auto = TWO;
                 break;
-            //    } else if (runtime.milliseconds() > 1600) {
-            //       robot.gyroTurn(0.5, -45.0);
 
             case TWO:
                 if (runtime.milliseconds() > 16750) {
@@ -128,41 +126,20 @@ public class Auton_hook extends OpMode {
                 break;
 
             case THREE:
+
+            case FOUR:
                 if (runtime.milliseconds() > 18750) {
                     robot.claw.setPosition(1);
                 }
-                auto = FOUR;
+                auto = FIVE;
                 break;
 
-            case FOUR:
+            case FIVE:
                 if (runtime.milliseconds() > 20000) {
                     robot.drive(MovementEnum.BACKWARD, 1);
                 }
                 break;
-
-            /**      case FIVE:
-             if (runtime.milliseconds() > 22000) {
-             robot.drive(MovementEnum.LEFTTURN, 0.5);
-             }
-             break;
-
-             case SIX:
-             if (runtime.milliseconds() > 22750) {
-             robot.drive(MovementEnum.FORWARD, 0.25);
-             }
-             break;
-
-             case SEVEN:
-             if (runtime.milliseconds() > 24750) {
-             robot.drive(MovementEnum.LEFTTURN, 0.5);
-             }
-             break;
-
-             case EIGHT:
-             if (runtime.milliseconds() > 26000) {
-             robot.drive(MovementEnum.FORWARD, 1);
-             }
-             break;
+                
 
              default: {
              robot.drive(MovementEnum.STOP, 0);
@@ -173,15 +150,6 @@ public class Auton_hook extends OpMode {
              // Go forward until distance to wall is 6 inches.
              // Turn 45 degrees, and go forward.
              // Drop the team marker, then back up into the crater.
-             **/
-            case FIVE:
-                break;
-            case SIX:
-                break;
-            case SEVEN:
-                break;
-            case EIGHT:
-                break;
         }
 
     }
