@@ -125,16 +125,15 @@ public class Auton_TeamMarker extends OpMode {
                 auto = THREE;
                 break;
 
-            case THREE:
 
-            case FOUR:
+            case THREE:
                 if (runtime.milliseconds() > 18750) {
                     robot.claw.setPosition(1);
                 }
-                auto = FIVE;
+                auto = FOUR;
                 break;
 
-            case FIVE:
+            case FOUR:
                 if (runtime.milliseconds() > 20000) {
                     robot.drive(MovementEnum.BACKWARD, 1);
                 }
