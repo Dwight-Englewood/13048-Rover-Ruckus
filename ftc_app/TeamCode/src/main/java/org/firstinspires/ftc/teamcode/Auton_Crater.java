@@ -57,7 +57,7 @@ import static org.firstinspires.ftc.teamcode.AutonBase.*;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Autonomous", group="Iterative Opmode")
+@Autonomous(name="Auton_Crater", group="Iterative Opmode")
 //@Disabled
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.
@@ -99,9 +99,9 @@ public class Auton_Crater extends OpMode {
         switch (auto) {
 
             case ZERO:
-                if (runtime.milliseconds() <= 10000) {
+                if (runtime.milliseconds() <= 5000) {
                     robot.hook.setPower(0.5);
-                } else if (runtime.milliseconds() > 10000) {
+                } else if (runtime.milliseconds() > 5000) {
                     robot.hook.setPower(0);
                 } else {
                     robot.hook.setPower(0);
@@ -110,38 +110,48 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case ONE:
-                // if (runtime.milliseconds() >= 12000) {
-                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-                if (runtime.milliseconds() > 14000) {
-                    robot.drive(MovementEnum.RIGHTTURN, 0.65);
+                if (runtime.milliseconds() > 6000) {
+                    robot.drive(MovementEnum.BACKWARD, 0.25);
                 }
                 auto = TWO;
                 break;
 
             case TWO:
-                if (runtime.milliseconds() > 16750) {
-                    robot.drive(MovementEnum.FORWARD, 1);
+                // if (runtime.milliseconds() >= 12000) {
+                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+                if (runtime.milliseconds() > 7000) {
+                    robot.drive(MovementEnum.RIGHTTURN, 0.65);
                 }
                 auto = THREE;
+                break;
+
+            case THREE:
+                if (runtime.milliseconds() > 8000) {
+                    robot.drive(MovementEnum.FORWARD, 1);
+                }
+                auto = FOUR;
                 break;
 
             //    } else if (runtime.milliseconds() > 1600) {
             //       robot.gyroTurn(0.5, -45.0);
 
-            case THREE:
-
             case FOUR:
-                if (runtime.milliseconds() > 18750) {
+                if (runtime.milliseconds() > 10000) {
                     robot.claw.setPosition(1);
                 }
                 auto = FIVE;
                 break;
 
             case FIVE:
-                if (runtime.milliseconds() > 20000) {
+                if (runtime.milliseconds() > 12000) {
                     robot.drive(MovementEnum.BACKWARD, 1);
                 }
                 break;
+
+            default: {
+                robot.drive(MovementEnum.STOP, 0);
+            }
+            break;
 
             /**case SIX:
              if (runtime.milliseconds() > 22000) {
