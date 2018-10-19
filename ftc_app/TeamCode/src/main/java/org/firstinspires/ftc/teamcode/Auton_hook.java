@@ -61,7 +61,6 @@ public class Auton_hook extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
-    AutonBase AutonSequence = new AutonBase();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -160,7 +159,7 @@ public class Auton_hook extends OpMode {
             //        break;
 
            //     default: {
-        else
+                    else
                     robot.drive(MovementEnum.STOP, 0);
                 }
             //    break;
