@@ -99,14 +99,14 @@ public class Auton_Crater extends OpMode {
         switch (auto) {
 
             case ZERO:
-                if (runtime.milliseconds() <= 5000) {
+                if (runtime.milliseconds() <= 8000) {
                     robot.hook.setPower(0.5);
                 } else if (runtime.milliseconds() > 5000) {
                     robot.hook.setPower(0);
                 } else {
                     robot.hook.setPower(0);
                 }
-                auto = ONE;
+                //auto = ONE;
                 break;
 
             case ONE:
