@@ -99,21 +99,26 @@ public class Auton_TeamMarker extends OpMode {
         switch (auto) {
 
             case ZERO:
-                if (runtime.milliseconds() <= 7000) {
+                if (runtime.milliseconds() <= 6500) {
                     robot.hook.setPower(1.0);
-                } else if (runtime.milliseconds() > 7000) {
+                } else if (runtime.milliseconds() > 6500) {
                     robot.hook.setPower(0);
+                 //   auto = ONE;
                 } else {
                     robot.hook.setPower(0);
+                 //   auto = ONE;
                 }
-              //   auto = SEVEN;
+
                 break;
 
             case ONE:
-                if (runtime.milliseconds() > 6000) {
-                    robot.drive(MovementEnum.BACKWARD, 0.25);
+                if (runtime.milliseconds() <= 7500 && runtime.milliseconds() > 6500) {
+                    robot.twoDrive(MovementEnum.FORWARD, 0.5);
                 }
-                auto = TWO;
+                else if(runtime.milliseconds() > 7500) {
+                    robot.twoDrive(MovementEnum.STOP, 0.0);
+                }
+                //auto = TWO;
                 break;
 
             case TWO:
