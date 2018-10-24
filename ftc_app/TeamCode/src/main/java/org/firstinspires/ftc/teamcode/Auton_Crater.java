@@ -34,9 +34,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.internal.android.dx.ssa.DomFront;
 import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -90,106 +92,114 @@ public class Auton_Crater extends OpMode {
     public void start() {
         runtime.reset();
     }
-
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
     public void loop() {
+        //Figure out tick count
+        //stop and reset encoders
+        //set the target position
+        //set the desired power
+        //set to RUN_TO_POSITION
+        //wait while isBusy()
+        //Stop the motor
+
+        double TICK_COUNT = 1120;
+        double fullTurn = 1120;
+        double halfTurn = 1120 / 2;
+        double quarterTurn = 1120 / 4;
+
+        robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        int FLForward = robot.FL.getTargetPosition() + (int)fullTurn;
+        int FRForward = robot.FR.getTargetPosition() + (int)fullTurn;
+        int BLForward = robot.BL.getTargetPosition() + (int)fullTurn;
+        int BRForward = robot.BR.getTargetPosition() + (int)fullTurn;
+
+        int FLBackward = robot.FL.getTargetPosition() - (int)fullTurn;
+        int FRBackward = robot.FR.getTargetPosition() - (int)fullTurn;
+        int BLBackward = robot.BL.getTargetPosition() - (int)fullTurn;
+        int BRBackward = robot.BR.getTargetPosition() - (int)fullTurn;
+
+       /**
+        while(robot.FL.isBusy()) {
+            telemetry.addData("Status", "Running Front Left Full Turn");
+            telemetry.update();
+        }
+
+        while(robot.FR.isBusy()) {
+            telemetry.addData("Status", "Running Front Right Full Turn");
+            telemetry.update();
+        }
+
+        while(robot.BL.isBusy()) {
+            telemetry.addData("Status", "Running Back Left Full Turn");
+            telemetry.update();
+        }
+
+        while(robot.BR.isBusy()) {
+            telemetry.addData("Status", "Running Back Right Full Turn");
+            telemetry.update();
+        }
+        **/
+
         switch (auto) {
 
             case ZERO:
-                if (runtime.milliseconds() <= 8000) {
-                    robot.hook.setPower(0.5);
-                } else if (runtime.milliseconds() > 5000) {
-                    robot.hook.setPower(0);
-                } else {
-                    robot.hook.setPower(0);
-                }
-                //auto = ONE;
+                robot.FL.setTargetPosition(FLBackward);
+                robot.FR.setTargetPosition(FRBackward);
+                robot.BL.setTargetPosition(BLBackward);
+                robot.BR.setTargetPosition(BRBackward);
+
+             //   auto = ONE;
                 break;
 
             case ONE:
-                if (runtime.milliseconds() > 6000) {
-                    robot.drive(MovementEnum.BACKWARD, 0.25);
-                }
+
                 auto = TWO;
                 break;
 
             case TWO:
-                // if (runtime.milliseconds() >= 12000) {
                 //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-                if (runtime.milliseconds() > 7000) {
-                    robot.drive(MovementEnum.RIGHTTURN, 0.65);
-                }
+
                 auto = THREE;
                 break;
 
             case THREE:
-                if (runtime.milliseconds() > 8000) {
-                    robot.drive(MovementEnum.FORWARD, 1);
-                }
                 auto = FOUR;
                 break;
 
-            //    } else if (runtime.milliseconds() > 1600) {
-            //       robot.gyroTurn(0.5, -45.0);
-
             case FOUR:
-                if (runtime.milliseconds() > 10000) {
-                    robot.claw.setPosition(1);
-                }
+
                 auto = FIVE;
                 break;
 
             case FIVE:
-                if (runtime.milliseconds() > 12000) {
-                    robot.drive(MovementEnum.BACKWARD, 1);
-                }
+
                 break;
 
             default: {
-                robot.drive(MovementEnum.STOP, 0);
+                robot.twoDrive(MovementEnum.STOP, 0);
             }
             break;
-
-            /**case SIX:
-             if (runtime.milliseconds() > 22000) {
-             robot.drive(MovementEnum.LEFTTURN, 0.5);
-             }
-             break;
-
-             case SEVEN:
-             if (runtime.milliseconds() > 22750) {
-             robot.drive(MovementEnum.FORWARD, 0.25);
-             }
-             break;
-
-             case EIGHT:
-             if (runtime.milliseconds() > 24750) {
-             robot.drive(MovementEnum.LEFTTURN, 0.5);
-             }
-             break;
-
-             case NINE:
-             if (runtime.milliseconds() > 26000) {
-             robot.drive(MovementEnum.FORWARD, 1);
-             }
-             break;
-
-             default: {
-             robot.drive(MovementEnum.STOP, 0);
-             }
-             break;
-             //if gold color (RGB value) is detected return value. G
-             // Go forward,  go backwards, and turn left.
-             // Go forward until distance to wall is 6 inches.
-             // Turn 45 degrees, and go forward.
-             // Drop the team marker, then back up into the crater.
-             **/
+            //if gold color (RGB value) is detected return value. G
+            // Go forward,  go backwards, and turn left.
+            // Go forward until distance to wall is 6 inches.
+            // Turn 45 degrees, and go forward.
+            // Drop the team marker, then back up into the crater.
         }
 
     }
+
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();

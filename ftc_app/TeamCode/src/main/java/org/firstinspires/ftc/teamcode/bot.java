@@ -47,7 +47,6 @@ public class bot {
         this.map = map;
         this.tele = tele;
 
-
         left = this.map.get(DcMotor.class, "left");
         right = this.map.get(DcMotor.class, "right");
       //  BL = this.map.get(DcMotor.class, "BL");
@@ -76,6 +75,7 @@ public class bot {
         extend.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
+        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -101,6 +101,13 @@ public class bot {
         right.setMode(runMode);
         lift.setMode(runMode);
         intake.setMode(runMode);
+    }
+
+    public void setRunMode(DcMotor.RunMode encoderRunMode) {
+        left.setMode(encoderRunMode);
+        right.setMode(encoderRunMode);
+        lift.setMode(encoderRunMode);
+        intake.setMode(encoderRunMode);
     }
 
     public void drive(double in) {
@@ -139,6 +146,7 @@ public class bot {
         FR.setPower(power);
         BR.setPower(power);
     }
+
     public void twoDrive(MovementEnum movement, double power){
         switch(movement){
             case FORWARD:
