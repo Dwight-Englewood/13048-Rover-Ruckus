@@ -140,6 +140,17 @@ public class Auton_Crater extends OpMode {
         int BLReverseTwice = robot.BL.getTargetPosition() - (int)fullTurn*2;
         int BRReverseTwice = robot.BR.getTargetPosition() - (int)fullTurn*2;
 
+        int FLStrafeR = robot.FL.getTargetPosition() - (int)fullTurn;
+        int FRStrafeR = robot.FR.getTargetPosition() + (int)fullTurn;
+        int BLStrafeR = robot.BL.getTargetPosition() + (int)fullTurn;
+        int BRStrafeR = robot.BR.getTargetPosition() - (int)fullTurn;
+
+        int FLStrafeL = robot.FL.getTargetPosition() + (int)fullTurn;
+        int FRStrafeL = robot.FR.getTargetPosition() - (int)fullTurn;
+        int BLStrafeL = robot.BL.getTargetPosition() - (int)fullTurn;
+        int BRStrafeL = robot.BR.getTargetPosition() + (int)fullTurn;
+
+
 
 
        /**
@@ -176,22 +187,47 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case ONE:
+                robot.FL.setTargetPosition(FLStrafeR);
+                robot.FR.setTargetPosition(FRStrafeR);
+                robot.BL.setTargetPosition(BLStrafeR);
+                robot.BR.setTargetPosition(BRStrafeR);
 
                 auto = TWO;
                 break;
 
             case TWO:
-                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+                robot.FL.setTargetPosition(FLReverse);
+                robot.FR.setTargetPosition(FRReverse);
+                robot.BL.setTargetPosition(BLReverse);
+                robot.BR.setTargetPosition(BRReverse);
 
                 auto = THREE;
                 break;
 
             case THREE:
+                robot.FL.setTargetPosition(FLForwardTwice);
+                robot.FR.setTargetPosition(FRForwardTwice);
+                robot.BL.setTargetPosition(BLForwardTwice);
+                robot.BR.setTargetPosition(BRForwardTwice);
+
                 auto = FOUR;
                 break;
 
             case FOUR:
-
+                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
+                //Once ball is detected, strafe right
+                //strafe left
+                //go forward
+                //turn 45 degrees
+                //strafe right
+                //go forward
+                //drop team marker
+                //go back
+                //turn left
+                //forward
+                //turn left
+                //forward
+                
                 auto = FIVE;
                 break;
 
