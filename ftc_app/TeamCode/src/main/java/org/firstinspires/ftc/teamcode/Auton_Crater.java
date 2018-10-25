@@ -125,10 +125,22 @@ public class Auton_Crater extends OpMode {
         int BLForward = robot.BL.getTargetPosition() + (int)fullTurn;
         int BRForward = robot.BR.getTargetPosition() + (int)fullTurn;
 
-        int FLBackward = robot.FL.getTargetPosition() - (int)fullTurn;
-        int FRBackward = robot.FR.getTargetPosition() - (int)fullTurn;
-        int BLBackward = robot.BL.getTargetPosition() - (int)fullTurn;
-        int BRBackward = robot.BR.getTargetPosition() - (int)fullTurn;
+        int FLForwardTwice = robot.FL.getTargetPosition() + (int)fullTurn*2;
+        int FRForwardTwice=  robot.FR.getTargetPosition() + (int)fullTurn*2;
+        int BLForwardTwice = robot.BL.getTargetPosition() + (int)fullTurn*2;
+        int BRForwardTwice = robot.BR.getTargetPosition() + (int)fullTurn*2;
+
+        int FLReverse = robot.FL.getTargetPosition() - (int)fullTurn;
+        int FRReverse = robot.FR.getTargetPosition() - (int)fullTurn;
+        int BLReverse = robot.BL.getTargetPosition() - (int)fullTurn;
+        int BRReverse = robot.BR.getTargetPosition() - (int)fullTurn;
+
+        int FLReverseTwice = robot.FL.getTargetPosition() - (int)fullTurn*2;
+        int FRReverseTwice = robot.FR.getTargetPosition() - (int)fullTurn*2;
+        int BLReverseTwice = robot.BL.getTargetPosition() - (int)fullTurn*2;
+        int BRReverseTwice = robot.BR.getTargetPosition() - (int)fullTurn*2;
+
+
 
        /**
         while(robot.FL.isBusy()) {
@@ -155,12 +167,12 @@ public class Auton_Crater extends OpMode {
         switch (auto) {
 
             case ZERO:
-                robot.FL.setTargetPosition(FLBackward);
-                robot.FR.setTargetPosition(FRBackward);
-                robot.BL.setTargetPosition(BLBackward);
-                robot.BR.setTargetPosition(BRBackward);
+                robot.FL.setTargetPosition(FLReverse);
+                robot.FR.setTargetPosition(FRReverse);
+                robot.BL.setTargetPosition(BLReverse);
+                robot.BR.setTargetPosition(BRReverse);
 
-             //   auto = ONE;
+                auto = ONE;
                 break;
 
             case ONE:
