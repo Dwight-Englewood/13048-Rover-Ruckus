@@ -65,7 +65,7 @@ public class Auton_Crater extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
-    AutonBase auto = ZERO;
+    AutonBase auto = HOOKDROP;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -177,43 +177,44 @@ public class Auton_Crater extends OpMode {
 
         switch (auto) {
 
-            case ZERO:
+            case HOOKDROP:
+
+                auto = MOVEBACK;
+                break;
+
+            case MOVEBACK:
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
                 robot.BR.setTargetPosition(BRReverse);
 
-                auto = ONE;
+                auto = STRAFELEFT;
                 break;
 
-            case ONE:
+            case STRAFELEFT:
                 robot.FL.setTargetPosition(FLStrafeR);
                 robot.FR.setTargetPosition(FRStrafeR);
                 robot.BL.setTargetPosition(BLStrafeR);
                 robot.BR.setTargetPosition(BRStrafeR);
 
-                auto = TWO;
+                auto = MOVEBACKSLOWLY;
                 break;
 
-            case TWO:
+            case MOVEBACKSLOWLY:
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
                 robot.BR.setTargetPosition(BRReverse);
 
-                auto = THREE;
+
+                auto = MOVEFORWARDSLOWLY;
                 break;
 
-            case THREE:
+            case MOVEFORWARDSLOWLY:
                 robot.FL.setTargetPosition(FLForwardTwice);
                 robot.FR.setTargetPosition(FRForwardTwice);
                 robot.BL.setTargetPosition(BLForwardTwice);
                 robot.BR.setTargetPosition(BRForwardTwice);
-
-                auto = FOUR;
-                break;
-
-            case FOUR:
                 //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
                 //Once ball is detected, strafe right
                 //strafe left
@@ -227,11 +228,11 @@ public class Auton_Crater extends OpMode {
                 //forward
                 //turn left
                 //forward
-                
-                auto = FIVE;
+
+           //     auto = BALLKNOCKER;
                 break;
 
-            case FIVE:
+            case BALLKNOCKER:
 
                 break;
 
@@ -239,11 +240,6 @@ public class Auton_Crater extends OpMode {
                 robot.twoDrive(MovementEnum.STOP, 0);
             }
             break;
-            //if gold color (RGB value) is detected return value. G
-            // Go forward,  go backwards, and turn left.
-            // Go forward until distance to wall is 6 inches.
-            // Turn 45 degrees, and go forward.
-            // Drop the team marker, then back up into the crater.
         }
 
     }
