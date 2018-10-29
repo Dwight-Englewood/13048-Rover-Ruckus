@@ -41,8 +41,6 @@ import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameMana
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.teamcode.AutonBase.*;
-
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -63,7 +61,7 @@ public class Auton_TeamMarker extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
-    AutonBase auto = ZERO;
+    int auto = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -98,53 +96,53 @@ public class Auton_TeamMarker extends OpMode {
     public void loop() {
         switch (auto) {
 
-            case ZERO:
+            case 0:
                 if (runtime.milliseconds() <= 6500) {
                     robot.hook.setPower(1.0);
                 } else if (runtime.milliseconds() > 6500) {
                     robot.hook.setPower(0);
-                 //   auto = ONE;
+                 //   auto++;
                 } else {
                     robot.hook.setPower(0);
-                 //   auto = ONE;
+                 //   auto++;
                 }
 
                 break;
 
-            case ONE:
+            case 1:
                 if (runtime.milliseconds() <= 7500 && runtime.milliseconds() > 6500) {
                     robot.twoDrive(MovementEnum.FORWARD, 0.5);
                 }
                 else if(runtime.milliseconds() > 7500) {
                     robot.twoDrive(MovementEnum.STOP, 0.0);
                 }
-                //auto = TWO;
+                //auto++;
                 break;
 
-            case TWO:
+            case 2:
                 // if (runtime.milliseconds() >= 12000) {
                 //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
                 if (runtime.milliseconds() > 7000) {
                     robot.drive(MovementEnum.RIGHTTURN, 0.65);
                 }
-                auto = THREE;
+                auto++;
                 break;
 
-            case THREE:
+            case 3:
                 if (runtime.milliseconds() > 9000) {
                     robot.drive(MovementEnum.FORWARD, 1);
                 }
-                auto = FOUR;
+                auto++;
                 break;
 
-            case FOUR:
+            case 4:
                 if (runtime.milliseconds() > 11000) {
                     robot.claw.setPosition(1);
                 }
-                auto = FIVE;
+                auto++;
                 break;
 
-            case FIVE:
+            case 5:
                 if (runtime.milliseconds() > 13000) {
                     robot.drive(MovementEnum.BACKWARD, 1);
                 }

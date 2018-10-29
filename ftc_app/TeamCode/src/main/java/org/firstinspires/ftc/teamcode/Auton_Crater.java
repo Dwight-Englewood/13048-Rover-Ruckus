@@ -43,8 +43,6 @@ import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameMana
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.teamcode.AutonBase.*;
-
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -65,7 +63,7 @@ public class Auton_Crater extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     bot robot = new bot();
-    AutonBase auto = HOOKDROP;
+    int auto = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -120,37 +118,45 @@ public class Auton_Crater extends OpMode {
         robot.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        //FORWARD
         int FLForward = robot.FL.getTargetPosition() + (int)fullTurn;
         int FRForward = robot.FR.getTargetPosition() + (int)fullTurn;
         int BLForward = robot.BL.getTargetPosition() + (int)fullTurn;
         int BRForward = robot.BR.getTargetPosition() + (int)fullTurn;
 
+        //FORWARD*2
         int FLForwardTwice = robot.FL.getTargetPosition() + (int)fullTurn*2;
         int FRForwardTwice=  robot.FR.getTargetPosition() + (int)fullTurn*2;
         int BLForwardTwice = robot.BL.getTargetPosition() + (int)fullTurn*2;
         int BRForwardTwice = robot.BR.getTargetPosition() + (int)fullTurn*2;
 
+        //BACKWARD
         int FLReverse = robot.FL.getTargetPosition() - (int)fullTurn;
         int FRReverse = robot.FR.getTargetPosition() - (int)fullTurn;
         int BLReverse = robot.BL.getTargetPosition() - (int)fullTurn;
         int BRReverse = robot.BR.getTargetPosition() - (int)fullTurn;
 
+        //BACKWARD*2
         int FLReverseTwice = robot.FL.getTargetPosition() - (int)fullTurn*2;
         int FRReverseTwice = robot.FR.getTargetPosition() - (int)fullTurn*2;
         int BLReverseTwice = robot.BL.getTargetPosition() - (int)fullTurn*2;
         int BRReverseTwice = robot.BR.getTargetPosition() - (int)fullTurn*2;
 
+        //RIGHTSTRAFE
         int FLStrafeR = robot.FL.getTargetPosition() - (int)fullTurn;
         int FRStrafeR = robot.FR.getTargetPosition() + (int)fullTurn;
         int BLStrafeR = robot.BL.getTargetPosition() + (int)fullTurn;
         int BRStrafeR = robot.BR.getTargetPosition() - (int)fullTurn;
 
+        //LEFTSTRAFE
         int FLStrafeL = robot.FL.getTargetPosition() + (int)fullTurn;
         int FRStrafeL = robot.FR.getTargetPosition() - (int)fullTurn;
         int BLStrafeL = robot.BL.getTargetPosition() - (int)fullTurn;
         int BRStrafeL = robot.BR.getTargetPosition() + (int)fullTurn;
 
-
+        //HOOK
+        int FHook = robot.hook.getTargetPosition() + (int)fullTurn;
+        int BHook = robot.hook.getTargetPosition() - (int)fullTurn;
 
 
        /**
@@ -177,40 +183,41 @@ public class Auton_Crater extends OpMode {
 
         switch (auto) {
 
-            case HOOKDROP:
+            case 0:
+                robot.hook.setTargetPosition(BHook);
 
-                auto = MOVEBACK;
+                auto++;
                 break;
 
-            case MOVEBACK:
+            case 1:
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
                 robot.BR.setTargetPosition(BRReverse);
 
-                auto = STRAFELEFT;
+                auto++;
                 break;
 
-            case STRAFELEFT:
+            case 2:
                 robot.FL.setTargetPosition(FLStrafeR);
                 robot.FR.setTargetPosition(FRStrafeR);
                 robot.BL.setTargetPosition(BLStrafeR);
                 robot.BR.setTargetPosition(BRStrafeR);
 
-                auto = MOVEBACKSLOWLY;
+                auto++;
                 break;
 
-            case MOVEBACKSLOWLY:
+            case 3:
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
                 robot.BR.setTargetPosition(BRReverse);
 
 
-                auto = MOVEFORWARDSLOWLY;
+                auto++;
                 break;
 
-            case MOVEFORWARDSLOWLY:
+            case 4:
                 robot.FL.setTargetPosition(FLForwardTwice);
                 robot.FR.setTargetPosition(FRForwardTwice);
                 robot.BL.setTargetPosition(BLForwardTwice);
@@ -229,10 +236,10 @@ public class Auton_Crater extends OpMode {
                 //turn left
                 //forward
 
-           //     auto = BALLKNOCKER;
-                break;
+           //     auto++;
+           //     break;
 
-            case BALLKNOCKER:
+            case 5:
 
                 break;
 

@@ -82,6 +82,9 @@ public class TeleOp extends OpMode {
 //        double leftPower = Range.clip(gamepad1.left_stick_y, -0.75,0.75);
   //      double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
         robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
+        //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
+        //robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
+
         //intake
         if(gamepad2.right_trigger > .3){
             robot.intake.setPower(1.0);
