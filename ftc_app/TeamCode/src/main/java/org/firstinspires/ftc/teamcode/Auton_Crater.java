@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.robotcore.internal.android.dx.ssa.DomFront;
 import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
@@ -62,6 +63,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
 
@@ -74,6 +76,12 @@ public class Auton_Crater extends OpMode {
         //robot.resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
+
+        robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     /*
@@ -88,8 +96,16 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void start() {
+        {
         runtime.reset();
     }
+        robot.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
@@ -107,16 +123,6 @@ public class Auton_Crater extends OpMode {
         double fullTurn = 1120;
         double halfTurn = 1120 / 2;
         double quarterTurn = 1120 / 4;
-
-        robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //FORWARD
         int FLForward = robot.FL.getTargetPosition() + (int)fullTurn;
@@ -157,7 +163,6 @@ public class Auton_Crater extends OpMode {
         //HOOK
         int FHook = robot.hook.getTargetPosition() + (int)fullTurn;
         int BHook = robot.hook.getTargetPosition() - (int)fullTurn;
-
 
        /**
         while(robot.FL.isBusy()) {
@@ -212,7 +217,6 @@ public class Auton_Crater extends OpMode {
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
                 robot.BR.setTargetPosition(BRReverse);
-
 
                 auto++;
                 break;
