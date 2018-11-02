@@ -117,6 +117,10 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
+
+        int position = robot.hook.getCurrentPosition();
+        telemetry.addData("Encoder Position", position);
+
         //Figure out tick count √
         //stop and reset encoders √
         //set the target position √
@@ -203,7 +207,7 @@ public class Auton_Crater extends OpMode {
         robot.hook.setTargetPosition(value);
         robot.hook.setTargetPosition(-value);
 
-       /**
+       /*
         while(robot.FL.isBusy()) {
             telemetry.addData("Status", "Running Front Left Full Turn");
             telemetry.update();
@@ -223,48 +227,84 @@ public class Auton_Crater extends OpMode {
             telemetry.addData("Status", "Running Back Right Full Turn");
             telemetry.update();
         }
-        **/
+        */
 
         switch (auto) {
 
             case 0:
+                if(robot.hook.getCurrentPosition() >= 1120*3) {
+                    robot.hook.setPower(-1);
+                    robot.hook.setTargetPosition(value);
 
-                robot.hook.setPower(1);
-                robot.hook.setTargetPosition(-value);
+                } else {
+                    robot.hook.setPower(0);
+                }
 
                 auto++;
                 break;
 
             case 1:
+                if(robot.FL.getCurrentPosition() >= 1120*3) {
+                    robot.FL.setPower(-1);
+                    robot.FR.setPower(1);
+                    robot.BL.setPower(1);
+                    robot.BR.setPower(-1);
 
-                robot.FL.setPower(1);
-                robot.FR.setPower(1);
-                robot.BL.setPower(1);
-                robot.BR.setPower(1);
+                    robot.FL.setTargetPosition(value*3);
+                    robot.FR.setTargetPosition(value*3);
+                    robot.BL.setTargetPosition(value*3);
+                    robot.BR.setTargetPosition(value*3);
 
-                robot.FL.setTargetPosition(-value);
-                robot.FR.setTargetPosition(value);
-                robot.BL.setTargetPosition(value);
-                robot.BR.setTargetPosition(-value);
+                } else {
+                    robot.FL.setPower(0);
+                    robot.FR.setPower(0);
+                    robot.BL.setPower(0);
+                    robot.BR.setPower(0);
+                }
+
 
                 auto++;
                 break;
 
             case 2:
+                robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-                robot.FL.setPower(1);
-                robot.FR.setPower(1);
-                robot.BL.setPower(1);
-                robot.BR.setPower(1);
+                auto++;
+                break;
 
-                robot.FL.setTargetPosition(-value*10);
-                robot.FR.setTargetPosition(-value*10);
-                robot.BL.setTargetPosition(-value*10);
-                robot.BR.setTargetPosition(-value*10);
+            case 3:
+                if(robot.FL.getCurrentPosition() >= 1120*10) {
+                    robot.FL.setPower(-1);
+                    robot.FR.setPower(-1);
+                    robot.BL.setPower(-1);
+                    robot.BR.setPower(-1);
+
+                    robot.FL.setTargetPosition(value*10);
+                    robot.FR.setTargetPosition(value*10);
+                    robot.BL.setTargetPosition(value*10);
+                    robot.BR.setTargetPosition(value*10);
+
+                } else {
+                    robot.FL.setPower(0);
+                    robot.FR.setPower(0);
+                    robot.BL.setPower(0);
+                    robot.BR.setPower(0);
+                }
 
                // auto++;
                 break;
 
+            case 4:
+                robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                auto++;
+                break;
 
             default: {
                 robot.drive(MovementEnum.STOP, 0);
