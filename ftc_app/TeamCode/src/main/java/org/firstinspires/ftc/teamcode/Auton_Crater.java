@@ -78,23 +78,8 @@ public class Auton_Crater extends OpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
 
-        robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /*
@@ -132,7 +117,7 @@ public class Auton_Crater extends OpMode {
         double TICK_COUNT = 1120;
         double fullTurn = 1120;
 
-        //FORWARD
+        /*FORWARD
         robot.FL.setTargetPosition(value);
         robot.FR.setTargetPosition(value);
         robot.BL.setTargetPosition(value);
@@ -207,53 +192,28 @@ public class Auton_Crater extends OpMode {
         robot.hook.setTargetPosition(value);
         robot.hook.setTargetPosition(-value);
 
-       /*
-        while(robot.FL.isBusy()) {
-            telemetry.addData("Status", "Running Front Left Full Turn");
-            telemetry.update();
-        }
-
-        while(robot.FR.isBusy()) {
-            telemetry.addData("Status", "Running Front Right Full Turn");
-            telemetry.update();
-        }
-
-        while(robot.BL.isBusy()) {
-            telemetry.addData("Status", "Running Back Left Full Turn");
-            telemetry.update();
-        }
-
-        while(robot.BR.isBusy()) {
-            telemetry.addData("Status", "Running Back Right Full Turn");
-            telemetry.update();
-        }
-        */
-
+*/
         switch (auto) {
-
             case 0:
-                if(robot.hook.getCurrentPosition() >= 1120*3) {
+                robot.hook.setTargetPosition(value);
                     robot.hook.setPower(-1);
-                    robot.hook.setTargetPosition(value);
 
-                } else {
-                    robot.hook.setPower(0);
-                }
+                  //  auto++;
 
-                auto++;
+
                 break;
 
             case 1:
-                if(robot.FL.getCurrentPosition() >= 1120*3) {
+                if(robot.FL.getCurrentPosition() <= 1120*4) {
                     robot.FL.setPower(-1);
                     robot.FR.setPower(1);
                     robot.BL.setPower(1);
                     robot.BR.setPower(-1);
 
-                    robot.FL.setTargetPosition(value*3);
-                    robot.FR.setTargetPosition(value*3);
-                    robot.BL.setTargetPosition(value*3);
-                    robot.BR.setTargetPosition(value*3);
+                    robot.FL.setTargetPosition(value*4);
+                    robot.FR.setTargetPosition(value*4);
+                    robot.BL.setTargetPosition(value*4);
+                    robot.BR.setTargetPosition(value*4);
 
                 } else {
                     robot.FL.setPower(0);
@@ -262,21 +222,17 @@ public class Auton_Crater extends OpMode {
                     robot.BR.setPower(0);
                 }
 
-
                 auto++;
                 break;
 
             case 2:
-                robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
                 break;
 
             case 3:
-                if(robot.FL.getCurrentPosition() >= 1120*10) {
+                if(robot.FL.getCurrentPosition() <= 1120*10) {
                     robot.FL.setPower(-1);
                     robot.FR.setPower(-1);
                     robot.BL.setPower(-1);
@@ -294,14 +250,11 @@ public class Auton_Crater extends OpMode {
                     robot.BR.setPower(0);
                 }
 
-                // auto++;
+                auto++;
                 break;
 
             case 4:
-                robot.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
                 break;
