@@ -66,6 +66,7 @@ public class Auton_Crater extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
+    final int value = 1120;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -82,6 +83,18 @@ public class Auton_Crater extends OpMode {
         robot.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     /*
@@ -96,14 +109,7 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void start() {
-        {
         runtime.reset();
-    }
-        robot.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     /*
@@ -123,80 +129,79 @@ public class Auton_Crater extends OpMode {
         double fullTurn = 1120;
 
         //FORWARD
-        int FLForward = robot.FL.getTargetPosition() + (int)fullTurn;
-        int FRForward = robot.FR.getTargetPosition() + (int)fullTurn;
-        int BLForward = robot.BL.getTargetPosition() + (int)fullTurn;
-        int BRForward = robot.BR.getTargetPosition() + (int)fullTurn;
+        robot.FL.setTargetPosition(value);
+        robot.FR.setTargetPosition(value);
+        robot.BL.setTargetPosition(value);
+        robot.BR.setTargetPosition(value);
 
         //FORWARD*2
-        int FLForwardTwice = robot.FL.getTargetPosition() + (int)fullTurn*2;
-        int FRForwardTwice=  robot.FR.getTargetPosition() + (int)fullTurn*2;
-        int BLForwardTwice = robot.BL.getTargetPosition() + (int)fullTurn*2;
-        int BRForwardTwice = robot.BR.getTargetPosition() + (int)fullTurn*2;
+        robot.FL.setTargetPosition(value*2);
+        robot.FR.setTargetPosition(value*2);
+        robot.BL.setTargetPosition(value*2);
+        robot.BR.setTargetPosition(value*2);
 
         //BACKWARD
-        int FLReverse = robot.FL.getTargetPosition() - (int)fullTurn;
-        int FRReverse = robot.FR.getTargetPosition() - (int)fullTurn;
-        int BLReverse = robot.BL.getTargetPosition() - (int)fullTurn;
-        int BRReverse = robot.BR.getTargetPosition() - (int)fullTurn;
+        robot.FL.setTargetPosition(-value);
+        robot.FR.setTargetPosition(-value);
+        robot.BL.setTargetPosition(-value);
+        robot.BR.setTargetPosition(-value);
 
         //BACKWARD*2
-        int FLReverseTwice = robot.FL.getTargetPosition() - (int)fullTurn*2;
-        int FRReverseTwice = robot.FR.getTargetPosition() - (int)fullTurn*2;
-        int BLReverseTwice = robot.BL.getTargetPosition() - (int)fullTurn*2;
-        int BRReverseTwice = robot.BR.getTargetPosition() - (int)fullTurn*2;
+        robot.FL.setTargetPosition(-value*2);
+        robot.FR.setTargetPosition(-value*2);
+        robot.BL.setTargetPosition(-value*2);
+        robot.BR.setTargetPosition(-value*2);
 
         //RIGHTSTRAFE
-        int FLStrafeR = robot.FL.getTargetPosition() - (int)fullTurn;
-        int FRStrafeR = robot.FR.getTargetPosition() + (int)fullTurn;
-        int BLStrafeR = robot.BL.getTargetPosition() + (int)fullTurn;
-        int BRStrafeR = robot.BR.getTargetPosition() - (int)fullTurn;
+        robot.FL.setTargetPosition(-value);
+        robot.FR.setTargetPosition(value);
+        robot.BL.setTargetPosition(value);
+        robot.BR.setTargetPosition(-value);
 
         //LEFTSTRAFE
-        int FLStrafeL = robot.FL.getTargetPosition() + (int)fullTurn;
-        int FRStrafeL = robot.FR.getTargetPosition() - (int)fullTurn;
-        int BLStrafeL = robot.BL.getTargetPosition() - (int)fullTurn;
-        int BRStrafeL = robot.BR.getTargetPosition() + (int)fullTurn;
+        robot.FL.setTargetPosition(value);
+        robot.FR.setTargetPosition(-value);
+        robot.BL.setTargetPosition(-value);
+        robot.BR.setTargetPosition(value);
 
         //RIGHTTURN
-        int FLRTURN = robot.FL.getTargetPosition() + (int)fullTurn;
-        int FRRTURN = robot.FR.getTargetPosition() - (int)fullTurn;
-        int BLRTURN = robot.BL.getTargetPosition() + (int)fullTurn;
-        int BRRTURN = robot.BR.getTargetPosition() - (int)fullTurn;
+        robot.FL.setTargetPosition(value);
+        robot.FR.setTargetPosition(-value);
+        robot.BL.setTargetPosition(value);
+        robot.BR.setTargetPosition(-value);
 
         //RIGHTHALFTURN
-        int FLRHTURN = robot.FL.getTargetPosition() + (int)fullTurn/2;
-        int FRRHTURN = robot.FR.getTargetPosition() - (int)fullTurn/2;
-        int BLRHTURN = robot.BL.getTargetPosition() + (int)fullTurn/2;
-        int BRRHTURN = robot.BR.getTargetPosition() - (int)fullTurn/2;
-
+        robot.FL.setTargetPosition(value/2);
+        robot.FR.setTargetPosition(-value/2);
+        robot.BL.setTargetPosition(value/2);
+        robot.BR.setTargetPosition(-value/2);
         //RIGHTQUARTERTURN
-        int FLRQTURN = robot.FL.getTargetPosition() + (int)fullTurn/4;
-        int FRRQTURN = robot.FR.getTargetPosition() - (int)fullTurn/4;
-        int BLRQTURN = robot.BL.getTargetPosition() + (int)fullTurn/4;
-        int BRRQTURN = robot.BR.getTargetPosition() - (int)fullTurn/4;
+        robot.FL.setTargetPosition(value/4);
+        robot.FR.setTargetPosition(-value/4);
+        robot.BL.setTargetPosition(value/4);
+        robot.BR.setTargetPosition(-value/4);
 
         //LEFTTURN
-        int FLLTURN = robot.FL.getTargetPosition() - (int)fullTurn;
-        int FRLTURN = robot.FR.getTargetPosition() + (int)fullTurn;
-        int BLLTURN = robot.BL.getTargetPosition() - (int)fullTurn;
-        int BRLTURN = robot.BR.getTargetPosition() + (int)fullTurn;
+        robot.FL.setTargetPosition(-value);
+        robot.FR.setTargetPosition(value);
+        robot.BL.setTargetPosition(-value);
+        robot.BR.setTargetPosition(value);
 
         //LEFTHALFTURN
-        int FLLHTURN = robot.FL.getTargetPosition() - (int)fullTurn/2;
-        int FRLHTURN = robot.FR.getTargetPosition() + (int)fullTurn/2;
-        int BLLHTURN = robot.BL.getTargetPosition() - (int)fullTurn/2;
-        int BRLHTURN = robot.BR.getTargetPosition() + (int)fullTurn/2;
+        robot.FL.setTargetPosition(-value/2);
+        robot.FR.setTargetPosition(value/2);
+        robot.BL.setTargetPosition(-value/2);
+        robot.BR.setTargetPosition(value/2);
 
         //LEFTQUARTERTURN
-        int FLLQTURN = robot.FL.getTargetPosition() - (int)fullTurn/4;
-        int FRLQTURN = robot.FR.getTargetPosition() + (int)fullTurn/4;
-        int BLLQTURN = robot.BL.getTargetPosition() - (int)fullTurn/4;
-        int BRLQTURN = robot.BR.getTargetPosition() + (int)fullTurn/4;
+        robot.FL.setTargetPosition(-value/4);
+        robot.FR.setTargetPosition(value/4);
+        robot.BL.setTargetPosition(-value/4);
+        robot.BR.setTargetPosition(value/4);
 
         //HOOK
-        int FHook = robot.hook.getTargetPosition() + (int)fullTurn;
-        int BHook = robot.hook.getTargetPosition() - (int)fullTurn;
+        robot.hook.setTargetPosition(value);
+        robot.hook.setTargetPosition(-value);
 
        /**
         while(robot.FL.isBusy()) {
@@ -225,7 +230,7 @@ public class Auton_Crater extends OpMode {
             case 0:
 
                 robot.hook.setPower(1);
-                robot.hook.setTargetPosition(BHook);
+                robot.hook.setTargetPosition(-value);
 
                 auto++;
                 break;
@@ -237,10 +242,10 @@ public class Auton_Crater extends OpMode {
                 robot.BL.setPower(1);
                 robot.BR.setPower(1);
 
-                robot.FL.setTargetPosition(FLReverse);
-                robot.FR.setTargetPosition(FRReverse);
-                robot.BL.setTargetPosition(BLReverse);
-                robot.BR.setTargetPosition(BRReverse);
+                robot.FL.setTargetPosition(-value);
+                robot.FR.setTargetPosition(value);
+                robot.BL.setTargetPosition(value);
+                robot.BR.setTargetPosition(-value);
 
                 auto++;
                 break;
@@ -252,65 +257,14 @@ public class Auton_Crater extends OpMode {
                 robot.BL.setPower(1);
                 robot.BR.setPower(1);
 
-                robot.FL.setTargetPosition(FLStrafeR);
-                robot.FR.setTargetPosition(FRStrafeR);
-                robot.BL.setTargetPosition(BLStrafeR);
-                robot.BR.setTargetPosition(BRStrafeR);
+                robot.FL.setTargetPosition(-value*10);
+                robot.FR.setTargetPosition(-value*10);
+                robot.BL.setTargetPosition(-value*10);
+                robot.BR.setTargetPosition(-value*10);
 
-                auto++;
+               // auto++;
                 break;
 
-            case 3:
-
-                robot.FL.setPower(1);
-                robot.FR.setPower(1);
-                robot.BL.setPower(1);
-                robot.BR.setPower(1);
-
-                robot.FL.setTargetPosition(FLReverse);
-                robot.FR.setTargetPosition(FRReverse);
-                robot.BL.setTargetPosition(BLReverse);
-                robot.BR.setTargetPosition(BRReverse);
-
-                auto++;
-                break;
-
-            case 4:
-
-                robot.FL.setPower(1);
-                robot.FR.setPower(1);
-                robot.BL.setPower(1);
-                robot.BR.setPower(1);
-
-                robot.FL.setTargetPosition(FLForwardTwice);
-                robot.FR.setTargetPosition(FRForwardTwice);
-                robot.BL.setTargetPosition(BLForwardTwice);
-                robot.BR.setTargetPosition(BRForwardTwice);
-                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-                //Once ball is detected, strafe right
-                //strafe left
-                //go forward
-                //turn 45 degrees
-                //strafe right
-                //go forward
-                //drop team marker
-                //go back
-                //turn left
-                //forward
-                //turn left
-                //forward
-
-           //     auto++;
-           //     break;
-
-            case 5:
-
-                robot.FL.setPower(1);
-                robot.FR.setPower(1);
-                robot.BL.setPower(1);
-                robot.BR.setPower(1);
-
-                break;
 
             default: {
                 robot.drive(MovementEnum.STOP, 0);
