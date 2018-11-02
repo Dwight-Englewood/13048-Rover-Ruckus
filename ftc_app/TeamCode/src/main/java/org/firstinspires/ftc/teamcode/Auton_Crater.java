@@ -294,7 +294,7 @@ public class Auton_Crater extends OpMode {
                     robot.BR.setPower(0);
                 }
 
-               // auto++;
+                // auto++;
                 break;
 
             case 4:
