@@ -24,14 +24,14 @@ public class bot {
 
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
-    static DcMotor BL, BR, FL, FR, lift, intake, hook, hinge, left, right, extend ;
-    Servo dump, claw;
+    static DcMotor BL, BR, FL, FR, lift/*, intake, hook, hinge, left, right, extend */;
+    Servo dump/*, claw*/;
     HardwareMap map;
     Telemetry tele;
-    BNO055IMU.Parameters parameters;
-    Orientation angles;
+//    BNO055IMU.Parameters parameters;
+//    Orientation angles;
     Double powerModifier = 0.02;
-    ModernRoboticsI2cColorSensor colorSensor;
+//    ModernRoboticsI2cColorSensor colorSensor;
     //Double turnSpeed = 0.5;
     //Integer angle = -45;
 
@@ -47,32 +47,32 @@ public class bot {
         this.map = map;
         this.tele = tele;
 
-        left = this.map.get(DcMotor.class, "left");
-        right = this.map.get(DcMotor.class, "right");
-      //  BL = this.map.get(DcMotor.class, "BL");
-      //  BR = this.map.get(DcMotor.class, "BR");
-      //  FL = this.map.get(DcMotor.class, "FL");
-      //  FR = this.map.get(DcMotor.class, "FR");
-        lift = this.map.get(DcMotor.class, "lift");
-        hinge = this.map.get(DcMotor.class, "hinge");
-        intake = this.map.get(DcMotor.class, "intake");
+//        left = this.map.get(DcMotor.class, "left");
+//        right = this.map.get(DcMotor.class, "right");
+        BL = this.map.get(DcMotor.class, "BL");
+        BR = this.map.get(DcMotor.class, "BR");
+        FL = this.map.get(DcMotor.class, "FL");
+        FR = this.map.get(DcMotor.class, "FR");
+//        lift = this.map.get(DcMotor.class, "lift");
+//        hinge = this.map.get(DcMotor.class, "hinge");
+//        intake = this.map.get(DcMotor.class, "intake");
         hook = this.map.get(DcMotor.class, "hook");
-        extend = this.map.get(DcMotor.class, "extend");
+//        extend = this.map.get(DcMotor.class, "extend");
 
-        dump = this.map.get(Servo.class,"dump");
+//        dump = this.map.get(Servo.class,"dump");
         claw = this.map.get(Servo.class, "claw" );
 
-        left.setDirection(DcMotorSimple.Direction.FORWARD);
-        right.setDirection(DcMotorSimple.Direction.REVERSE);
-       // BR.setDirection(DcMotorSimple.Direction.FORWARD);
-       // BL.setDirection(DcMotorSimple.Direction.FORWARD);
-       // FL.setDirection(DcMotorSimple.Direction.FORWARD);
-       // FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
-        hinge.setDirection(DcMotorSimple.Direction.FORWARD);
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+//        left.setDirection(DcMotorSimple.Direction.FORWARD);
+//        right.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+//        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        hinge.setDirection(DcMotorSimple.Direction.FORWARD);
+//        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
-        extend.setDirection(DcMotorSimple.Direction.REVERSE);
+//        extend.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
         this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -97,17 +97,25 @@ public class bot {
  //   }
 
     public void changeRunMode(DcMotor.RunMode runMode){
-        left.setMode(runMode);
-        right.setMode(runMode);
-        lift.setMode(runMode);
-        intake.setMode(runMode);
+        BL.setMode(runMode);
+        BR.setMode(runMode);
+        FL..setMode(runMode);
+        FR.setMode(runMode);
+//        left.setMode(runMode);
+//        right.setMode(runMode);
+//        lift.setMode(runMode);
+//        intake.setMode(runMode);
     }
 
     public void setRunMode(DcMotor.RunMode encoderRunMode) {
-        left.setMode(encoderRunMode);
-        right.setMode(encoderRunMode);
-        lift.setMode(encoderRunMode);
-        intake.setMode(encoderRunMode);
+        BR.setMode(runMode);
+        BL.setMode(runMode);
+        FL.setMode(runMode);
+        FR.setMode(runMode);
+//        left.setMode(encoderRunMode);
+//        right.setMode(encoderRunMode);
+//        lift.setMode(encoderRunMode);
+//        intake.setMode(encoderRunMode);
     }
 
     public void drive(double in) {
