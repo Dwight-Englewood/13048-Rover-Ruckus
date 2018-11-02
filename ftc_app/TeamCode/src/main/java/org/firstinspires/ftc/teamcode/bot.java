@@ -25,7 +25,7 @@ public class bot {
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
     static DcMotor BL, BR, FL, FR, hook /*lift, intake, hook, hinge, left, right, extend */;
-    Servo dump/*, claw*/;
+    Servo /*dump,*/ claw;
     HardwareMap map;
     Telemetry tele;
 //    BNO055IMU.Parameters parameters;
@@ -75,7 +75,7 @@ public class bot {
 //        extend.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
-        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -86,8 +86,8 @@ public class bot {
         //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-       left.setPower(0);
-       right.setPower(0);
+//       left.setPower(0);
+//       right.setPower(0);
     }
     //public void gyroTurn(double turnSpeed, int angle) {
        // QLEFTTURN.setPower(turnSpeed);
@@ -99,7 +99,7 @@ public class bot {
     public void changeRunMode(DcMotor.RunMode runMode){
         BL.setMode(runMode);
         BR.setMode(runMode);
-        FL..setMode(runMode);
+        FL.setMode(runMode);
         FR.setMode(runMode);
 //        left.setMode(runMode);
 //        right.setMode(runMode);
@@ -107,16 +107,16 @@ public class bot {
 //        intake.setMode(runMode);
     }
 
-    public void setRunMode(DcMotor.RunMode encoderRunMode) {
-        BR.setMode(runMode);
-        BL.setMode(runMode);
-        FL.setMode(runMode);
-        FR.setMode(runMode);
+//    public void setRunMode(DcMotor.RunMode encoderRunMode) {
+//        BR.setMode(runMode);
+//        BL.setMode(runMode);
+//        FL.setMode(runMode);
+//        FR.setMode(runMode);
 //        left.setMode(encoderRunMode);
 //        right.setMode(encoderRunMode);
 //        lift.setMode(encoderRunMode);
 //        intake.setMode(encoderRunMode);
-    }
+//    }
 
     public void drive(double in) {
         BL.setPower(in);
@@ -124,11 +124,11 @@ public class bot {
         FR.setPower(in);
         FL.setPower(in);
     }
-    public void tankDriveNoStrafe (double leftStick, double rightStick){
-        left.setPower(leftStick);
-        right.setPower(rightStick);
-
-    }
+//    public void tankDriveNoStrafe (double leftStick, double rightStick){
+//        left.setPower(leftStick);
+//        right.setPower(rightStick);
+//
+//    }
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
         double i = invert ? -0.75:0.75;
         if (leftTrigger > .3) {
@@ -197,8 +197,8 @@ public class bot {
                 break;
 
             case BACKWARD:
-                left.setPower(-power);
-                right.setPower(-power);
+                FR.setPower(-power);
+                FL.setPower(-power);
                 BL.setPower(-power);
                 BR.setPower(-power);
                 break;

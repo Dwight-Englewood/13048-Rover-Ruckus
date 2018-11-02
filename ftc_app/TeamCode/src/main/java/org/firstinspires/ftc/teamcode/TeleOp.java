@@ -69,7 +69,7 @@ public class TeleOp extends OpMode {
     @Override
     public void start() {
         timer.reset();
-        robot.dump.setPosition(0.0);
+//        robot.dump.setPosition(0.0);
         robot.claw.setPosition(0.0);
     }
 
