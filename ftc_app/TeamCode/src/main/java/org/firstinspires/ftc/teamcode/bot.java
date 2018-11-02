@@ -24,7 +24,7 @@ public class bot {
 
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
-    static DcMotor BL, BR, FL, FR, lift/*, intake, hook, hinge, left, right, extend */;
+    static DcMotor BL, BR, FL, FR, hook /*lift, intake, hook, hinge, left, right, extend */;
     Servo dump/*, claw*/;
     HardwareMap map;
     Telemetry tele;
