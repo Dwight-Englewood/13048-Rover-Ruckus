@@ -97,9 +97,9 @@ public class Auton_TeamMarker extends OpMode {
         switch (auto) {
 
             case 0:
-                if (runtime.milliseconds() <= 6500) {
+                if (runtime.milliseconds() <= 7000) {
                     robot.hook.setPower(1.0);
-                } else if (runtime.milliseconds() > 6500) {
+                } else if (runtime.milliseconds() > 7000) {
                     robot.hook.setPower(0);
                  //   auto++;
                 } else {

@@ -66,7 +66,7 @@ public class Auton_Crater extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
-    final int value = 1120;
+    final int value = -18000;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -79,7 +79,7 @@ public class Auton_Crater extends OpMode {
         telemetry.addData("Status", "Initialized");
 
         robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     /*
@@ -102,9 +102,10 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
-
+        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
         int position = robot.hook.getCurrentPosition();
         telemetry.addData("Encoder Position", position);
+        telemetry.addData("Target Position", robot.hook.getTargetPosition());
 
         //Figure out tick count √
         //stop and reset encoders √
@@ -195,8 +196,10 @@ public class Auton_Crater extends OpMode {
 */
         switch (auto) {
             case 0:
+
                 robot.hook.setTargetPosition(value);
-                    robot.hook.setPower(-1);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.hook.setPower(1);
 
                   //  auto++;
 
@@ -228,7 +231,7 @@ public class Auton_Crater extends OpMode {
             case 2:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-                auto++;
+                auto = 0;
                 break;
 
             case 3:
