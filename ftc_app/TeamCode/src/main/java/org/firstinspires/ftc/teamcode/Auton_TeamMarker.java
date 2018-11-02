@@ -111,10 +111,10 @@ public class Auton_TeamMarker extends OpMode {
 
             case 1:
                 if (runtime.milliseconds() <= 7500 && runtime.milliseconds() > 6500) {
-                    robot.twoDrive(MovementEnum.FORWARD, 0.5);
+                    robot.drive(MovementEnum.FORWARD, 0.5);
                 }
                 else if(runtime.milliseconds() > 7500) {
-                    robot.twoDrive(MovementEnum.STOP, 0.0);
+                    robot.drive(MovementEnum.STOP, 0.0);
                 }
                 //auto++;
                 break;
@@ -149,7 +149,7 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
              default: {
-             robot.twoDrive(MovementEnum.STOP, 0);
+             robot.drive(MovementEnum.STOP, 0);
 
              }
              break;

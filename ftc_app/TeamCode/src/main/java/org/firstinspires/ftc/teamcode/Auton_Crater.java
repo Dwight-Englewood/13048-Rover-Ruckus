@@ -111,9 +111,9 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
-        //Figure out tick count
-        //stop and reset encoders
-        //set the target position
+        //Figure out tick count √
+        //stop and reset encoders √
+        //set the target position √
         //set the desired power
         //set to RUN_TO_POSITION
         //wait while isBusy()
@@ -160,6 +160,18 @@ public class Auton_Crater extends OpMode {
         int BLStrafeL = robot.BL.getTargetPosition() - (int)fullTurn;
         int BRStrafeL = robot.BR.getTargetPosition() + (int)fullTurn;
 
+        //RIGHTTURN
+        int FLRTURN = robot.FL.getTargetPosition() + (int)fullTurn;
+        int FRRTURN = robot.FR.getTargetPosition() - (int)fullTurn;
+        int BLRTURN = robot.BL.getTargetPosition() + (int)fullTurn;
+        int BRRTURN = robot.BR.getTargetPosition() - (int)fullTurn;
+
+        //LEFTTURN
+        int FLLTURN = robot.FL.getTargetPosition() - (int)fullTurn;
+        int FRLTURN = robot.FR.getTargetPosition() + (int)fullTurn;
+        int BLLTURN = robot.BL.getTargetPosition() - (int)fullTurn;
+        int BRLTURN = robot.BR.getTargetPosition() + (int)fullTurn;
+
         //HOOK
         int FHook = robot.hook.getTargetPosition() + (int)fullTurn;
         int BHook = robot.hook.getTargetPosition() - (int)fullTurn;
@@ -189,12 +201,20 @@ public class Auton_Crater extends OpMode {
         switch (auto) {
 
             case 0:
+
+                robot.hook.setPower(1);
                 robot.hook.setTargetPosition(BHook);
 
-                auto++;
+             //   auto++;
                 break;
 
             case 1:
+
+                robot.FL.setPower(1);
+                robot.FR.setPower(1);
+                robot.BL.setPower(1);
+                robot.BR.setPower(1);
+
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
@@ -204,6 +224,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 2:
+
+                robot.FL.setPower(1);
+                robot.FR.setPower(1);
+                robot.BL.setPower(1);
+                robot.BR.setPower(1);
+
                 robot.FL.setTargetPosition(FLStrafeR);
                 robot.FR.setTargetPosition(FRStrafeR);
                 robot.BL.setTargetPosition(BLStrafeR);
@@ -213,6 +239,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
+
+                robot.FL.setPower(1);
+                robot.FR.setPower(1);
+                robot.BL.setPower(1);
+                robot.BR.setPower(1);
+
                 robot.FL.setTargetPosition(FLReverse);
                 robot.FR.setTargetPosition(FRReverse);
                 robot.BL.setTargetPosition(BLReverse);
@@ -222,6 +254,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 4:
+
+                robot.FL.setPower(1);
+                robot.FR.setPower(1);
+                robot.BL.setPower(1);
+                robot.BR.setPower(1);
+
                 robot.FL.setTargetPosition(FLForwardTwice);
                 robot.FR.setTargetPosition(FRForwardTwice);
                 robot.BL.setTargetPosition(BLForwardTwice);
@@ -245,10 +283,15 @@ public class Auton_Crater extends OpMode {
 
             case 5:
 
+                robot.FL.setPower(1);
+                robot.FR.setPower(1);
+                robot.BL.setPower(1);
+                robot.BR.setPower(1);
+
                 break;
 
             default: {
-                robot.twoDrive(MovementEnum.STOP, 0);
+                robot.drive(MovementEnum.STOP, 0);
             }
             break;
         }
