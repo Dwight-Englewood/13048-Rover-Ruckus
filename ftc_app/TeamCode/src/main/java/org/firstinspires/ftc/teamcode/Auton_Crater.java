@@ -121,8 +121,6 @@ public class Auton_Crater extends OpMode {
 
         double TICK_COUNT = 1120;
         double fullTurn = 1120;
-        double halfTurn = 1120 / 2;
-        double quarterTurn = 1120 / 4;
 
         //FORWARD
         int FLForward = robot.FL.getTargetPosition() + (int)fullTurn;
@@ -166,11 +164,35 @@ public class Auton_Crater extends OpMode {
         int BLRTURN = robot.BL.getTargetPosition() + (int)fullTurn;
         int BRRTURN = robot.BR.getTargetPosition() - (int)fullTurn;
 
+        //RIGHTHALFTURN
+        int FLRHTURN = robot.FL.getTargetPosition() + (int)fullTurn/2;
+        int FRRHTURN = robot.FR.getTargetPosition() - (int)fullTurn/2;
+        int BLRHTURN = robot.BL.getTargetPosition() + (int)fullTurn/2;
+        int BRRHTURN = robot.BR.getTargetPosition() - (int)fullTurn/2;
+
+        //RIGHTQUARTERTURN
+        int FLRQTURN = robot.FL.getTargetPosition() + (int)fullTurn/4;
+        int FRRQTURN = robot.FR.getTargetPosition() - (int)fullTurn/4;
+        int BLRQTURN = robot.BL.getTargetPosition() + (int)fullTurn/4;
+        int BRRQTURN = robot.BR.getTargetPosition() - (int)fullTurn/4;
+
         //LEFTTURN
         int FLLTURN = robot.FL.getTargetPosition() - (int)fullTurn;
         int FRLTURN = robot.FR.getTargetPosition() + (int)fullTurn;
         int BLLTURN = robot.BL.getTargetPosition() - (int)fullTurn;
         int BRLTURN = robot.BR.getTargetPosition() + (int)fullTurn;
+
+        //LEFTHALFTURN
+        int FLLHTURN = robot.FL.getTargetPosition() - (int)fullTurn/2;
+        int FRLHTURN = robot.FR.getTargetPosition() + (int)fullTurn/2;
+        int BLLHTURN = robot.BL.getTargetPosition() - (int)fullTurn/2;
+        int BRLHTURN = robot.BR.getTargetPosition() + (int)fullTurn/2;
+
+        //LEFTQUARTERTURN
+        int FLLQTURN = robot.FL.getTargetPosition() - (int)fullTurn/4;
+        int FRLQTURN = robot.FR.getTargetPosition() + (int)fullTurn/4;
+        int BLLQTURN = robot.BL.getTargetPosition() - (int)fullTurn/4;
+        int BRLQTURN = robot.BR.getTargetPosition() + (int)fullTurn/4;
 
         //HOOK
         int FHook = robot.hook.getTargetPosition() + (int)fullTurn;
@@ -205,7 +227,7 @@ public class Auton_Crater extends OpMode {
                 robot.hook.setPower(1);
                 robot.hook.setTargetPosition(BHook);
 
-             //   auto++;
+                auto++;
                 break;
 
             case 1:
