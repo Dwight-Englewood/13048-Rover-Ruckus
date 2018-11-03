@@ -197,8 +197,8 @@ public class bot {
                 break;
 
             case BACKWARD:
-                FR.setPower(-power);
-                FL.setPower(-power);
+                FR.setPower(power);
+                FL.setPower(power);
                 BL.setPower(-power);
                 BR.setPower(-power);
                 break;
@@ -206,21 +206,21 @@ public class bot {
             case LEFTSTRAFE:
                 FL.setPower(power);
                 FR.setPower(-power);
-                BL.setPower(-power);
-                BR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(-power);
                 break;
 
             case RIGHTSTRAFE:
                 FL.setPower(-power);
                 FR.setPower(power);
-                BL.setPower(power);
-                BR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(power);
                 break;
 
             case LEFTTURN:
                 FL.setPower(-power);
                 FR.setPower(power);
-                BL.setPower(-power);
+                BL.setPower(power);
                 BR.setPower(power);
                 break;
 

@@ -68,6 +68,7 @@ public class Auton_Crater extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
+   // int position = robot.hook.getCurrentPosition();
     final int value = 1120;
 
     /* public int CurrentPosition = 0;
@@ -101,7 +102,13 @@ public class Auton_Crater extends OpMode {
         //robot.resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
-
+        //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    //    robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+     //   robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  robot.hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
@@ -119,6 +126,7 @@ public class Auton_Crater extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+
     }
 
     /*
@@ -127,9 +135,9 @@ public class Auton_Crater extends OpMode {
     @Override
     public void loop() {
         robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-        int position = robot.hook.getCurrentPosition();
-        telemetry.addData("Encoder Position", position);
-        telemetry.addData("Target Position", robot.hook.getTargetPosition());
+
+
+
        /* telemetry.addData("Current Position", getCurrentPosition()); */
 
         //Figure out tick count √
@@ -143,60 +151,26 @@ public class Auton_Crater extends OpMode {
         double TICK_COUNT = 1120;
         double fullTurn = 1120;
 
-        /*FORWARD
-        robot.FL.setTargetPosition(value);
-        robot.FR.setTargetPosition(value);
-        robot.BL.setTargetPosition(value);
-        robot.BR.setTargetPosition(value);
+        robot.hook.setTargetPosition(550);
 
-        //BACKWARD
-        robot.FL.setTargetPosition(-value);
-        robot.FR.setTargetPosition(-value);
-        robot.BL.setTargetPosition(-value);
-        robot.BR.setTargetPosition(-value);
-
-        //RIGHTSTRAFE
-        robot.FL.setTargetPosition(-value);
-        robot.FR.setTargetPosition(value);
-        robot.BL.setTargetPosition(value);
-        robot.BR.setTargetPosition(-value);
-
-        //LEFTSTRAFE
-        robot.FL.setTargetPosition(value);
-        robot.FR.setTargetPosition(-value);
-        robot.BL.setTargetPosition(-value);
-        robot.BR.setTargetPosition(value);
-
-        //RIGHTTURN
-        robot.FL.setTargetPosition(value);
-        robot.FR.setTargetPosition(-value);
-        robot.BL.setTargetPosition(value);
-        robot.BR.setTargetPosition(-value);
-
-        //LEFTTURN
-        robot.FL.setTargetPosition(-value);
-        robot.FR.setTargetPosition(value);
-        robot.BL.setTargetPosition(-value);
-        robot.BR.setTargetPosition(value);
-
-        //HOOK
-        robot.hook.setTargetPosition(value);
-        robot.hook.setTargetPosition(-value);
-
-*/
         
         switch (auto) {
             case 0:
 
-                robot.hook.setTargetPosition(robot.hook.getCurrentPosition()+ value);
+
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    robot.hook.setPower(1);
+                robot.hook.setPower(0.5);
 
-                  //  auto++;
+           /*       //  auto++;
+               if(Math.abs(robot.hook.getCurrentPosition()) == Math.abs(position-value)){
 
+                   robot.hook.setPower(0);
+               }
+               else{robot.hook.setPower(1);}
+              //  auto = 5;
 
                 break;
-
+*/
             case 1:
                 if(robot.FL.getCurrentPosition() <= 1120*4) {
                     robot.FL.setPower(-1);
@@ -258,7 +232,8 @@ public class Auton_Crater extends OpMode {
             }
             break;
         }
-
+        telemetry.addData("Encoder Position", robot.hook.getCurrentPosition());
+        telemetry.addData("Target Position", robot.hook.getTargetPosition());
     }
 
 
