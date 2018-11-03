@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.renderscript.Sampler;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -66,7 +68,29 @@ public class Auton_Crater extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
-    final int value = -18000;
+    final int value = 1120;
+
+    /* public int CurrentPosition = 0;
+    public int OldPosition = 0;
+
+    public void setCurrentPosition(int position) {
+        this.CurrentPosition = position;
+        this.OldPosition = robot.hook.getCurrentPosition();
+    }
+
+    public int getCurrentPosition() {
+        return robot.hook.getCurrentPosition() - this.OldPosition;
+    }
+
+    public void setTargetPosition(int target) {
+        robot.hook.setTargetPosition(this.OldPosition + target);
+    }
+
+    public int getTargetPosition() {
+        return robot.hook.getCurrentPosition() - this.OldPosition;
+    }
+
+*/
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -106,6 +130,7 @@ public class Auton_Crater extends OpMode {
         int position = robot.hook.getCurrentPosition();
         telemetry.addData("Encoder Position", position);
         telemetry.addData("Target Position", robot.hook.getTargetPosition());
+       /* telemetry.addData("Current Position", getCurrentPosition()); */
 
         //Figure out tick count √
         //stop and reset encoders √
@@ -124,23 +149,11 @@ public class Auton_Crater extends OpMode {
         robot.BL.setTargetPosition(value);
         robot.BR.setTargetPosition(value);
 
-        //FORWARD*2
-        robot.FL.setTargetPosition(value*2);
-        robot.FR.setTargetPosition(value*2);
-        robot.BL.setTargetPosition(value*2);
-        robot.BR.setTargetPosition(value*2);
-
         //BACKWARD
         robot.FL.setTargetPosition(-value);
         robot.FR.setTargetPosition(-value);
         robot.BL.setTargetPosition(-value);
         robot.BR.setTargetPosition(-value);
-
-        //BACKWARD*2
-        robot.FL.setTargetPosition(-value*2);
-        robot.FR.setTargetPosition(-value*2);
-        robot.BL.setTargetPosition(-value*2);
-        robot.BR.setTargetPosition(-value*2);
 
         //RIGHTSTRAFE
         robot.FL.setTargetPosition(-value);
@@ -160,44 +173,22 @@ public class Auton_Crater extends OpMode {
         robot.BL.setTargetPosition(value);
         robot.BR.setTargetPosition(-value);
 
-        //RIGHTHALFTURN
-        robot.FL.setTargetPosition(value/2);
-        robot.FR.setTargetPosition(-value/2);
-        robot.BL.setTargetPosition(value/2);
-        robot.BR.setTargetPosition(-value/2);
-        //RIGHTQUARTERTURN
-        robot.FL.setTargetPosition(value/4);
-        robot.FR.setTargetPosition(-value/4);
-        robot.BL.setTargetPosition(value/4);
-        robot.BR.setTargetPosition(-value/4);
-
         //LEFTTURN
         robot.FL.setTargetPosition(-value);
         robot.FR.setTargetPosition(value);
         robot.BL.setTargetPosition(-value);
         robot.BR.setTargetPosition(value);
 
-        //LEFTHALFTURN
-        robot.FL.setTargetPosition(-value/2);
-        robot.FR.setTargetPosition(value/2);
-        robot.BL.setTargetPosition(-value/2);
-        robot.BR.setTargetPosition(value/2);
-
-        //LEFTQUARTERTURN
-        robot.FL.setTargetPosition(-value/4);
-        robot.FR.setTargetPosition(value/4);
-        robot.BL.setTargetPosition(-value/4);
-        robot.BR.setTargetPosition(value/4);
-
         //HOOK
         robot.hook.setTargetPosition(value);
         robot.hook.setTargetPosition(-value);
 
 */
+        
         switch (auto) {
             case 0:
 
-                robot.hook.setTargetPosition(value);
+                robot.hook.setTargetPosition(robot.hook.getCurrentPosition()+ value);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
                     robot.hook.setPower(1);
 
@@ -213,10 +204,10 @@ public class Auton_Crater extends OpMode {
                     robot.BL.setPower(1);
                     robot.BR.setPower(-1);
 
-                    robot.FL.setTargetPosition(value*4);
-                    robot.FR.setTargetPosition(value*4);
-                    robot.BL.setTargetPosition(value*4);
-                    robot.BR.setTargetPosition(value*4);
+                    robot.FL.setTargetPosition(robot.FL.getCurrentPosition()+value*4);
+                    robot.FR.setTargetPosition(robot.FR.getCurrentPosition()+value*4);
+                    robot.BL.setTargetPosition(robot.BL.getCurrentPosition()+value*4);
+                    robot.BR.setTargetPosition(robot.BR.getCurrentPosition()+value*4);
 
                 } else {
                     robot.FL.setPower(0);
@@ -241,10 +232,10 @@ public class Auton_Crater extends OpMode {
                     robot.BL.setPower(-1);
                     robot.BR.setPower(-1);
 
-                    robot.FL.setTargetPosition(value*10);
-                    robot.FR.setTargetPosition(value*10);
-                    robot.BL.setTargetPosition(value*10);
-                    robot.BR.setTargetPosition(value*10);
+                    robot.FL.setTargetPosition(robot.FL.getCurrentPosition()+value*10);
+                    robot.FR.setTargetPosition(robot.FR.getCurrentPosition()+value*10);
+                    robot.BL.setTargetPosition(robot.BL.getCurrentPosition()+value*10);
+                    robot.BR.setTargetPosition(robot.BR.getCurrentPosition()+value*10);
 
                 } else {
                     robot.FL.setPower(0);
