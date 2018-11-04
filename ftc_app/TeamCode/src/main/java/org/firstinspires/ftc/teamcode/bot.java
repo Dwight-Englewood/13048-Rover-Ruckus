@@ -248,16 +248,21 @@ public class bot {
     }
 
     public void setTarget(int targetDistance) {
-        int target = this.distanceToRevsNRO20(targetDistance);
+        int target = this.distanceToRevs(targetDistance);
         FL.setTargetPosition(FL.getCurrentPosition() + target);
         FR.setTargetPosition(FR.getCurrentPosition() + target);
         BL.setTargetPosition(BL.getCurrentPosition() + target);
         BR.setTargetPosition(BR.getCurrentPosition() + target);
     }
 
-    private int distanceToRevsNRO20(double distance) {
+    public void setHookTarget(int hookTargetDistance) {
+        int hookTarget = this.distanceToRevs(hookTargetDistance);
+        hook.setTargetPosition(hook.getCurrentPosition() + hookTarget);
+    }
+
+    private int distanceToRevs(double distance) {
         final double wheelCircumference = 31.9185813;
-        final double gearMotorTickThing = 280; //Neverest 40 = 280 Pulses per revolution
+        final double gearMotorTickThing = 1120; //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
         return (int) (gearMotorTickThing * (distance / wheelCircumference));
     }
 }

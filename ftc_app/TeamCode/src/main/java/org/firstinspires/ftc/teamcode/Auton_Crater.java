@@ -156,6 +156,7 @@ public class Auton_Crater extends OpMode {
 
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.hook.setPower(0.5);
+                robot.setHookTarget(10+10);
 
            /*       //  auto++;
                if(Math.abs(robot.hook.getCurrentPosition()) == Math.abs(position-value)){
@@ -168,9 +169,9 @@ public class Auton_Crater extends OpMode {
                 break;
 */
             case 1:
-                if(robot.FL.getCurrentPosition() <= 2) {
+                if(robot.FL.getCurrentPosition() <= 20) {
                     robot.drive(MovementEnum.RIGHTSTRAFE, 1);
-                    robot.setTarget(1 + 1);
+                    robot.setTarget(10 + 10);
 
                 } else {
                     robot.drive(MovementEnum.STOP, 0);
@@ -186,10 +187,10 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
-                if(robot.FL.getCurrentPosition() <= 12) {
+                if(robot.FL.getCurrentPosition() <= 30) {
                     robot.drive(MovementEnum.BACKWARD, -1);
 
-                    robot.setTarget(2 + 10);
+                    robot.setTarget(20 + 10);
 
                 } else {
                     robot.drive(MovementEnum.STOP, 0);
