@@ -148,15 +148,11 @@ public class Auton_Crater extends OpMode {
         //wait while isBusy()
         //Stop the motor
 
-        double TICK_COUNT = 1120;
-        double fullTurn = 1120;
-
         robot.hook.setTargetPosition(550);
 
         
         switch (auto) {
             case 0:
-
 
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.hook.setPower(0.5);
@@ -172,22 +168,12 @@ public class Auton_Crater extends OpMode {
                 break;
 */
             case 1:
-                if(robot.FL.getCurrentPosition() <= 1120*4) {
-                    robot.FL.setPower(-1);
-                    robot.FR.setPower(1);
-                    robot.BL.setPower(1);
-                    robot.BR.setPower(-1);
-
-                    robot.FL.setTargetPosition(robot.FL.getCurrentPosition()+value*4);
-                    robot.FR.setTargetPosition(robot.FR.getCurrentPosition()+value*4);
-                    robot.BL.setTargetPosition(robot.BL.getCurrentPosition()+value*4);
-                    robot.BR.setTargetPosition(robot.BR.getCurrentPosition()+value*4);
+                if(robot.FL.getCurrentPosition() <= 2) {
+                    robot.drive(MovementEnum.RIGHTSTRAFE, 1);
+                    robot.setTarget(1 + 1);
 
                 } else {
-                    robot.FL.setPower(0);
-                    robot.FR.setPower(0);
-                    robot.BL.setPower(0);
-                    robot.BR.setPower(0);
+                    robot.drive(MovementEnum.STOP, 0);
                 }
 
                 auto++;
@@ -200,22 +186,13 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
-                if(robot.FL.getCurrentPosition() <= 1120*10) {
-                    robot.FL.setPower(-1);
-                    robot.FR.setPower(-1);
-                    robot.BL.setPower(-1);
-                    robot.BR.setPower(-1);
+                if(robot.FL.getCurrentPosition() <= 12) {
+                    robot.drive(MovementEnum.BACKWARD, -1);
 
-                    robot.FL.setTargetPosition(robot.FL.getCurrentPosition()+value*10);
-                    robot.FR.setTargetPosition(robot.FR.getCurrentPosition()+value*10);
-                    robot.BL.setTargetPosition(robot.BL.getCurrentPosition()+value*10);
-                    robot.BR.setTargetPosition(robot.BR.getCurrentPosition()+value*10);
+                    robot.setTarget(2 + 10);
 
                 } else {
-                    robot.FL.setPower(0);
-                    robot.FR.setPower(0);
-                    robot.BL.setPower(0);
-                    robot.BR.setPower(0);
+                    robot.drive(MovementEnum.STOP, 0);
                 }
 
                 auto++;
