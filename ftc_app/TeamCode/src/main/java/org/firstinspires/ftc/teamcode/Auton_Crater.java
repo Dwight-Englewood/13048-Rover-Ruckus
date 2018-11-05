@@ -68,30 +68,9 @@ public class Auton_Crater extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
-   // int position = robot.hook.getCurrentPosition();
+    int currentPosition = robot.hook.getCurrentPosition();
+    int targetPosition = robot.hook.getTargetPosition();
     final int value = 1120;
-
-    /* public int CurrentPosition = 0;
-    public int OldPosition = 0;
-
-    public void setCurrentPosition(int position) {
-        this.CurrentPosition = position;
-        this.OldPosition = robot.hook.getCurrentPosition();
-    }
-
-    public int getCurrentPosition() {
-        return robot.hook.getCurrentPosition() - this.OldPosition;
-    }
-
-    public void setTargetPosition(int target) {
-        robot.hook.setTargetPosition(this.OldPosition + target);
-    }
-
-    public int getTargetPosition() {
-        return robot.hook.getCurrentPosition() - this.OldPosition;
-    }
-
-*/
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -108,7 +87,7 @@ public class Auton_Crater extends OpMode {
       //  robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
        // robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
       //  robot.hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      //  robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
@@ -136,9 +115,8 @@ public class Auton_Crater extends OpMode {
     public void loop() {
         robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-
-       /* telemetry.addData("Current Position", getCurrentPosition()); */
+        telemetry.addData("Current Position", currentPosition);
+        telemetry.addData("Target Position", targetPosition);
 
         //Figure out tick count √
         //stop and reset encoders √
@@ -169,9 +147,9 @@ public class Auton_Crater extends OpMode {
                 break;
 */
             case 1:
-                if(robot.FL.getCurrentPosition() <= 20) {
+                if(robot.FL.getCurrentPosition() <= 30) {
                     robot.drive(MovementEnum.RIGHTSTRAFE, 1);
-                    robot.setTarget(10 + 10);
+                    robot.setTarget(20 + 10);
 
                 } else {
                     robot.drive(MovementEnum.STOP, 0);
@@ -187,10 +165,10 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
-                if(robot.FL.getCurrentPosition() <= 30) {
+                if(robot.FL.getCurrentPosition() <= 40) {
                     robot.drive(MovementEnum.BACKWARD, -1);
 
-                    robot.setTarget(20 + 10);
+                    robot.setTarget(30 + 10);
 
                 } else {
                     robot.drive(MovementEnum.STOP, 0);
@@ -210,9 +188,14 @@ public class Auton_Crater extends OpMode {
             }
             break;
         }
-        telemetry.addData("Encoder Position", robot.hook.getCurrentPosition());
-        telemetry.addData("Target Position", robot.hook.getTargetPosition());
-    }
+
+        if(robot.hook.getCurrentPosition() <0 || robot.hook.getCurrentPosition() > 20000) {
+            telemetry.addData("Are Encoders Broken? Yes, yes they are. Position is ", robot.hook.getCurrentPosition());
+        } else {
+            telemetry.addData("Are Encoders Broken? They might not be. Position is ", robot.hook.getCurrentPosition());
+            }
+        }
+
 
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);

@@ -155,7 +155,7 @@ public class bot {
         BR.setPower(power);
     }
 
- /**   public void twoDrive(MovementEnum movement, double power){
+ /*   public void twoDrive(MovementEnum movement, double power){
         switch(movement){
             case FORWARD:
                 left.setPower(power);
@@ -184,7 +184,7 @@ public class bot {
         }
     }
 
-  **/
+  */
 
     //TODO fix the the driver values and restrict the motor values
     public void drive(MovementEnum movement, double power) {
