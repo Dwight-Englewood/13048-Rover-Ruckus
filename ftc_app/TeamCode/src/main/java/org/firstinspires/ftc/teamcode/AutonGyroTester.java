@@ -67,6 +67,7 @@ public class AutonGyroTester extends OpMode {
     public void loop() {
         switch (auto) {
 
+            //Time Function Socks
             case 0:
                 if (runtime.milliseconds() <= 6250) {
                     robot.hook.setPower(1.0);

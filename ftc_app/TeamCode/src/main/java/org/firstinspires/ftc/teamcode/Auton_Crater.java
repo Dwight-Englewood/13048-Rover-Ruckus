@@ -67,7 +67,7 @@ public class Auton_Crater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
-    int auto = 0;
+    int auto = -1;
     int currentPosition = robot.hook.getCurrentPosition();
     int targetPosition = robot.hook.getTargetPosition();
     final int value = 1120;
@@ -130,6 +130,12 @@ public class Auton_Crater extends OpMode {
 
         
         switch (auto) {
+
+            case -1:
+                robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                auto++;
+
             case 0:
 
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -189,12 +195,11 @@ public class Auton_Crater extends OpMode {
             break;
         }
 
-        if(robot.hook.getCurrentPosition() <0 || robot.hook.getCurrentPosition() > 20000) {
-            telemetry.addData("Are Encoders Broken? Yes, yes they are. Position is ", robot.hook.getCurrentPosition());
-        } else {
-            telemetry.addData("Are Encoders Broken? They might not be. Position is ", robot.hook.getCurrentPosition());
+            telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition());
+            telemetry.addData("Hook Target Position", robot.hook.getTargetPosition());
+            telemetry.addData("FL Current Position", robot.FL.getCurrentPosition());
+            telemetry.addData("FL Target Position", robot.FL.getTargetPosition());
             }
-        }
 
 
 

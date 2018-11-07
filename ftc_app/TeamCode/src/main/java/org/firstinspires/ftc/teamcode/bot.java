@@ -101,6 +101,7 @@ public class bot {
         BR.setMode(runMode);
         FL.setMode(runMode);
         FR.setMode(runMode);
+        hook.setMode(runMode);
 //        left.setMode(runMode);
 //        right.setMode(runMode);
 //        lift.setMode(runMode);
