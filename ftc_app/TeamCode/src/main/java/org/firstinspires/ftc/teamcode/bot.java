@@ -49,8 +49,8 @@ public class bot {
 
 //        left = this.map.get(DcMotor.class, "left");
 //        right = this.map.get(DcMotor.class, "right");
-        BL = this.map.get(DcMotor.class, "BL");
-        BR = this.map.get(DcMotor.class, "BR");
+         BR = this.map.get(DcMotor.class, "BR");
+         BL = this.map.get(DcMotor.class, "BL");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
 //        lift = this.map.get(DcMotor.class, "lift");

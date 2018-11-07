@@ -54,12 +54,17 @@ public class TeleOp extends OpMode {
     bot robot = new bot();
     int pos = 0;
     int extPos = 0;
+    int currentPosition;
+    int targetPosition;
 
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
 //      robot.resetServo();
         telemetry.addData("Status", "Initialized");
+        robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        currentPosition = robot.hook.getCurrentPosition();
+        targetPosition = robot.hook.getTargetPosition();
     }
 
     @Override
@@ -78,13 +83,12 @@ public class TeleOp extends OpMode {
      */
     @Override
     public void loop() {
-
 //        double leftPower = Range.clip(gamepad1.left_stick_y, -0.75,0.75);
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-
+        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //intake
 //        if(gamepad2.right_trigger > .3){
 //            robot.intake.setPower(1.0);
@@ -130,15 +134,18 @@ public class TeleOp extends OpMode {
         //hook
         if (gamepad1.a) {
             robot.hook.setPower(1.0);
+            robot.hook.setTargetPosition(10000);
+
         } else if (gamepad1.b) {
             robot.hook.setPower(-1.0);
+            robot.hook.setTargetPosition(0);
         }
         else{
             robot.hook.setPower(0);
         }
 
         if(gamepad1.right_bumper){
-            robot.hook.setPower(1.);
+            robot.hook.setPower(1);
         }
         else if (gamepad1.left_bumper){robot.hook.setPower(-1.0);}
         else{robot.hook.setPower(0);}

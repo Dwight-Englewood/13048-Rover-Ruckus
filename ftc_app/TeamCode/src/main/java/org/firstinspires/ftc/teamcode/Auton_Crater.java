@@ -66,29 +66,33 @@ public class Auton_Crater extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    bot robot = new bot();
+    //bot robot = new bot();
     int auto = -1;
-    int currentPosition = robot.hook.getCurrentPosition();
-    int targetPosition = robot.hook.getTargetPosition();
+    int currentPosition;
+    int targetPosition;
     final int value = 1120;
 
+    DcMotor hook;
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-        robot.init(hardwareMap, telemetry, false);
-        //robot.resetServo();
+        //init(hardwareMap, telemetry, false);
+        //resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    //    robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-     //   robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      //  robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-       // robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      //  robot.hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    //    FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+     //   BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hook = hardwareMap.get(DcMotor.class, "hook");
+        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        currentPosition = hook.getCurrentPosition();
+        targetPosition = hook.getTargetPosition();
 
     }
 
@@ -113,7 +117,7 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
-        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         telemetry.addData("Current Position", currentPosition);
         telemetry.addData("Target Position", targetPosition);
@@ -126,86 +130,92 @@ public class Auton_Crater extends OpMode {
         //wait while isBusy()
         //Stop the motor
 
-        robot.hook.setTargetPosition(550);
+        hook.setTargetPosition(20000);
 
         
         switch (auto) {
 
             case -1:
-                robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
 
             case 0:
 
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.hook.setPower(0.5);
-                robot.setHookTarget(10+10);
+                hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+                if(hook.getCurrentPosition() <= 20000) {
+                    hook.setPower(1);
+                    hook.setTargetPosition(20000);
+
+                } else {
+                    hook.setPower(0);
+                }
            /*       //  auto++;
-               if(Math.abs(robot.hook.getCurrentPosition()) == Math.abs(position-value)){
+               if(Math.abs(hook.getCurrentPosition()) == Math.abs(position-value)){
 
-                   robot.hook.setPower(0);
+                   hook.setPower(0);
                }
-               else{robot.hook.setPower(1);}
+               else{hook.setPower(1);}
               //  auto = 5;
 
                 break;
 */
-            case 1:
-                if(robot.FL.getCurrentPosition() <= 30) {
-                    robot.drive(MovementEnum.RIGHTSTRAFE, 1);
-                    robot.setTarget(20 + 10);
+            /*case 1:
+                if(FL.getCurrentPosition() <= 30) {
+                    drive(MovementEnum.RIGHTSTRAFE, 1);
+                    setTarget(20 + 10);
 
                 } else {
-                    robot.drive(MovementEnum.STOP, 0);
+                    drive(MovementEnum.STOP, 0);
                 }
 
                 auto++;
                 break;
 
-            case 2:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            /*case 2:
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto = 0;
                 break;
 
             case 3:
-                if(robot.FL.getCurrentPosition() <= 40) {
-                    robot.drive(MovementEnum.BACKWARD, -1);
+                if(FL.getCurrentPosition() <= 40) {
+                    hook.setPower(-1);
 
-                    robot.setTarget(30 + 10);
+                    hook.setTargetPosition(30 + 10);
 
                 } else {
-                    robot.drive(MovementEnum.STOP, 0);
+                    hook.setPower(0);
                 }
 
                 auto++;
                 break;
 
             case 4:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
                 break;
 
             default: {
-                robot.drive(MovementEnum.STOP, 0);
+                drive(MovementEnum.STOP, 0);
             }
-            break;
+            break;*/
         }
 
-            telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition());
-            telemetry.addData("Hook Target Position", robot.hook.getTargetPosition());
-            telemetry.addData("FL Current Position", robot.FL.getCurrentPosition());
-            telemetry.addData("FL Target Position", robot.FL.getTargetPosition());
+            telemetry.addData("Hook Current Position", hook.getCurrentPosition());
+            telemetry.addData("Hook Target Position", hook.getTargetPosition());
+            //telemetry.addData("FL Current Position", FL.getCurrentPosition());
+            //telemetry.addData("FL Target Position", FL.getTargetPosition());
+            telemetry.addData("Auto", auto);
             }
 
 
 
-//        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+//        telemetry.addData("degrees: ", gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
-//        robot.testServos(telemetry);
+//        testServos(telemetry);
 //        telemetry.update();
 //        telemetry.addData("Status", "Run Time: " + runtime.toString());
 //        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
