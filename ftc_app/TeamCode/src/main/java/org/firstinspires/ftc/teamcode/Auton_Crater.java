@@ -66,13 +66,14 @@ public class Auton_Crater extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    //bot robot = new bot();
+    bot robot = new bot();
     int auto = -1;
     int currentPosition;
     int targetPosition;
     final int value = 1120;
 
-    DcMotor hook;
+    static DcMotor BL, BR, FL, FR, hook;
+    HardwareMap map;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -82,15 +83,25 @@ public class Auton_Crater extends OpMode {
         //resetServo();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Status", "Initialized");
-        //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    //    FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-     //   BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      //  BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-       // FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      //  hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         hook = hardwareMap.get(DcMotor.class, "hook");
+        BR = hardwareMap.get(DcMotor.class, "BR");
+        BL = this.map.get(DcMotor.class, "BL");
+        FL = this.map.get(DcMotor.class, "FL");
+        FR = this.map.get(DcMotor.class, "FR");
+
+        robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
         currentPosition = hook.getCurrentPosition();
         targetPosition = hook.getTargetPosition();
 
@@ -129,16 +140,13 @@ public class Auton_Crater extends OpMode {
         //set to RUN_TO_POSITION
         //wait while isBusy()
         //Stop the motor
-
-        hook.setTargetPosition(20000);
-
         
         switch (auto) {
 
             case -1:
                 hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
                 auto++;
+                break;
 
             case 0:
 
@@ -151,57 +159,50 @@ public class Auton_Crater extends OpMode {
                 } else {
                     hook.setPower(0);
                 }
-           /*       //  auto++;
-               if(Math.abs(hook.getCurrentPosition()) == Math.abs(position-value)){
-
-                   hook.setPower(0);
-               }
-               else{hook.setPower(1);}
-              //  auto = 5;
-
+                auto++;
                 break;
-*/
-            /*case 1:
-                if(FL.getCurrentPosition() <= 30) {
-                    drive(MovementEnum.RIGHTSTRAFE, 1);
-                    setTarget(20 + 10);
+
+            case 1:
+                if(FL.getCurrentPosition() <= 3000) {
+                    robot.drive(MovementEnum.RIGHTSTRAFE, 1);
+                    robot.setTarget(3000);
 
                 } else {
-                    drive(MovementEnum.STOP, 0);
+                    robot.drive(MovementEnum.STOP, 0);
                 }
+                auto++;
+                break;
+
+            case 2:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
                 break;
 
-            /*case 2:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-                auto = 0;
-                break;
-
             case 3:
                 if(FL.getCurrentPosition() <= 40) {
-                    hook.setPower(-1);
+                    FL.setPower(-1);
 
-                    hook.setTargetPosition(30 + 10);
+                    FL.setTargetPosition(30 + 10);
 
                 } else {
-                    hook.setPower(0);
+                    FL.setPower(0);
                 }
 
                 auto++;
                 break;
 
             case 4:
-                hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 auto++;
                 break;
 
             default: {
-                drive(MovementEnum.STOP, 0);
+                robot.drive(MovementEnum.STOP, 0);
             }
-            break;*/
+
+            break;
         }
 
             telemetry.addData("Hook Current Position", hook.getCurrentPosition());
