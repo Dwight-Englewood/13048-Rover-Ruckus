@@ -100,8 +100,6 @@ public class Auton_Crater extends OpMode {
       //  hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-
         currentPosition = hook.getCurrentPosition();
         targetPosition = hook.getTargetPosition();
 
@@ -151,10 +149,9 @@ public class Auton_Crater extends OpMode {
             case 0:
 
                 hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(hook.getCurrentPosition() <= 20000) {
+                if(robot.hookCurrentPosition() <= 10) {
                     hook.setPower(1);
-                    hook.setTargetPosition(20000);
+                    robot.setHookTarget(10);
 
                 } else {
                     hook.setPower(0);
@@ -205,7 +202,8 @@ public class Auton_Crater extends OpMode {
             break;
         }
 
-            telemetry.addData("Hook Current Position", hook.getCurrentPosition());
+            telemetry.addData("Hook Revolutions Remaining", robot.revolutionsRemaining());
+            telemetry.addData("Hook Current Position", robot.hookCurrentPosition());
             telemetry.addData("Hook Target Position", hook.getTargetPosition());
             //telemetry.addData("FL Current Position", FL.getCurrentPosition());
             //telemetry.addData("FL Target Position", FL.getTargetPosition());

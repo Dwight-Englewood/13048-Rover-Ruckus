@@ -19,7 +19,6 @@ package org.firstinspires.ftc.teamcode;
         import java.util.*;
     import org.firstinspires.ftc.teamcode.MovementEnum;
 
-
 public class bot {
 
     //TODO add vex motor as a Servo for extension
@@ -261,9 +260,18 @@ public class bot {
         hook.setTargetPosition(hook.getCurrentPosition() + hookTarget);
     }
 
+    public int revolutionsRemaining() {
+        return (hook.getTargetPosition() - hook.getCurrentPosition());
+    }
+
+    public int hookCurrentPosition() {
+        int remainingRevolutions = this.revolutionsRemaining();
+        return (hook.getTargetPosition() - remainingRevolutions);
+    }
+
     private int distanceToRevs(double distance) {
         final double wheelCircumference = 31.9185813;
-        final double gearMotorTickThing = 1120; //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
+        final double gearMotorTickThing = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
         return (int) (gearMotorTickThing * (distance / wheelCircumference));
     }
 }
