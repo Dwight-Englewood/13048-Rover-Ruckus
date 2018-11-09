@@ -28,6 +28,7 @@ public class bot {
     // TODO change dump mechanism to a vex motor? 
     static DcMotor BL, BR, FL, FR, hook /*lift, intake, hook, hinge, left, right, extend */;
     Servo /*dump,*/ claw;
+    DigitalChannel limitSwitch;
     HardwareMap map;
     Telemetry tele;
 //    BNO055IMU.Parameters parameters;
@@ -60,7 +61,7 @@ public class bot {
 //        hinge = this.map.get(DcMotor.class, "hinge");
 //        intake = this.map.get(DcMotor.class, "intake");
 //        extend = this.map.get(DcMotor.class, "extend");
-
+        limitSwitch = this.map.get(DigitalChannel.class,"limit");
 //        dump = this.map.get(Servo.class,"dump");
         claw = this.map.get(Servo.class, "claw" );
 
@@ -75,7 +76,7 @@ public class bot {
 //        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
 //        extend.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        limitSwitch.setMode(DigitalChannel.Mode.INPUT);
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
 //        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -132,6 +133,25 @@ public class bot {
 //        right.setPower(rightStick);
 //
 //    }
+
+    public void notKevinDrive(double leftStick_y, double leftStick_x, double leftTrigger, double rightTrigger){
+        if (leftTrigger > .3) {
+            drive(MovementEnum.LEFTSTRAFE, leftTrigger );
+            return;
+        }
+        if (rightTrigger > .3) {
+            drive(MovementEnum.RIGHTSTRAFE, rightTrigger );
+            return;
+        }
+     //   leftStick *= i;
+   //     rightStick *= i;
+        FL.setPower(leftStick_y);
+        FR.setPower(leftStick_y);
+        BL.setPower(-leftStick_y);
+        BR.setPower(-leftStick_y);
+
+
+    }
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
         double i = invert ? -0.75:0.75;
         if (leftTrigger > .3) {
