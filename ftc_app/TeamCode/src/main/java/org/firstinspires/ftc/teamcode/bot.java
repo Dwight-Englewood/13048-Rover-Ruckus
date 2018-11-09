@@ -8,8 +8,11 @@ package org.firstinspires.ftc.teamcode;
     import com.qualcomm.hardware.bosch.BNO055IMU;
         import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
     import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+    import com.qualcomm.robotcore.hardware.GyroSensor;
+
     import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-        import com.qualcomm.robotcore.util.Range;
+    import com.qualcomm.robotcore.util.ElapsedTime;
+    import com.qualcomm.robotcore.util.Range;
         import com.qualcomm.robotcore.hardware.*;
         import org.firstinspires.ftc.robotcore.external.Telemetry;
         import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -48,6 +51,7 @@ public class bot {
 
 //        left = this.map.get(DcMotor.class, "left");
 //        right = this.map.get(DcMotor.class, "right");
+        hook = this.map.get(DcMotor.class, "hook");
          BR = this.map.get(DcMotor.class, "BR");
          BL = this.map.get(DcMotor.class, "BL");
         FL = this.map.get(DcMotor.class, "FL");
@@ -55,7 +59,6 @@ public class bot {
 //        lift = this.map.get(DcMotor.class, "lift");
 //        hinge = this.map.get(DcMotor.class, "hinge");
 //        intake = this.map.get(DcMotor.class, "intake");
-        hook = this.map.get(DcMotor.class, "hook");
 //        extend = this.map.get(DcMotor.class, "extend");
 
 //        dump = this.map.get(Servo.class,"dump");
@@ -249,29 +252,27 @@ public class bot {
 
     public void setTarget(int targetDistance) {
         int target = this.distanceToRevs(targetDistance);
-        FL.setTargetPosition(FL.getCurrentPosition() + target);
-        FR.setTargetPosition(FR.getCurrentPosition() + target);
-        BL.setTargetPosition(BL.getCurrentPosition() + target);
-        BR.setTargetPosition(BR.getCurrentPosition() + target);
+        FL.setTargetPosition(FL.getTargetPosition() / 1120);
+        FR.setTargetPosition(FR.getTargetPosition() / 1120);
+        BL.setTargetPosition(BL.getTargetPosition() / 1120);
+        BR.setTargetPosition(BR.getTargetPosition() / 1120);
     }
 
-    public void setHookTarget(int hookTargetDistance) {
-        int hookTarget = this.distanceToRevs(hookTargetDistance);
-        hook.setTargetPosition(hook.getCurrentPosition() + hookTarget);
+    public void setHookTarget(double hookTargetDistance) {
+        hook.setTargetPosition(hook.getTargetPosition() / 1120);
     }
 
     public int revolutionsRemaining() {
-        return (hook.getTargetPosition() - hook.getCurrentPosition());
+        return ((hook.getTargetPosition() - hook.getCurrentPosition()) / 1120);
     }
 
     public int hookCurrentPosition() {
-        int remainingRevolutions = this.revolutionsRemaining();
-        return (hook.getTargetPosition() - remainingRevolutions);
+        return (hook.getCurrentPosition() / 1120);
     }
 
     private int distanceToRevs(double distance) {
         final double wheelCircumference = 31.9185813;
-        final double gearMotorTickThing = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
-        return (int) (gearMotorTickThing * (distance / wheelCircumference));
+        final double gearMotorTickCount = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
+        return (int) (gearMotorTickCount * (distance / wheelCircumference));
     }
-}
+    }

@@ -65,6 +65,7 @@ public class TeleOp extends OpMode {
         robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         currentPosition = robot.hook.getCurrentPosition();
         targetPosition = robot.hook.getTargetPosition();
+        telemetry.addData("Hook Power", robot.hook.getPower());
     }
 
     @Override
@@ -88,7 +89,6 @@ public class TeleOp extends OpMode {
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-        robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //intake
 //        if(gamepad2.right_trigger > .3){
 //            robot.intake.setPower(1.0);
@@ -134,11 +134,9 @@ public class TeleOp extends OpMode {
         //hook
         if (gamepad1.a) {
             robot.hook.setPower(1.0);
-            robot.hook.setTargetPosition(10000);
 
         } else if (gamepad1.b) {
             robot.hook.setPower(-1.0);
-            robot.hook.setTargetPosition(0);
         }
         else{
             robot.hook.setPower(0);
@@ -147,7 +145,9 @@ public class TeleOp extends OpMode {
         if(gamepad1.right_bumper){
             robot.hook.setPower(1);
         }
+
         else if (gamepad1.left_bumper){robot.hook.setPower(-1.0);}
+
         else{robot.hook.setPower(0);}
 //
 //        //extend
