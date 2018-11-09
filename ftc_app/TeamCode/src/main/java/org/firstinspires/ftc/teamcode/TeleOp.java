@@ -62,9 +62,7 @@ public class TeleOp extends OpMode {
         robot.init(hardwareMap, telemetry, false);
 //      robot.resetServo();
         telemetry.addData("Status", "Initialized");
-        robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        currentPosition = robot.hook.getCurrentPosition();
-        targetPosition = robot.hook.getTargetPosition();
+
         telemetry.addData("Hook Power", robot.hook.getPower());
     }
 
@@ -119,7 +117,7 @@ public class TeleOp extends OpMode {
 //            robot.dump.setPosition(0);
 //        }
 
-       // robot.dump.setPosition(pos);
+        // robot.dump.setPosition(pos);
 
         //lift
         //Change direction
@@ -137,18 +135,20 @@ public class TeleOp extends OpMode {
 
         } else if (gamepad1.b) {
             robot.hook.setPower(-1.0);
-        }
-        else{
+        } else {
             robot.hook.setPower(0);
         }
 
-        if(gamepad1.right_bumper){
+        if(gamepad1.left_bumper) {
+            robot.hook.setPower(0);
+
+        } else if (gamepad1.right_bumper) {
             robot.hook.setPower(1);
         }
 
-        else if (gamepad1.left_bumper){robot.hook.setPower(-1.0);}
+       // else if (gamepad1.left_bumper){robot.hook.setPower(-1.0);}
 
-        else{robot.hook.setPower(0);}
+       // else{robot.hook.setPower(0);}
 //
 //        //extend
 //        if(gamepad2.x){
