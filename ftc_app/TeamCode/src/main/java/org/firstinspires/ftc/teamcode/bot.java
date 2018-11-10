@@ -37,6 +37,9 @@ public class bot {
 //    ModernRoboticsI2cColorSensor colorSensor;
     //Double turnSpeed = 0.5;
     //Integer angle = -45;
+static BNO055IMU gyro;
+    BNO055IMU.Parameters parameters;
+    Orientation angles;
 
     //Gyroscope gyro;
     //Static Gyro QLEFTTURN, QRIGHTTURN;
@@ -78,6 +81,14 @@ public class bot {
 //        extend.setDirection(DcMotorSimple.Direction.REVERSE);
         limitSwitch.setMode(DigitalChannel.Mode.INPUT);
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        gyro = map.get(BNO055IMU.class, "gyro");
+        gyro.initialize(parameters);
+        tele.addData(">","Gyro Calibrating. Do Not move!");
+        tele.update();
 //        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -92,12 +103,7 @@ public class bot {
 //       left.setPower(0);
 //       right.setPower(0);
     }
-    //public void gyroTurn(double turnSpeed, int angle) {
-       // QLEFTTURN.setPower(turnSpeed);
-       // QLEFTTURN.setAngle(angle);
-      //  QRIGHTTURN.setPower(turnSpeed);
-      //  QRIGHTTURN.setAngle(angle);
- //   }
+
 
     public void changeRunMode(DcMotor.RunMode runMode){
         BL.setMode(runMode);
@@ -365,4 +371,28 @@ public class bot {
             FL.getCurrentPosition();
             return (FL.getCurrentPosition() / 1120);
         }
+    public boolean adjustHeading(int targetHeading) {
+        double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (Math.abs(Math.abs(targetHeading) - Math.abs(curHeading)) < .5) {
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+            return true;
+        }
+        double headingError;
+        if (targetHeading == 0) {
+            headingError = curHeading < 0 ? targetHeading + curHeading : Math.abs(targetHeading + curHeading);
+        }
+        else
+            headingError = targetHeading + curHeading;
+        double  driveScale = headingError * powerModifier;
+        if (Math.abs(driveScale) < .06) {
+            driveScale = .06 * (driveScale < 0 ? -1 : 1);
+        }
+        Range.clip(driveScale, -1, 1);
+        turn(driveScale);
+        return false;
+
     }
+}
