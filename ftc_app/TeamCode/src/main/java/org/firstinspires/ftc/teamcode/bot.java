@@ -209,6 +209,59 @@ public class bot {
 
   */
 
+    public void autonDrive(MovementEnum movement, int target) {
+        switch (movement) {
+            case FORWARD:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(target);
+                break;
+
+            case BACKWARD:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case LEFTSTRAFE:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case RIGHTSTRAFE:
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(target);
+                break;
+
+            case LEFTTURN:
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(target);
+                break;
+
+            case RIGHTTURN:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case STOP:
+                FL.setTargetPosition(FL.getCurrentPosition());
+                FR.setTargetPosition(FR.getCurrentPosition());
+                BL.setTargetPosition(BL.getCurrentPosition());
+                BR.setTargetPosition(BR.getCurrentPosition());
+                break;
+        }
+    }
+
     //TODO fix the the driver values and restrict the motor values
     public void drive(MovementEnum movement, double power) {
         switch (movement) {
@@ -278,21 +331,38 @@ public class bot {
         BR.setTargetPosition(BR.getTargetPosition() / 1120);
     }
 
-    public void setHookTarget(double hookTargetDistance) {
-        hook.setTargetPosition(hook.getTargetPosition() / 1120);
+    public void getDrivePosition() {
+        FL.getCurrentPosition();
+        FR.getCurrentPosition();
+        BL.getCurrentPosition();
+        BR.getCurrentPosition();
     }
 
-    public int revolutionsRemaining() {
-        return ((hook.getTargetPosition() - hook.getCurrentPosition()) / 1120);
+    public int hookTarget() {
+        hook.setTargetPosition(19040);
+        double hookDistance = (hook.getTargetPosition() / 1120);
+        return (int) (hookDistance);
     }
 
     public int hookCurrentPosition() {
+        hook.getTargetPosition();
         return (hook.getCurrentPosition() / 1120);
+    }
+
+    public int hookRevolutionsRemaining() {
+        hook.getTargetPosition();
+        hook.getCurrentPosition();
+        return ((hook.getTargetPosition() - hook.getCurrentPosition()) / 1120);
     }
 
     private int distanceToRevs(double distance) {
         final double wheelCircumference = 31.9185813;
         final double gearMotorTickCount = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
         return (int) (gearMotorTickCount * (distance / wheelCircumference));
-    }
+        }
+
+        public int flEncoderValue() {
+            FL.getCurrentPosition();
+            return (FL.getCurrentPosition() / 1120);
+        }
     }

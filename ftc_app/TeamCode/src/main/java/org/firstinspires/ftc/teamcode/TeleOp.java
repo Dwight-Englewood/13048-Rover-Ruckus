@@ -128,9 +128,9 @@ public class TeleOp extends OpMode {
 //        } else {
 //            robot.lift.setPower(0);
 //        }
-        if(robot.limitSwitch.getState() == false){
-            robot.hook.setPower(0);
-        }
+//        if(robot.limitSwitch.getState() == false){
+ //           robot.hook.setPower(0);
+  //      }
         //hook
         if (gamepad1.a) {
             robot.hook.setPower(1.0);
