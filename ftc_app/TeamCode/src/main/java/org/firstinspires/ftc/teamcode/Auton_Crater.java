@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.renderscript.Sampler;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -41,10 +42,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+
 import org.firstinspires.ftc.robotcore.internal.android.dx.ssa.DomFront;
 import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -64,12 +71,19 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 //@Disabled
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.
+    static BNO055IMU gyro;
+    BNO055IMU.Parameters parameters;
+
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
     int currentPosition;
     int targetPosition;
+
+
+
+
 
     final int value = 1120;
 
@@ -204,8 +218,9 @@ public class Auton_Crater extends OpMode {
 
             case 7:
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                
-                telemetry.update();
+                if(!robot.adjustHeading(45));
+                    auto = -1;
+
                 break;
 
             default: {
