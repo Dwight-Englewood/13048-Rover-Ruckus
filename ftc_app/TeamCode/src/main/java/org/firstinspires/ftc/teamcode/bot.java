@@ -5,10 +5,11 @@ package org.firstinspires.ftc.teamcode;
  */
     import android.text.StaticLayout;
 
-    import com.qualcomm.hardware.bosch.BNO055IMU;
         import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
     import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
     import com.qualcomm.robotcore.hardware.GyroSensor;
+    import com.qualcomm.robotcore.hardware.Gyroscope;
+    import com.qualcomm.hardware.bosch.BNO055IMU;
 
     import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
     import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,21 +32,14 @@ public class bot {
     DigitalChannel limitSwitch;
     HardwareMap map;
     Telemetry tele;
-//    BNO055IMU.Parameters parameters;
-//    Orientation angles;
+
     Double powerModifier = 0.02;
-//    ModernRoboticsI2cColorSensor colorSensor;
+    double turnSpeed = 0.25;
     //Double turnSpeed = 0.5;
     //Integer angle = -45;
 static BNO055IMU gyro;
     BNO055IMU.Parameters parameters;
     Orientation angles;
-
-    //Gyroscope gyro;
-    //Static Gyro QLEFTTURN, QRIGHTTURN;
-    //boolean isStopRequested;
-    //int sleep;
-    //boolean idle;
 
     public bot() {}
 
@@ -85,7 +79,7 @@ static BNO055IMU gyro;
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-        gyro = map.get(BNO055IMU.class, "gyro");
+        gyro = this.map.get(BNO055IMU.class, "gyro");
         gyro.initialize(parameters);
         tele.addData(">","Gyro Calibrating. Do Not move!");
         tele.update();
@@ -225,22 +219,22 @@ static BNO055IMU gyro;
                 break;
 
             case BACKWARD:
-                FL.setTargetPosition(target);
-                FR.setTargetPosition(target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(-target);
                 BL.setTargetPosition(-target);
                 BR.setTargetPosition(-target);
                 break;
 
             case LEFTSTRAFE:
-                FL.setTargetPosition(target);
-                FR.setTargetPosition(-target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
                 BL.setTargetPosition(target);
                 BR.setTargetPosition(-target);
                 break;
 
             case RIGHTSTRAFE:
-                FL.setTargetPosition(-target);
-                FR.setTargetPosition(target);
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
                 BL.setTargetPosition(-target);
                 BR.setTargetPosition(target);
                 break;
@@ -248,7 +242,7 @@ static BNO055IMU gyro;
             case LEFTTURN:
                 FL.setTargetPosition(-target);
                 FR.setTargetPosition(target);
-                BL.setTargetPosition(target);
+                BL.setTargetPosition(-target);
                 BR.setTargetPosition(target);
                 break;
 
@@ -323,8 +317,8 @@ static BNO055IMU gyro;
     }
 
     public void turn(double in){
-        BL.setPower(-in);
-        BR.setPower(in);
+        BL.setPower(in);
+        BR.setPower(-in);
         FR.setPower(-in);
         FL.setPower(in);
     }
@@ -367,10 +361,6 @@ static BNO055IMU gyro;
         return (int) (gearMotorTickCount * (distance / wheelCircumference));
         }
 
-        public int flEncoderValue() {
-            FL.getCurrentPosition();
-            return (FL.getCurrentPosition() / 1120);
-        }
     public boolean adjustHeading(int targetHeading) {
         double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         if (Math.abs(Math.abs(targetHeading) - Math.abs(curHeading)) < .5) {

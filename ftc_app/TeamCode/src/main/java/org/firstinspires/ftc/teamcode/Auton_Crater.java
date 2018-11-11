@@ -32,26 +32,26 @@ package org.firstinspires.ftc.teamcode;
 import android.renderscript.Sampler;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
-
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.internal.android.dx.ssa.DomFront;
 import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -71,21 +71,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 //@Disabled
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.
-    static BNO055IMU gyro;
-    BNO055IMU.Parameters parameters;
-
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
     int auto = 0;
-    int currentPosition;
-    int targetPosition;
-
-
-
-
-
-    final int value = 1120;
+    int turned = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -93,25 +83,23 @@ public class Auton_Crater extends OpMode {
     @Override
 
     public void init() {
-        //init(hardwareMap, telemetry, false);
-        //resetServo();
-        telemetry.addData("Status", "Initialized");
-        telemetry.addData("Status", "Initialized");
 
-        robot.hook = hardwareMap.get(DcMotor.class, "hook");
-        robot.FL = hardwareMap.get(DcMotor.class, "hook");
-        robot.BL = hardwareMap.get(DcMotor.class, "hook");
-        robot.BR = hardwareMap.get(DcMotor.class, "hook");
-        robot.FR = hardwareMap.get(DcMotor.class, "hook");
+        robot.init(hardwareMap, telemetry, false);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
-        robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //  hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
@@ -137,32 +125,25 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
-        robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         switch (auto) {
-
+            //FL AND FR HAVE REVERSED POWERS
             case 0:
-                robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
             case 1:
-
+                robot.hook.setTargetPosition(19040);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.hookCurrentPosition() < 18) {
-                    robot.hook.setPower(1);
+                robot.hook.setPower(1);
 
-                    robot.hookTarget();
-
-                } else if(robot.hookCurrentPosition() >= 18) {
+                if(robot.hook.getCurrentPosition() >= 19040){
                     robot.hook.setPower(0);
+                    robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     auto++;
-
-                } else {
-                    robot.hook.setPower(0);
-                    auto++;
+                    telemetry.update();
                 }
-                telemetry.update();
                 break;
 
             case 2:
@@ -172,20 +153,15 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
-                if(robot.flEncoderValue() <= 5) {
-                    robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    robot.autonDrive(MovementEnum.LEFTSTRAFE, 200);
-                    robot.setTarget(0);
+                robot.autonDrive(MovementEnum.BACKWARD, 1120);
+                robot.setPower(0.5);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                }else if(robot.flEncoderValue() >= 5){
-                    robot.autonDrive(MovementEnum.STOP, 0);
-               //     auto++;
-
-                } else {
-                    robot.autonDrive(MovementEnum.STOP, 0);
-             //       auto++;
+                if(robot.FL.getCurrentPosition() <= -1120){
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
                 }
-                telemetry.update();
                 break;
 
             case 4:
@@ -194,33 +170,87 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 5:
+                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120);
+                robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.flEncoderValue() <= -5) {
-                    robot.setPower(-1);
 
-                    robot.autonDrive(MovementEnum.BACKWARD, 20);
-
-                } else if (robot.flEncoderValue() > -5){
-                    robot.setPower(0);
-                    auto++;
-
-                } else {
-                    robot.setPower(0);
+                if(robot.FL.getCurrentPosition() >= 1120) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
                     auto++;
                 }
+                break;
+
+                case 6:
+                telemetry.addData("Case 6 Gyro: ", Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle));
                 telemetry.update();
-                break;
+                robot.adjustHeading(-90);
+                turned = 90;
+                if(Math.abs(-45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5) {
+                    robot.turn(0.0);
+                    auto++;
+                    runtime.reset();
+                    break;
+            }
 
-            case 6:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
+  auto++;
+  break;
             case 7:
+   /*             robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120);
+                robot.setPower(0.25);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(!robot.adjustHeading(45));
-                    auto = -1;
 
+                if(robot.FL.getCurrentPosition() >= 1120) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+*/
+                telemetry.addData("Case 7 Gyro: ", Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle));
+                telemetry.update();
+                robot.adjustHeading(90);
+                if(Math.abs(-90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5) {
+                    robot.turn(0.0);
+                    auto++;
+                    runtime.reset();
+                    break;
+                }
+/*
+                if (!robot.adjustHeading(90)){
+                    robot.turn(0);
+                    auto++;
+                    break;
+                }
+*/
+            case 8:
+                if(turned != 0){
+                    robot.adjustHeading(90);
+                    if(-90 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                        auto++;
+                        runtime.reset();
+                        break;
+                    }
+                }
+
+   auto++;
+   break;
+            case 9:
+                robot.autonDrive(MovementEnum.FORWARD, 1120);;
+                robot.setPower(0.5);
+
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FL.getCurrentPosition() >= 1120) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 10:
+
+                robot.claw.setPosition(1);
                 break;
 
             default: {
@@ -230,23 +260,18 @@ public class Auton_Crater extends OpMode {
             break;
         }
 
-        telemetry.addData("Hook Current Position", robot.hookCurrentPosition());
-        telemetry.addData("Hook Target Position", robot.hookTarget());
-        telemetry.addData("Hook Revo Remaining", robot.hookRevolutionsRemaining());
+        telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
+        telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));
+        telemetry.addData("Hook Target Position", robot.hook.getTargetPosition() / 1120);
+
+        telemetry.addData("FL Power", robot.FL.getPower());
+        telemetry.addData("FR Power", robot.FR.getPower());
+        telemetry.addData("BL Power", robot.BL.getPower());
+        telemetry.addData("BR Power", robot.BR.getPower());
 
         telemetry.addData("FL Position", robot.FL.getCurrentPosition());
-        telemetry.addData("FR Position", robot.FR.getCurrentPosition());
-        telemetry.addData("BL Position", robot.BL.getCurrentPosition());
+        telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
 
-        telemetry.addData("BR Position", robot.BR.getCurrentPosition());
-
-        telemetry.addData("Fl Target", robot.FL.getTargetPosition());
-        telemetry.addData("FR Target", robot.FR.getTargetPosition());
-        telemetry.addData("BL Target", robot.BL.getTargetPosition());
-        telemetry.addData("BR Target", robot.BR.getTargetPosition());
-
-        //telemetry.addData("FL Current Position", FL.getCurrentPosition());
-        //telemetry.addData("FL Target Position", FL.getTargetPosition());
         telemetry.addData("Auto", auto);
     }
 
