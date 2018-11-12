@@ -29,17 +29,31 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.renderscript.Sampler;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.internal.android.dx.ssa.DomFront;
 import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameManager;
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import org.firstinspires.ftc.teamcode.GyroCalibration;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -55,23 +69,41 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Autonomous", group="Iterative Opmode")
+@Autonomous(name="Auton_TeamMarker", group="Iterative Opmode")
 //@Disabled
 public class Auton_TeamMarker extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private DigitalChannel DigChannel;
     bot robot = new bot();
-    int auto = 0;
+    int auto = 10;
+    int turned = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
+
     public void init() {
+
         robot.init(hardwareMap, telemetry, false);
-        //robot.resetServo();
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     /*
@@ -87,6 +119,7 @@ public class Auton_TeamMarker extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+
     }
 
     /*
@@ -94,77 +127,191 @@ public class Auton_TeamMarker extends OpMode {
      */
     @Override
     public void loop() {
+
         switch (auto) {
+            //FL AND FR HAVE REVERSED POWERS
 
             case 0:
-                if (runtime.milliseconds() <= 6250) {
-                    robot.hook.setPower(1.0);
-                } else if (runtime.milliseconds() > 6250) {
-                    robot.hook.setPower(0);
-                 //   auto++;
-                } else {
-                    robot.hook.setPower(0);
-                 //   auto++;
-                }
-
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
                 break;
 
             case 1:
-                if (runtime.milliseconds() <= 7500 && runtime.milliseconds() > 6500) {
-                    robot.drive(MovementEnum.FORWARD, 0.5);
+                robot.hook.setTargetPosition(19040);
+                robot.hook.setPower(1);
+                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.hook.getCurrentPosition() >= 19040){
+                    robot.hook.setPower(0);
+                    robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    telemetry.update();
+                    auto++;
                 }
-                else if(runtime.milliseconds() > 7500) {
-                    robot.drive(MovementEnum.STOP, 0.0);
-                }
-                //auto++;
                 break;
 
             case 2:
-                // if (runtime.milliseconds() >= 12000) {
-                //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
-                if (runtime.milliseconds() > 7000) {
-                    robot.drive(MovementEnum.RIGHTTURN, 0.65);
-                }
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
             case 3:
-                if (runtime.milliseconds() > 9000) {
-                    robot.drive(MovementEnum.FORWARD, 1);
+                robot.autonDrive(MovementEnum.BACKWARD, 560);
+                robot.setPower(0.5);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.BR.getCurrentPosition() <= -560){
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
                 }
-                auto++;
                 break;
 
             case 4:
-                if (runtime.milliseconds() > 11000) {
-                    robot.claw.setPosition(1);
-                }
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
             case 5:
-                if (runtime.milliseconds() > 13000) {
-                    robot.drive(MovementEnum.BACKWARD, 1);
+                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120);
+                robot.setPower(0.5);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FL.getCurrentPosition() >= 1120) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
                 }
                 break;
 
-             default: {
-             robot.drive(MovementEnum.STOP, 0);
+            case 6:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
 
-             }
-             break;
-             //if gold color (RGB value) is detected return value. G
-             // Go forward,  go backwards, and turn left.
-             // Go forward until distance to wall is 6 inches.
-             // Turn 45 degrees, and go forward.
-             // Drop the team marker, then back up into the crater.
+            case 7:
+                //90 degree left turn
+      /*          int gyroVal = (int)robot.getGyroRotation(AngleUnit.DEGREES);
+                robot.gyroCorrect(90, 1, gyroVal, .05, .3);
+                if (robot.FL.getPower() == 0) {
+                    runtime.reset();
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+*/
+
+                robot.autonDrive(MovementEnum.LEFTTURN, 2364);;
+                robot.setPower(1);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FR.getCurrentPosition() >= 1120) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 8:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+
+            case 9:
+                robot.autonDrive(MovementEnum.BACKWARD, 2240);
+                robot.setPower(0.5);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.BR.getCurrentPosition() <= -2240){
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 10:
+                robot.claw.setPosition(0);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 11:
+                //45 degrees left turn
+     /*           gyroVal = (int)robot.getGyroRotation(AngleUnit.DEGREES);
+                robot.gyroCorrect(45, 1, gyroVal, .05, .3);
+                if (robot.FL.getPower() == 0) {
+                    runtime.reset();
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+*/
+            robot.autonDrive(MovementEnum.LEFTTURN, 1182);;
+            robot.setPower(1);
+            robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            if(robot.FR.getCurrentPosition() >= 1120) {
+                robot.drive(MovementEnum.STOP, 0);
+                robot.claw.setPosition(0);
+                telemetry.update();
+                auto++;
+            }
+
+            break;
+
+            case 12:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 13 :
+                robot.autonDrive(MovementEnum.FORWARD, 8960);
+                robot.setPower(1);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FR.getCurrentPosition() >= 4480) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0);
+                    telemetry.update();
+                    //          auto++;
+                }
+                break;
+
+            default: {
+                robot.drive(MovementEnum.STOP, 0);
+            }
+
+            break;
         }
 
+        telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
+        telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));
+        telemetry.addData("Hook Target Position", robot.hook.getTargetPosition() / 1120);
+
+        telemetry.addData("FL Power", robot.FL.getPower());
+        telemetry.addData("FR Power", robot.FR.getPower());
+        telemetry.addData("BL Power", robot.BL.getPower());
+        telemetry.addData("BR Power", robot.BR.getPower());
+
+        telemetry.addData("FL Position", robot.FL.getCurrentPosition());
+        telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
+
+        telemetry.addData("Gyro Degrees ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+
+        telemetry.addData("Auto", auto);
     }
 
-//        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+    /*
+     * @param gyroTarget The target heading in degrees, between 0 and 360
+     * @param gyroRange The acceptable range off target in degrees, usually 1 or 2
+     * @param gyroActual The current heading in degrees, between 0 and 360
+     * @param minSpeed The minimum power to apply in order to turn (e.g. 0.05 when moving or 0.15 when stopped)
+     * @param addSpeed The maximum additional speed to apply in order to turn (proportional component), e.g. 0.3
+     */
+
 //        telemetry.update();
-//        robot.testServos(telemetry);
+//        testServos(telemetry);
 //        telemetry.update();
 //        telemetry.addData("Status", "Run Time: " + runtime.toString());
 //        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

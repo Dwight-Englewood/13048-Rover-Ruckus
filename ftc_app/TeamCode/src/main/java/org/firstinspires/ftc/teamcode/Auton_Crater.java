@@ -53,6 +53,8 @@ import org.firstinspires.ftc.robotcore.internal.network.ControlHubDeviceNameMana
 import org.firstinspires.ftc.teamcode.bot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import org.firstinspires.ftc.teamcode.GyroCalibration;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -74,7 +76,7 @@ public class Auton_Crater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
-    int auto = 0;
+    int auto = 8;
     int turned = 0;
 
     /*
@@ -128,6 +130,7 @@ public class Auton_Crater extends OpMode {
 
         switch (auto) {
             //FL AND FR HAVE REVERSED POWERS
+
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
@@ -135,29 +138,28 @@ public class Auton_Crater extends OpMode {
 
             case 1:
                 robot.hook.setTargetPosition(19040);
-                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.hook.setPower(1);
+                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.hook.getCurrentPosition() >= 19040){
                     robot.hook.setPower(0);
                     robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    auto++;
                     telemetry.update();
+                    auto++;
                 }
                 break;
 
             case 2:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
-
                 break;
 
             case 3:
-                robot.autonDrive(MovementEnum.BACKWARD, 1120);
+                robot.autonDrive(MovementEnum.BACKWARD, 560);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FL.getCurrentPosition() <= -1120){
+                if(robot.BR.getCurrentPosition() <= -560){
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -181,23 +183,14 @@ public class Auton_Crater extends OpMode {
                 }
                 break;
 
-                case 6:
-                telemetry.addData("Case 6 Gyro: ", Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle));
-                telemetry.update();
-                robot.adjustHeading(-90);
-                turned = 90;
-                if(Math.abs(-45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5) {
-                    robot.turn(0.0);
-                    auto++;
-                    runtime.reset();
-                    break;
-            }
+            case 6:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
 
-  auto++;
-  break;
             case 7:
-   /*             robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120);
-                robot.setPower(0.25);
+                robot.autonDrive(MovementEnum.FORWARD, 1120);
+                robot.setPower(0.75);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.FL.getCurrentPosition() >= 1120) {
@@ -206,52 +199,65 @@ public class Auton_Crater extends OpMode {
                     auto++;
                 }
                 break;
-*/
-                telemetry.addData("Case 7 Gyro: ", Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle));
-                telemetry.update();
-                robot.adjustHeading(90);
-                if(Math.abs(-90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5) {
-                    robot.turn(0.0);
-                    auto++;
-                    runtime.reset();
-                    break;
-                }
-/*
-                if (!robot.adjustHeading(90)){
-                    robot.turn(0);
-                    auto++;
-                    break;
-                }
-*/
+
             case 8:
-                if(turned != 0){
-                    robot.adjustHeading(90);
-                    if(-90 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
-                        auto++;
-                        runtime.reset();
-                        break;
-                    }
-                }
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
 
-   auto++;
-   break;
+
             case 9:
-                robot.autonDrive(MovementEnum.FORWARD, 1120);;
-                robot.setPower(0.5);
-
+               /* 135 degrees right turn
+                int gyroVal = (int)robot.getGyroRotation(AngleUnit.DEGREES);
+                robot.gyroCorrect(-135, 1, gyroVal, .05, .3);
+                if (robot.FL.getPower() == 0) {
+                    runtime.reset();
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+*/
+                robot.autonDrive(MovementEnum.RIGHTTURN, 3546);
+                robot.setPower(1);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FL.getCurrentPosition() >= 1120) {
+                if(robot.FL.getCurrentPosition() >= 3360) {
                     robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 10:
-
-                robot.claw.setPosition(1);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
                 break;
+
+            case 11 :
+                robot.autonDrive(MovementEnum.BACKWARD, 2240);;
+                robot.setPower(1);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FL.getCurrentPosition() >= 2240) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 12:
+                robot.claw.setPosition(1.0);
+                auto++;
+                break;
+
+            case 13:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 14:
 
             default: {
                 robot.drive(MovementEnum.STOP, 0);
@@ -272,12 +278,19 @@ public class Auton_Crater extends OpMode {
         telemetry.addData("FL Position", robot.FL.getCurrentPosition());
         telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
 
+        telemetry.addData("Gyro Degrees ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+
         telemetry.addData("Auto", auto);
     }
 
+    /*
+     * @param gyroTarget The target heading in degrees, between 0 and 360
+     * @param gyroRange The acceptable range off target in degrees, usually 1 or 2
+     * @param gyroActual The current heading in degrees, between 0 and 360
+     * @param minSpeed The minimum power to apply in order to turn (e.g. 0.05 when moving or 0.15 when stopped)
+     * @param addSpeed The maximum additional speed to apply in order to turn (proportional component), e.g. 0.3
+     */
 
-
-//        telemetry.addData("degrees: ", gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
 //        testServos(telemetry);
 //        telemetry.update();

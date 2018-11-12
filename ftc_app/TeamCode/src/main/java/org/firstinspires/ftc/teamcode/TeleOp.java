@@ -64,6 +64,7 @@ public class TeleOp extends OpMode {
         telemetry.addData("Status", "Initialized");
 
         telemetry.addData("Hook Power", robot.hook.getPower());
+        telemetry.addData("Claw Position", robot.claw.getPosition());
     }
 
     @Override
@@ -74,7 +75,7 @@ public class TeleOp extends OpMode {
     public void start() {
         timer.reset();
 //        robot.dump.setPosition(0.0);
-        robot.claw.setPosition(0.0);
+  //      robot.claw.setPosition(0.0);
     }
 
     /*
@@ -163,11 +164,12 @@ public class TeleOp extends OpMode {
 //            robot.extend.setPower(0);
 //        }
 
-        if(gamepad1.x){
-            robot.claw.setPosition(0.0);
-        }
-        else if (gamepad1.y){
+        if(gamepad2.a){
             robot.claw.setPosition(1.0);
+        }
+
+        else if (gamepad2.b){
+            robot.claw.setPosition(0.0);
         }
 /*
         if(gamepad2.x){
