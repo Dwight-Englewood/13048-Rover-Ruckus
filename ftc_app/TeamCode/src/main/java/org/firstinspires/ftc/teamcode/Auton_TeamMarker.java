@@ -40,6 +40,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -76,7 +77,7 @@ public class Auton_TeamMarker extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
-    int auto = 10;
+    int auto = 0;
     int turned = 0;
 
     /*
@@ -137,11 +138,11 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 1:
-                robot.hook.setTargetPosition(19040);
+                robot.hook.setTargetPosition(20000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() >= 19040){
+                if(robot.hook.getCurrentPosition() >= 20000){
                     robot.hook.setPower(0);
                     robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     telemetry.update();
@@ -155,11 +156,11 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 3:
-                robot.autonDrive(MovementEnum.BACKWARD, 560);
+                robot.autonDrive(MovementEnum.BACKWARD, 560 / 2);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() <= -560){
+                if(robot.BR.getCurrentPosition()  <= -560 / 2){
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -172,11 +173,11 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 5:
-                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120);
+                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 2);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FL.getCurrentPosition() >= 1120) {
+                if(robot.BR.getCurrentPosition() >= 1120 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -200,11 +201,11 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 */
 
-                robot.autonDrive(MovementEnum.LEFTTURN, 2364);;
+                robot.autonDrive(MovementEnum.LEFTTURN, 2364 / 2);
                 robot.setPower(1);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FR.getCurrentPosition() >= 1120) {
+                if(robot.FR.getCurrentPosition() >= 2364 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     robot.claw.setPosition(0);
                     telemetry.update();
@@ -219,11 +220,11 @@ public class Auton_TeamMarker extends OpMode {
 
 
             case 9:
-                robot.autonDrive(MovementEnum.BACKWARD, 2240);
+                robot.autonDrive(MovementEnum.BACKWARD, 2240 / 2);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() <= -2240){
+                if(robot.BR.getCurrentPosition() <= -2240 / 2){
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -247,18 +248,17 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
 */
-            robot.autonDrive(MovementEnum.LEFTTURN, 1182);;
-            robot.setPower(1);
-            robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.autonDrive(MovementEnum.LEFTTURN, 1182 / 2);
+                robot.setPower(1);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            if(robot.FR.getCurrentPosition() >= 1120) {
-                robot.drive(MovementEnum.STOP, 0);
-                robot.claw.setPosition(0);
-                telemetry.update();
-                auto++;
-            }
-
-            break;
+                if(robot.FR.getCurrentPosition() >= 1120 / 2) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
 
             case 12:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -266,16 +266,21 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 13 :
-                robot.autonDrive(MovementEnum.FORWARD, 8960);
+                robot.autonDrive(MovementEnum.FORWARD, 4480 / 2);
                 robot.setPower(1);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FR.getCurrentPosition() >= 4480) {
+                if(robot.FR.getCurrentPosition() >= 4480 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     robot.claw.setPosition(0);
                     telemetry.update();
-                    //          auto++;
+                    auto++;
                 }
+                break;
+
+            case 14:
+                robot.autonDrive(MovementEnum.STOP, 0);
+                robot.setPower(0);
                 break;
 
             default: {
@@ -309,12 +314,6 @@ public class Auton_TeamMarker extends OpMode {
      * @param minSpeed The minimum power to apply in order to turn (e.g. 0.05 when moving or 0.15 when stopped)
      * @param addSpeed The maximum additional speed to apply in order to turn (proportional component), e.g. 0.3
      */
-
-//        telemetry.update();
-//        testServos(telemetry);
-//        telemetry.update();
-//        telemetry.addData("Status", "Run Time: " + runtime.toString());
-//        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
 
     /*
      * Code to run ONCE after the driver hits STOP

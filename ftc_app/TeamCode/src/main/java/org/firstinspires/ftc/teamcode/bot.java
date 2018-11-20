@@ -67,7 +67,7 @@ static BNO055IMU gyro;
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
-        FR.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
 //        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        hinge.setDirection(DcMotorSimple.Direction.FORWARD);
 //        intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -371,18 +371,19 @@ static BNO055IMU gyro;
             return true;
         }
         double headingError;
+
         if (targetHeading == 0) {
             headingError = curHeading < 0 ? targetHeading + curHeading : Math.abs(targetHeading + curHeading);
         }
         else
             headingError = targetHeading + curHeading;
         double  driveScale = headingError * powerModifier;
+
         if (Math.abs(driveScale) < .06) {
             driveScale = .06 * (driveScale < 0 ? -1 : 1);
         }
         Range.clip(driveScale, -1, 1);
         turn(driveScale);
         return false;
-
     }
 }
