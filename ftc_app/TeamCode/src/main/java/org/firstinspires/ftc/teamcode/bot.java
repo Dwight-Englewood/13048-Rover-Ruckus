@@ -27,7 +27,7 @@ public class bot {
 
     //TODO add vex motor as a Servo for extension
     // TODO change dump mechanism to a vex motor? 
-    static DcMotor BL, BR, FL, FR, hook /*lift, intake, hook, hinge, left, right, extend */;
+    static DcMotor BL, BR, FL, FR, hook, lift, intake;
     Servo /*dump,*/ claw;
     DigitalChannel limitSwitch;
     HardwareMap map;
@@ -55,9 +55,9 @@ static BNO055IMU gyro;
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
 //        lift = this.map.get(DcMotor.class, "lift");
-//        hinge = this.map.get(DcMotor.class, "hinge");
+
 //        intake = this.map.get(DcMotor.class, "intake");
-//        extend = this.map.get(DcMotor.class, "extend");
+
         limitSwitch = this.map.get(DigitalChannel.class,"limit");
 //        dump = this.map.get(Servo.class,"dump");
         claw = this.map.get(Servo.class, "claw" );
@@ -69,10 +69,10 @@ static BNO055IMU gyro;
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
 //        lift.setDirection(DcMotorSimple.Direction.REVERSE);
-//        hinge.setDirection(DcMotorSimple.Direction.FORWARD);
+
 //        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
-//        extend.setDirection(DcMotorSimple.Direction.REVERSE);
+
         limitSwitch.setMode(DigitalChannel.Mode.INPUT);
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
