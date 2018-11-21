@@ -35,6 +35,7 @@ public class bot {
 
     Double powerModifier = 0.02;
     double turnSpeed = 0.25;
+    final double proportionalValue = 0.2;
     //Double turnSpeed = 0.5;
     //Integer angle = -45;
 static BNO055IMU gyro;
@@ -386,4 +387,17 @@ static BNO055IMU gyro;
         turn(driveScale);
         return false;
     }
+
+    public void motorSpeed() {
+        if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
+
+            FL.setPower((FL.getTargetPosition() / 537.6) * proportionalValue);
+            FR.setPower((FR.getTargetPosition() / 537.6) * proportionalValue);
+            BL.setPower((BL.getTargetPosition() / 537.6) * proportionalValue);
+            BR.setPower((BR.getTargetPosition() / 537.6) * proportionalValue);
+        } else {
+            autonDrive(MovementEnum.STOP, 0);
+        }
+    }
+
 }

@@ -1,33 +1,34 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 
-package org.firstinspires.ftc.teamcode;
+        /* Copyright (c) 2017 FIRST. All rights reserved.
+         *
+         * Redistribution and use in source and binary forms, with or without modification,
+         * are permitted (subject to the limitations in the disclaimer below) provided that
+         * the following conditions are met:
+         *
+         * Redistributions of source code must retain the above copyright notice, this list
+         * of conditions and the following disclaimer.
+         *
+         * Redistributions in binary form must reproduce the above copyright notice, this
+         * list of conditions and the following disclaimer in the documentation and/or
+         * other materials provided with the distribution.
+         *
+         * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+         * promote products derived from this software without specific prior written permission.
+         *
+         * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+         * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+         * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+         * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+         * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+         */
+
+        package org.firstinspires.ftc.teamcode;
 
 import android.renderscript.Sampler;
 
@@ -79,7 +80,6 @@ public class Auton_Crater extends OpMode {
     bot robot = new bot();
     int auto = 0;
     int turned = 0;
-    double proportionalValue = 0.1;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -94,7 +94,7 @@ public class Auton_Crater extends OpMode {
 
         robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -106,18 +106,7 @@ public class Auton_Crater extends OpMode {
         //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //
-            if (robot.FL.getCurrentPosition() <= robot.FL.getTargetPosition()) {
-                robot.FL.setPower((robot.FL.getTargetPosition() / 53.76) * proportionalValue);
-                robot.FR.setPower((robot.FR.getTargetPosition() / 53.76) * proportionalValue);
-                robot.BL.setPower((robot.BL.getTargetPosition() / 53.76) * proportionalValue);
-                robot.BR.setPower((robot.BR.getTargetPosition() / 53.76) * proportionalValue);
-            } else {
-                robot.FL.setPower(0);
-                robot.FR.setPower(0);
-                robot.BL.setPower(0);
-                robot.BR.setPower(0);
-            }
-        }
+    }
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -140,6 +129,7 @@ public class Auton_Crater extends OpMode {
      */
     @Override
     public void loop() {
+
         switch (auto) {
             //FL AND FR HAVE REVERSED POWERS
             //Motors for the front right is reversed, and left right is flipped around.
@@ -156,20 +146,19 @@ public class Auton_Crater extends OpMode {
 
                 if(robot.hook.getCurrentPosition() >= 20000){
                     robot.hook.setPower(0);
-                    robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 2:
-                    robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    auto++;
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
                 break;
 
             case 3:
                 robot.autonDrive(MovementEnum.BACKWARD, 560 / 2);
-                robot.setPower(0.5);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() <= -560 / 2){
@@ -177,6 +166,7 @@ public class Auton_Crater extends OpMode {
                     telemetry.update();
                     auto++;
                 }
+
                 break;
 
             case 4:
@@ -186,7 +176,7 @@ public class Auton_Crater extends OpMode {
 
             case 5:
                 robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 2);
-                robot.setPower(0.5);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() >= 1120 / 2) {
@@ -203,7 +193,7 @@ public class Auton_Crater extends OpMode {
 
             case 7:
                 robot.autonDrive(MovementEnum.FORWARD, 1120 / 2);
-                robot.setPower(0.75);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() >= 1120 / 2) {
@@ -231,7 +221,7 @@ public class Auton_Crater extends OpMode {
                 break;
 */
                 robot.autonDrive(MovementEnum.RIGHTTURN, 3546 / 2);
-                robot.setPower(1);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() <= -3360 / 2) {
@@ -249,7 +239,7 @@ public class Auton_Crater extends OpMode {
 
             case 11 :
                 robot.autonDrive(MovementEnum.BACKWARD, 2240 / 2);
-                robot.setPower(1);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() <= -2240 / 2) {
@@ -272,7 +262,7 @@ public class Auton_Crater extends OpMode {
 
             case 14:
                 robot.autonDrive(MovementEnum.FORWARD, 3360 / 2);
-                robot.setPower(0.75);
+                robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() >= 3360 / 2) {
@@ -326,5 +316,6 @@ public class Auton_Crater extends OpMode {
     public void stop() {
     }
 }
+
 
 
