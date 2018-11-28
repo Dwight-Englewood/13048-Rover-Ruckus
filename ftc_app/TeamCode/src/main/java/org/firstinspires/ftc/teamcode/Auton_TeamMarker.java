@@ -135,6 +135,7 @@ public class Auton_TeamMarker extends OpMode {
 
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
@@ -143,7 +144,7 @@ public class Auton_TeamMarker extends OpMode {
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() >= 20000){
+                if(robot.hook.getCurrentPosition() >= 20000 || robot.hookLimit.getState()){
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -156,12 +157,7 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 3:
-                robot.BR.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
-
-                robot.autonDrive(MovementEnum.BACKWARD, 560 / 2);
+                robot.autonDrive(MovementEnum.FORWARD, 560 / 2);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -178,11 +174,6 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 5:
-                robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
-
                 robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 2);
                 robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -217,7 +208,6 @@ public class Auton_TeamMarker extends OpMode {
 
                 if(robot.FR.getCurrentPosition() >= 2364 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0);
                     telemetry.update();
                     auto++;
                 }
@@ -242,7 +232,7 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 10:
-                robot.claw.setPosition(0);
+                robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
@@ -264,7 +254,7 @@ public class Auton_TeamMarker extends OpMode {
 
                 if(robot.FR.getCurrentPosition() >= 1120 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0);
+                    robot.claw.setPosition(0.0);
                     telemetry.update();
                     auto++;
                 }
@@ -282,13 +272,29 @@ public class Auton_TeamMarker extends OpMode {
 
                 if(robot.FR.getCurrentPosition() >= 4480 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 14:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 15:
+                robot.hook.setTargetPosition(20000);
+                robot.hook.setPower(1);
+                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.hook.getCurrentPosition() <= -20000){
+                    robot.hook.setPower(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 16:
                 robot.autonDrive(MovementEnum.STOP, 0);
                 robot.setPower(0);
                 break;

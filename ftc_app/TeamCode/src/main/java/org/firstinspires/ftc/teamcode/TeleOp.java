@@ -56,6 +56,8 @@ public class TeleOp extends OpMode {
     int extPos = 0;
     int currentPosition;
     int targetPosition;
+    int command = 0;
+    int command2 = 0;
 
     @Override
     public void init() {
@@ -65,6 +67,7 @@ public class TeleOp extends OpMode {
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         telemetry.addData("Claw Position", robot.claw.getPosition());
+
     }
 
     @Override
@@ -88,6 +91,10 @@ public class TeleOp extends OpMode {
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
+        //      robot.hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //intake
 //        if(gamepad2.right_trigger > .3){
 //            robot.intake.setPower(1.0);
@@ -130,17 +137,9 @@ public class TeleOp extends OpMode {
 //            robot.lift.setPower(0);
 //        }
 //        if(robot.limitSwitch.getState() == false){
- //           robot.hook.setPower(0);
-  //      }
+        //           robot.hook.setPower(0);
+        //      }
         //hook
-        if (gamepad1.a) {
-            robot.hook.setPower(1.0);
-
-        } else if (gamepad1.b) {
-            robot.hook.setPower(-1.0);
-        } else {
-            robot.hook.setPower(0);
-        }
 
         if(gamepad1.left_bumper) {
             robot.hook.setPower(0);
@@ -148,6 +147,63 @@ public class TeleOp extends OpMode {
         } else if (gamepad1.right_bumper) {
             robot.hook.setPower(1);
         }
+
+            switch (command) {
+                case 0:
+
+                    if (!robot.hookLimit.getState()) {
+                        command++;
+                        break;
+                    }
+
+                    if (gamepad1.a) {
+                    robot.hook.setPower(1.0);
+
+                } else if (gamepad1.b) {
+                    robot.hook.setPower(-1.0);
+
+                } else {
+                    robot.hook.setPower(0.0);
+                }
+
+                case 1:
+                    robot.hook.setPower(-1.0);
+                    if (robot.hookLimit.getState()) {
+                        command = 0;
+                    }
+                    break;
+        }
+
+            switch (command2) {
+                case 0:
+                    if (!robot.liftLimit.getState()) {
+                        command2++;
+                        break;
+                    }
+
+                    if(gamepad2.right_stick_y > 0.3) {
+                 //       robot.lift.setTargetPosition(2240);
+                        robot.lift.setPower(gamepad2.right_stick_y * -0.75);
+
+                    } else if(gamepad2.right_stick_y < -0.3) {
+                        //        robot.lift.setTargetPosition(2240);
+                        robot.lift.setPower(gamepad2.right_stick_y * -0.75);
+
+                    } else {
+                        robot.lift.setPower(0);
+                    }
+
+                case 1:
+                    robot.lift.setPower(gamepad2.right_stick_y * -0.75);
+                    if (gamepad2.right_stick_y < -0.3) {
+                        robot.lift.setPower(0);
+
+                    } else if(robot.liftLimit.getState()) {
+                        command2 = 0;
+                        break;
+                    }
+                    break;
+            }
 
        // else if (gamepad1.left_bumper){robot.hook.setPower(-1.0);}
 
@@ -163,14 +219,42 @@ public class TeleOp extends OpMode {
 //        else{
 //            robot.extend.setPower(0);
 //        }
+//Lift(Right Joystick)
 
-        if(gamepad2.a){
-            robot.claw.setPosition(1.0);
+        if(gamepad2.left_stick_y > 0.3) {
+            robot.intake.setTargetPosition(2240);
+            robot.intake.setPower(gamepad2.left_stick_y * -0.75);
         }
 
-        else if (gamepad2.b){
-            robot.claw.setPosition(0.0);
-        }
+            else if(gamepad2.left_stick_y < -0.3) {
+                robot.intake.setTargetPosition(2240);
+                robot.intake.setPower(gamepad2.left_stick_y * -0.75);
+
+                } else {
+                robot.intake.setPower(0);
+                }
+
+            if (gamepad2.b) {
+                robot.claw.setPosition(0.0);
+
+            } else if (gamepad2.a) {
+                robot.claw.setPosition(0.7);
+            }
+
+            if (gamepad2.y) {
+                robot.dump.setPosition(0.75);
+
+            } else if (gamepad2.x) {
+                robot.dump.setPosition(-1);
+            }
+
+            telemetry.addData("Lift State", robot.liftLimit.getState());
+
+            telemetry.addData("Hook State", robot.hookLimit.getState());
+
+            telemetry.addData("Command", command);
+        telemetry.addData("Auto", command2);
+
 /*
         if(gamepad2.x){
             extPos += 0.25;
@@ -201,6 +285,8 @@ public class TeleOp extends OpMode {
     /*
      * Code to run ONCE after the driver hits STOP
      */
+
+
     @Override
     public void stop() {
     }

@@ -136,6 +136,7 @@ public class Auton_Crater extends OpMode {
 
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
@@ -144,7 +145,7 @@ public class Auton_Crater extends OpMode {
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() >= 20000){
+                if(robot.hook.getCurrentPosition() >= 20000 || robot.hookLimit.getState()){
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -157,11 +158,11 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 3:
-                robot.autonDrive(MovementEnum.BACKWARD, 560 / 2);
+                robot.autonDrive(MovementEnum.FORWARD, 560 / 2);
                 robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() <= -560 / 2){
+                if(robot.BR.getCurrentPosition() >= 560 / 2){
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -210,25 +211,36 @@ public class Auton_Crater extends OpMode {
 
 
             case 9:
-               /* 135 degrees right turn
-                int gyroVal = (int)robot.getGyroRotation(AngleUnit.DEGREES);
-                robot.gyroCorrect(-135, 1, gyroVal, .05, .3);
-                if (robot.FL.getPower() == 0) {
-                    runtime.reset();
-                    telemetry.update();
-                    auto++;
+                robot.adjustHeading(45);
+                if(Math.abs(-45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5) {
+                    robot.turn(0.0);
+                    auto = 20;
+                    break;
                 }
-                break;
-*/
+/*
                 robot.autonDrive(MovementEnum.RIGHTTURN, 3546 / 2);
                 robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() <= -3360 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0);
                     telemetry.update();
                     auto++;
+                }
+                break;
+*/
+
+            case 20:
+                if(turned != 0){
+                    robot.adjustHeading(90);
+                    if(-90 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                        auto = 10;
+                        break;
+                    }
+
+                } else {
+                    auto = 10;
+                    break;
                 }
                 break;
 
@@ -244,14 +256,14 @@ public class Auton_Crater extends OpMode {
 
                 if(robot.BR.getCurrentPosition() <= -2240 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0);
+                    robot.claw.setPosition(0.7);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 12:
-                robot.claw.setPosition(1.0);
+                robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
@@ -273,6 +285,23 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 15:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 16:
+                robot.hook.setTargetPosition(-20000);
+                robot.hook.setPower(1);
+                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.hook.getCurrentPosition() <= -20000){
+                    robot.hook.setPower(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 17:
                 robot.autonDrive(MovementEnum.STOP, 0);
                 robot.setPower(0);
                 break;
