@@ -91,7 +91,7 @@ public class TeleOp extends OpMode {
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
         robot.intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+  //      robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         if(gamepad1.left_bumper) {
             robot.hook.setPower(0);
@@ -119,7 +119,7 @@ public class TeleOp extends OpMode {
 
                 case 1:
                     robot.hook.setPower(-1.0);
-                    if (gamepad2.a) {
+                    if (gamepad1.a) {
                     robot.hook.setPower(0);
 
                     } else if(robot.hookLimit.getState()) {
@@ -190,7 +190,10 @@ public class TeleOp extends OpMode {
             telemetry.addData("Hook State", robot.hookLimit.getState());
 
             telemetry.addData("Command", command);
-        telemetry.addData("Auto", command2);
+            telemetry.addData("Auto", command2);
+
+            telemetry.addData("Lift Power", robot.lift.getPower());
+            telemetry.addData("Hook Power", robot.hook.getPower());
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();
