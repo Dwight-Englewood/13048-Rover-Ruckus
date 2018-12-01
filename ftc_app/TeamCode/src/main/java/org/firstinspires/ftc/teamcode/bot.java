@@ -24,10 +24,13 @@ package org.firstinspires.ftc.teamcode;
         import java.util.*;
     import org.firstinspires.ftc.teamcode.MovementEnum;
 
+    import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+    import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
 public class bot {
 
     //TODO add vex motor as a Servo for extension
-    // TODO change dump mechanism to a vex motor? 
+    // TODO change dump mechanism to a vex motor?
     static DcMotor BL, BR, FL, FR, hook, lift, intake;
     Servo dump, claw;
     DigitalChannel liftLimit, hookLimit;
@@ -36,7 +39,7 @@ public class bot {
 
     Double powerModifier = 0.02;
     double turnSpeed = 0.25;
-    final double proportionalValue = 0.0002;
+    final double proportionalValue = 0.000005;
     double integralValue = 0;
     double derivativeValue = 0;
 
@@ -78,7 +81,7 @@ public class bot {
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -104,9 +107,6 @@ public class bot {
         //FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-//       left.setPower(0);
-//       right.setPower(0);
     }
 
 
@@ -417,7 +417,6 @@ public class bot {
         FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));
         BL.setPower(Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition() * proportionalValue));
         BR.setPower(Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition() * proportionalValue));
-
         tele.update();
 
         } else {

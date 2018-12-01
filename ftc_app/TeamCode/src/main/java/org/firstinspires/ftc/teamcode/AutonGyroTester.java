@@ -87,7 +87,7 @@ public class AutonGyroTester extends OpMode {
 
 
             case 2:
-                if (runtime.milliseconds() <= 1000 ) {
+                if (runtime.milliseconds() <= 1000) {
                     robot.drive(MovementEnum.RIGHTSTRAFE, 0.5);
                 }
                 else if(runtime.milliseconds() > 1000) {
@@ -95,8 +95,8 @@ public class AutonGyroTester extends OpMode {
                     auto++;
                 }
                 else {robot.drive(MovementEnum.STOP, 0.0);
-                    auto++;}
-
+                    auto++;
+                }
                 break;
 
             case 3:

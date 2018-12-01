@@ -52,12 +52,16 @@ public class TeleOp extends OpMode {
     // Declare OpMode members.
     private ElapsedTime timer = new ElapsedTime();
     bot robot = new bot();
+    double liftPower = 0;
+    boolean Move;
+    boolean Move2;
     int pos = 0;
     int extPos = 0;
     int currentPosition;
     int targetPosition;
     int command = 0;
     int command2 = 0;
+    int isPressed = 0;
 
     @Override
     public void init() {
@@ -67,7 +71,6 @@ public class TeleOp extends OpMode {
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         telemetry.addData("Claw Position", robot.claw.getPosition());
-
     }
 
     @Override
@@ -90,32 +93,85 @@ public class TeleOp extends OpMode {
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-        robot.intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-  //      robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+   //     robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+/*
+        if (Move2) {
+            robot.hook.setPower(gamepad2.right_trigger * 0.75);
 
-        if(gamepad1.left_bumper) {
-            robot.hook.setPower(0);
+        } else if (!Move2) {
+            robot.hook.setPower(-(gamepad2.left_trigger * 0.75));
 
-        } else if (gamepad1.right_bumper) {
-            robot.hook.setPower(1);
+        }
+*/
+        switch (command) {
+            case 0:
+                if (gamepad1.a) {
+                    robot.hook.setPower(1);
+
+                } else if (gamepad1.b) {
+                    robot.hook.setPower(-1);
+
+                } else {
+                    robot.hook.setPower(0);
+                }
+
+           //     if (isPressed % 2 == 0) {
+        //            telemetry.addData("isPressed", + isPressed);
+            //    } else
+
+                if (!Move2) {
+                    robot.hook.setPower(0);
+           //         isPressed++;
+                    command = 1;
+                }
+                break;
+
+            case 1:
+                if (!Move2) {
+                    if (gamepad1.a) {
+                        robot.hook.setPower(0);
+
+                    } else if (gamepad1.b){
+                        robot.hook.setPower(-1);
+
+                    } else {
+                        robot.hook.setPower(0);
+                    }
+
+                } else if (Move2) {
+                    command = 0;
+                }
         }
 
+        Move = robot.liftLimit.getState();
+        Move2 = robot.hookLimit.getState();
+
+        if (Move){
+         //   robot.lift.setTargetPosition(2240);
+            robot.lift.setPower(gamepad2.right_stick_y * 0.75);
+        }
+
+        else if(!Move){
+       //     robot.lift.setTargetPosition(-2240);
+            robot.lift.setPower(Math.abs(gamepad2.right_stick_y * 0.75));
+        }
+        if (gamepad2.dpad_up){
+            Move = true;
+        }
+        if (gamepad2.dpad_down) {
+            Move2 = true;
+        }
+       // if(gamepad2.)
+
+
+
+        /*
             switch (command) {
                 case 0:
                     if (!robot.hookLimit.getState()) {
                         command++;
                         break;
                     }
-
-                    if (gamepad1.a) {
-                    robot.hook.setPower(1.0);
-
-                } else if (gamepad1.b) {
-                    robot.hook.setPower(-1.0);
-
-                } else {
-                    robot.hook.setPower(0.0);
-                }
 
                 case 1:
                     robot.hook.setPower(-1.0);
@@ -135,12 +191,12 @@ public class TeleOp extends OpMode {
                         command2++;
                         break;
                     }
-
                     if(gamepad2.right_stick_y > 0.3) {
                         robot.lift.setPower(gamepad2.right_stick_y * -0.75);
 
                     } else if(gamepad2.right_stick_y < -0.3) {
                         robot.lift.setPower(gamepad2.right_stick_y * -0.75);
+
 
                     } else {
                         robot.lift.setPower(0);
@@ -157,14 +213,12 @@ public class TeleOp extends OpMode {
                     }
                     break;
             }
-
+    */
         if(gamepad2.left_stick_y > 0.3) {
-         //   robot.intake.setTargetPosition(2240);
             robot.intake.setPower(gamepad2.left_stick_y * -0.75);
         }
 
             else if(gamepad2.left_stick_y < -0.3) {
-              //  robot.intake.setTargetPosition(2240);
                 robot.intake.setPower(gamepad2.left_stick_y * -0.75);
 
                 } else {
