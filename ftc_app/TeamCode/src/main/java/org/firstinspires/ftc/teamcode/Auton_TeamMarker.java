@@ -265,7 +265,7 @@ public class Auton_TeamMarker extends OpMode {
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FR.getCurrentPosition() >= 4480 / 2) {
+                if(robot.BR.getCurrentPosition() >= 4480 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -278,7 +278,7 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 15:
-                robot.hook.setTargetPosition(23000);
+                robot.hook.setTargetPosition(-23000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
