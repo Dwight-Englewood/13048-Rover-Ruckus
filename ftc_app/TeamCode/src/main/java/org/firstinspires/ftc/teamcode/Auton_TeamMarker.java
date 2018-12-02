@@ -192,12 +192,14 @@ public class Auton_TeamMarker extends OpMode {
 
             case 7:
                 //90 degree left turn
+                /*
                 robot.adjustHeading(-90);
                 if(-90 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                     auto++;
                     break;
                 }
                 break;
+                */
 /*
                 robot.autonDrive(MovementEnum.LEFTTURN, 2364 / 2);
                 robot.setPower(1);
@@ -236,6 +238,7 @@ public class Auton_TeamMarker extends OpMode {
 
             case 11:
                 //45 degrees left turn
+                /*
                 robot.adjustHeading(-45);
                 if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                     auto++;
