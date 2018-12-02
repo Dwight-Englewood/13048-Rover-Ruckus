@@ -215,8 +215,7 @@ public class Auton_Crater extends OpMode {
 
 
             case 9:
-                    robot.adjustHeading(135);
-                    if(-135 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                if (robot.adjustHeading(135)){
                         auto++;
                         break;
                     }
@@ -312,20 +311,10 @@ public class Auton_Crater extends OpMode {
 
             break;
         }
-
-        telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
-        telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));
-        telemetry.addData("Hook Target Position", robot.hook.getTargetPosition() / 1120);
-
         telemetry.addData("FL Power", robot.FL.getPower());
         telemetry.addData("FR Power", robot.FR.getPower());
         telemetry.addData("BL Power", robot.BL.getPower());
         telemetry.addData("BR Power", robot.BR.getPower());
-
-        telemetry.addData("FL Position", robot.FL.getCurrentPosition());
-        telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
-
-        telemetry.addData("Gyro Degrees ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 
         telemetry.addData("Auto", auto);
     }

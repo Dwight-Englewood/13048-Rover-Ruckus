@@ -394,8 +394,13 @@ public class bot {
     public boolean adjustHeading(int targetHeading) {
         // Get current heading
         double curHeading = fetchHeading();
+        tele.addData("curHeading", curHeading);
+        tele.addData("fetchHeading", fetchHeading());
+        tele.addData("targetHeading", targetHeading);
+        tele.update();
+
         // Get target and current heading difference
-        double headingError = angleDiff(targetHeading, curHeading);
+        double headingError = angleDiff(curHeading, targetHeading);
 
         // If angle is "close enough" to target, stop all motors
         if (headingError < EPSILON) {
