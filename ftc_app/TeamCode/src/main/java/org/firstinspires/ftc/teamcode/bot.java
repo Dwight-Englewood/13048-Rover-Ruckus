@@ -376,6 +376,43 @@ public class bot {
         final double gearMotorTickCount = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
         return (int) (gearMotorTickCount * (distance / wheelCircumference));
     }
+
+    // Subtracts two angles in degrees
+    public static double angleDiff(double alpha, double beta) {
+        double phi = Math.abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
+        double distance = phi > 180 ? 360 - phi : phi;
+        return distance;
+    }
+
+    private double fetchHeading() {
+        return gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ;
+    }
+
+    // fetchHeading and angleDiff must be defined elsewhere
+
+    private final double EPSILON = 5; // Margin of error of 5 degrees
+    public boolean adjustHeading(int targetHeading) {
+        // Get current heading
+        double curHeading = fetchHeading();
+        // Get target and current heading difference
+        double headingError = angleDiff(targetHeading, curHeading);
+
+        // If angle is "close enough" to target, stop all motors
+        if (headingError < EPSILON) {
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+            return true;
+        }
+
+        // Turn in a direction
+        turn(Math.signum(headingError));
+
+        return false;
+    }
+
+    /*
 //targetHeading = -45
     // if (absolute value(absolute value(-45) - absolute value(current)) < 0.5), set powers to 0 and return true.
     public boolean adjustHeading(int targetHeading) {
@@ -406,6 +443,7 @@ public class bot {
         turn(driveScale);
         return false;
     }
+*/
 
     public void motorSpeed() {
 /*
