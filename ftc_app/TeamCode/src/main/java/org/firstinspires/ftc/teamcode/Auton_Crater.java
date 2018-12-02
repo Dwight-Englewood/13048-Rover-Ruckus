@@ -311,10 +311,15 @@ public class Auton_Crater extends OpMode {
 
             break;
         }
+
         telemetry.addData("FL Power", robot.FL.getPower());
         telemetry.addData("FR Power", robot.FR.getPower());
         telemetry.addData("BL Power", robot.BL.getPower());
         telemetry.addData("BR Power", robot.BR.getPower());
+
+
+        telemetry.addData("booleanValue", robot.adjustHeading(135));
+
 
         telemetry.addData("Auto", auto);
     }
