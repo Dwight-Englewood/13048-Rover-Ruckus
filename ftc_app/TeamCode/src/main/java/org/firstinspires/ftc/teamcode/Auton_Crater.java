@@ -221,19 +221,26 @@ public class Auton_Crater extends OpMode {
                         break;
                     }
                 break;
+/*
+                robot.adjustHeading(135);
+                robot.turn(0.2);
+                if(135 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                    auto++;
+                    break;
+                }
+                break;*/
 
-                    /*
-                robot.autonDrive(MovementEnum.RIGHTTURN, 3546 / 2);
+                /*robot.autonDrive(MovementEnum.RIGHTTURN, 1500 / 2);
                 robot.motorSpeed();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() <= -3360 / 2) {
+                if(robot.BR.getCurrentPosition() <= -1500 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
                 }
-                break;
-*/
+                break;*/
+
 
             case 10:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -248,14 +255,14 @@ public class Auton_Crater extends OpMode {
 
                 if(robot.BR.getCurrentPosition() <= -2240 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0.7);
+                    //robot.claw.setPosition(0.7);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 12:
-                robot.claw.setPosition(0.0);
+                robot.claw.setPosition(0.7);
                 auto++;
                 break;
 
@@ -267,7 +274,7 @@ public class Auton_Crater extends OpMode {
             case 14:
                 robot.autonDrive(MovementEnum.FORWARD, 3360 / 2);
             //    robot.motorSpeed();
-                robot.setPower(0.2);
+                robot.setPower(0.4);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() >= 3360 / 2) {
@@ -283,11 +290,11 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 16:
-                robot.hook.setTargetPosition(-23000);
+                robot.hook.setTargetPosition(-24000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() <= -23000){
+                if(robot.hook.getCurrentPosition() <= -24000){
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;

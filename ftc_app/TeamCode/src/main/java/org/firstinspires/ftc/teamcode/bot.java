@@ -396,7 +396,7 @@ public class bot {
         if (targetHeading == 0) {
             headingError = curHeading < 0 ? targetHeading + curHeading : Math.abs(targetHeading + curHeading);
         } else
-            headingError = targetHeading + curHeading;
+            headingError = targetHeading - curHeading;
         double driveScale = headingError * powerModifier;
 
         if (Math.abs(driveScale) < .06) {
