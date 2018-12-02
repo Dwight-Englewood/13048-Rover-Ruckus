@@ -415,12 +415,10 @@ public class bot {
     }
     // fetchHeading and angleDiff must be defined elsewhere
 
-<<<<<<< HEAD
     public static double normalize(double angle) {
         return angle < 0 ? 180 + angle : angle;
     }
-=======
->>>>>>> b5d8f698c0d26fb161d4cfed029ea63c6075538a
+
     private final double EPSILON = 5; // Margin of error of 5 degrees
     public boolean adjustHeading(int targetHeading) {
         // Get current heading
@@ -477,7 +475,7 @@ public class bot {
         FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));
         BL.setPower(Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition() * proportionalValue));
         BR.setPower(Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition() * proportionalValue));
-        tele.update();
+  //      tele.update();
 
         } else {
             autonDrive(MovementEnum.STOP, 0);

@@ -303,7 +303,7 @@ public class Auton_TeamMarker extends OpMode {
 
             break;
         }
-
+/*
         telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
         telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));
         telemetry.addData("Hook Target Position", robot.hook.getTargetPosition() / 1120);
@@ -319,6 +319,7 @@ public class Auton_TeamMarker extends OpMode {
         telemetry.addData("Gyro Degrees ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 
         telemetry.addData("Auto", auto);
+        */
     }
 
     /*
