@@ -221,6 +221,7 @@ public class Auton_Crater extends OpMode {
                     auto++;
                 }
                 break;
+
                 /*
                 if (robot.adjustHeading(135)){
                         auto++;
