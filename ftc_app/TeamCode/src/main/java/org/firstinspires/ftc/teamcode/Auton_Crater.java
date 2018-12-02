@@ -215,20 +215,20 @@ public class Auton_Crater extends OpMode {
 
 
             case 9:
-                    robot.adjustHeading(135);
+                  /*  robot.adjustHeading(135);
                     if(-135 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                         auto++;
                         break;
                     }
-                break;
-/*
+                break;*/
+
                 robot.adjustHeading(135);
                 robot.turn(0.2);
                 if(135 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                     auto++;
                     break;
                 }
-                break;*/
+                break;
 
                 /*robot.autonDrive(MovementEnum.RIGHTTURN, 1500 / 2);
                 robot.motorSpeed();

@@ -379,6 +379,8 @@ public class bot {
 
     // Subtracts two angles in degrees
     public static double angleDiff(double alpha, double beta) {
+        alpha = normalize(alpha);
+        beta = normalize(beta);
         double phi = Math.abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
         double distance = phi > 180 ? 360 - phi : phi;
         return distance;
@@ -390,12 +392,16 @@ public class bot {
 
     // fetchHeading and angleDiff must be defined elsewhere
 
+
+    public static double normalize(double angle) {
+        return angle < 0 ? 180 + angle : angle;
+    }
     private final double EPSILON = 5; // Margin of error of 5 degrees
     public boolean adjustHeading(int targetHeading) {
         // Get current heading
         double curHeading = fetchHeading();
         // Get target and current heading difference
-        double headingError = angleDiff(targetHeading, curHeading);
+        double headingError = angleDiff(curHeading, targetHeading);
 
         // If angle is "close enough" to target, stop all motors
         if (headingError < EPSILON) {
