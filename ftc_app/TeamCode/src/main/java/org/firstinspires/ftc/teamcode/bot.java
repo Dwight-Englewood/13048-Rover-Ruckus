@@ -392,7 +392,6 @@ public class bot {
 
     // fetchHeading and angleDiff must be defined elsewhere
 
-
     public static double normalize(double angle) {
         return angle < 0 ? 180 + angle : angle;
     }
@@ -414,13 +413,11 @@ public class bot {
 
         // Turn in a direction
         turn(Math.signum(headingError));
-
         return false;
     }
 
-    /*
-//targetHeading = -45
-    // if (absolute value(absolute value(-45) - absolute value(current)) < 0.5), set powers to 0 and return true.
+/*
+
     public boolean adjustHeading(int targetHeading) {
         double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         if (Math.abs(Math.abs(targetHeading) - Math.abs(curHeading)) < .5) {
@@ -431,10 +428,6 @@ public class bot {
             return true;
         }
         double headingError;
-//if target heading is equal to zero,
-//do error is equal to current place < 0 return targetHeading+curHeading if true and absolute value if false.
-        // else error = target + current place
-        //drivescale = error * proportional(0.02)
 
         if (targetHeading == 0) {
             headingError = curHeading < 0 ? targetHeading + curHeading : Math.abs(targetHeading + curHeading);
@@ -452,12 +445,6 @@ public class bot {
 */
 
     public void motorSpeed() {
-/*
-        double FLerror = Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition());
-        double FRerror = Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition());
-        double BLerror = Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition());
-        double BRerror = Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition());
-        */
 
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
         FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));
