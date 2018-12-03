@@ -132,6 +132,17 @@ public class Auton_TeamMarker extends OpMode {
 
         switch (auto) {
             //FL AND FR HAVE REVERSED POWERS
+            /**Auton_TeamMarker Concept:
+             * Drop
+             * Backwards
+             * Right Strafe
+             * 90 Degree Left Turn
+             * Backwards
+             * Drop Team Marker
+             * 45 Degree Left Turn
+             * Forward
+             * Reset Hook Position
+             */
 
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -144,7 +155,7 @@ public class Auton_TeamMarker extends OpMode {
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() >= 50000 || !robot.hookLimit.getState()){
+                if(!robot.hookLimit.getState()){
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -157,11 +168,11 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 3:
-                robot.autonDrive(MovementEnum.FORWARD, 280 / 2);
+                robot.autonDrive(MovementEnum.BACKWARD, 280 / 2);
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 280 / 2){
+                if(robot.BR.getCurrentPosition() <= -280 / 2){
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -187,51 +198,36 @@ public class Auton_TeamMarker extends OpMode {
 
             case 6:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
+                auto = auto + 3;
                 break;
 
-            case 7:
-                //90 degree left turn
+
+                //leftstrafe
+
+
+            case 9:
+                //45 degrees left turn
                 /*
-                robot.adjustHeading(-90);
-                if(-90 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                robot.adjustHeading(-45);
+                if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                     auto++;
                     break;
                 }
                 break;
-                */
-
-                robot.autonDrive(MovementEnum.LEFTTURN, 1000 / 2);
-                robot.setPower(1);
+           */
+                robot.autonDrive(MovementEnum.LEFTTURN, 1100 / 2);
+                robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FR.getCurrentPosition() <= -1000 / 2) {
+                if(robot.FR.getCurrentPosition() >= 1100 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-                    auto++;
-                }
-                break;
-
-            case 8:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-
-            case 9:
-                robot.autonDrive(MovementEnum.BACKWARD, 2240 / 2);
-                robot.setPower(0.2);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.BR.getCurrentPosition() <= -2240 / 2){
-                    robot.drive(MovementEnum.STOP, 0);
+                    robot.claw.setPosition(0.0);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
             case 10:
-                robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
@@ -246,11 +242,39 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
            */
-                robot.autonDrive(MovementEnum.LEFTTURN, 500 / 2);
-                robot.setPower(1);
+                robot.autonDrive(MovementEnum.BACKWARD, 1750 / 2);
+                robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.FR.getCurrentPosition() <= -500 / 2) {
+                if(robot.BR.getCurrentPosition() <= -1750 / 2){
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+
+            case 12:
+                robot.claw.setPosition(0.7);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                if(robot.claw.getPosition() >= 0.7) auto++;
+                break;
+
+            case 13:
+                //45 degrees left turn
+                /*
+                robot.adjustHeading(-45);
+                if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
+                    auto++;
+                    break;
+                }
+                break;
+           */
+                robot.autonDrive(MovementEnum.LEFTTURN, 500 / 2);
+                robot.setPower(0.5);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.FR.getCurrentPosition() >= 500 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     robot.claw.setPosition(0.0);
                     telemetry.update();
@@ -258,41 +282,36 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
 
-            case 12:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 13 :
-                robot.autonDrive(MovementEnum.FORWARD, 4480 / 2);
-                robot.setPower(0.2);
+            case 14:
+                robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
+                robot.setPower(0.75);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 4480 / 2) {
+                if(robot.BR.getCurrentPosition() >= 6720 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
-            case 14:
+            case 15:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 15:
-                robot.hook.setTargetPosition(-23000);
+            case 16:
+                robot.hook.setTargetPosition(-24000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.hook.getCurrentPosition() <= -23000){
+                if(robot.hook.getCurrentPosition() <= -24000){
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
                 }
                 break;
 
-            case 16:
+            case 17:
                 robot.autonDrive(MovementEnum.STOP, 0);
                 robot.setPower(0);
                 break;
@@ -303,6 +322,9 @@ public class Auton_TeamMarker extends OpMode {
 
             break;
         }
+        telemetry.addData("Team Marker Position", robot.claw.getPosition());
+        telemetry.addData("Case Number: ", auto);
+        telemetry.update();
 /*
         telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
         telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));

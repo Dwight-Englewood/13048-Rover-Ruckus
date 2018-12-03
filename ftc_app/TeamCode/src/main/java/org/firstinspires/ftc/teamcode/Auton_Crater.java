@@ -133,7 +133,17 @@ public class Auton_Crater extends OpMode {
 
         switch (auto) {
             //FL AND FR HAVE REVERSED POWERS
-            //Motors for the front right is reversed, and left right is flipped around.
+            /**Auton_Crater Concept:
+             * Drop
+             * Backwards
+             * Right Strafe
+             * Backwards
+             * 45 Degrees Right Turn
+             * Backwards
+             * Drop Team Marker
+             * Forward
+             * Reset Hook Position
+             */
 
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -178,12 +188,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 5:
-                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 2);
+                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 3360 / 2);
               //  robot.motorSpeed();
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 1120 / 2) {
+                if(robot.BR.getCurrentPosition() >= 3360 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -196,12 +206,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 7:
-                robot.autonDrive(MovementEnum.FORWARD, 1120 / 2);
+                robot.autonDrive(MovementEnum.FORWARD, 2240 / 2);
                // robot.motorSpeed();
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 1120 / 2) {
+                if(robot.BR.getCurrentPosition() >= 2240 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -264,14 +274,13 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 11 :
-                robot.autonDrive(MovementEnum.BACKWARD, 2240 / 2);
+                robot.autonDrive(MovementEnum.BACKWARD, 4480 / 2);
               //  robot.motorSpeed();
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() <= -2240 / 2) {
+                if(robot.BR.getCurrentPosition() <= -4480 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
-                    //robot.claw.setPosition(0.7);
                     telemetry.update();
                     auto++;
                 }
@@ -288,12 +297,12 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 14:
-                robot.autonDrive(MovementEnum.FORWARD, 3360 / 2);
+                robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
             //    robot.motorSpeed();
-                robot.setPower(0.4);
+                robot.setPower(0.5);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 3360 / 2) {
+                if(robot.BR.getCurrentPosition() >= 6720 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
