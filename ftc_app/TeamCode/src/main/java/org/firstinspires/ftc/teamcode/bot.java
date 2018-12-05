@@ -30,6 +30,8 @@ package org.firstinspires.ftc.teamcode;
     import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
     import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
+    import org.firstinspires.ftc.teamcode.TensorFlow;
+
 public class bot {
 
     //TODO add vex motor as a Servo for extension
@@ -52,6 +54,7 @@ public class bot {
     static BNO055IMU gyro;
     BNO055IMU.Parameters parameters;
     Orientation angles;
+
 
     public bot() {
     }
@@ -168,11 +171,12 @@ public class bot {
     }
     //Lift(Right Joystick)
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
-        double i = invert ? -0.75 : 0.75;
+        double i = invert ? -0.65 : 0.65;
         if (leftTrigger > .3) {
             drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
             return;
         }
+
         if (rightTrigger > .3) {
             drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i);
             return;
@@ -479,7 +483,6 @@ public class bot {
 
         } else {
             autonDrive(MovementEnum.STOP, 0);
-
         }
     }
 }

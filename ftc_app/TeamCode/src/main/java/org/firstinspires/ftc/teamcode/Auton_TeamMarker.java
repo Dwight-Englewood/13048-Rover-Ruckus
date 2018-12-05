@@ -137,6 +137,12 @@ public class Auton_TeamMarker extends OpMode {
              * Backwards
              * Right Strafe
              * 90 Degree Left Turn
+             * //Turn on tensor flow
+             * //Leftstrafe slowly
+             * //If detected center proceed down below.
+             * //If detected left, go back, 45 Degree Right Turn, strafe right, Drop Team Marker, Forward, and reset Hook Position.
+             * //If not detected, slowly Rightstrafe.
+             * //If detected right, go back, 45 Degree Right Turn, , and the proceed below.
              * Backwards
              * Drop Team Marker
              * 45 Degree Left Turn
@@ -284,7 +290,7 @@ public class Auton_TeamMarker extends OpMode {
 
             case 14:
                 robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
-                robot.setPower(0.75);
+                robot.setPower(0.4);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if(robot.BR.getCurrentPosition() >= 6720 / 2) {
