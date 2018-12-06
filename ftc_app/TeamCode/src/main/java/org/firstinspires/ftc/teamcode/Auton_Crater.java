@@ -142,8 +142,9 @@ public class Auton_Crater extends OpMode {
         switch (auto) {
             //FL AND FR HAVE REVERSED POWERS
             /**Auton_Crater Concept:
-             * Drop
+             * ***THE PHONE IS ON THE RIGHT SIDE***
              * Turn on tensor flow
+             * Drop
              * Backwards
              * Right Strafe
              * 90 Degree Left Turn
@@ -260,24 +261,24 @@ public class Auton_Crater extends OpMode {
                     break;
 
                 } else {
-                    robot.autonTF();
+                //    robot.autonTF();
                     auto = 14;
                 }
                 break;
 
             case 12:
                 if (tensorFlow.getState() == TensorFlow.TFState.LEFT) {
-                    robot.autonTF();
+                //    robot.autonTF();
                     auto++;
                     break;
 
                 } else if (tensorFlow.getState() == TensorFlow.TFState.CENTER) {
-                    robot.autonTF();
+               //     robot.autonTF();
                     auto++;
                     break;
 
                 } else {
-                    robot.autonTF();
+               //     robot.autonTF();
                     auto++;
                     break;
                 }
@@ -322,7 +323,7 @@ public class Auton_Crater extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
-
+//Furry life is my life- KEvin Chen
 
             case 18:
                 /* robot.adjustHeading(135);
@@ -394,7 +395,7 @@ public class Auton_Crater extends OpMode {
             case 22:
                 robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
                 //    robot.motorSpeed();
-                robot.setPower(0.4);
+                robot.setPower(0.7);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 if (robot.BR.getCurrentPosition() >= 6720 / 2) {
@@ -432,7 +433,7 @@ public class Auton_Crater extends OpMode {
             break;
         }
         telemetry.addData("Team Marker Position", robot.claw.getPosition());
-        telemetry.addData("Posiiton", tensorFlow.getState());
+        telemetry.addData("Position", tensorFlow.getState());
         telemetry.addData("Case Number:",auto);
         telemetry.update();
 }

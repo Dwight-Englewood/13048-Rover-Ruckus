@@ -33,9 +33,6 @@ package org.firstinspires.ftc.teamcode;
     import org.firstinspires.ftc.teamcode.TensorFlow;
 
 public class bot {
-
-    //TODO add vex motor as a Servo for extension
-    //TODO change dump mechanism to a vex motor?
     static DcMotor BL, BR, FL, FR, hook, lift, intake;
     Servo dump, claw;
     DigitalChannel liftLimit, hookLimit;
@@ -401,21 +398,26 @@ public class bot {
             this.turn(0.0);
         }
     }
+
     public void autonTF() {
-        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        autonDrive(MovementEnum.BACKWARD, 560 / 2);
-        setPower(0.5);
-        changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        autonDrive(MovementEnum.FORWARD, 560 / 2);
-        setPower(0.5);
-        changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        tensorFlow.stop();
+        if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
+            autonDrive(MovementEnum.BACKWARD, 560 / 2);
+            setPower(0.5);
+            changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
     }
+
+    public void autonTF2() {
+        if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
+            autonDrive(MovementEnum.FORWARD, 560 / 2);
+            setPower(0.5);
+            changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
+
+
+
 /*
     // Subtracts two angles in degrees
     public static double angleDiff(double alpha, double beta) {
@@ -455,9 +457,7 @@ public class bot {
         turn(Math.signum(headingError));
         return false;
     }
-
-
-
+*/
     public boolean adjustHeading(int targetHeading) {
         double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         if (Math.abs(Math.abs(targetHeading) - Math.abs(curHeading)) < .5) {
@@ -482,10 +482,9 @@ public class bot {
         turn(driveScale);
         return false;
     }
-*/
+
 
     public void motorSpeed() {
-
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
         FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));
         FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));

@@ -28,7 +28,7 @@ public class TensorFlow implements Subsystem {
     Telemetry tele;
     HardwareMap hwMap;
 
- //  public TensorFlow() {}
+   public TensorFlow() {}
 
     public enum TFState implements State {
         // crater angle, depot angle, crater distance, depot distance; all in degrees & cm

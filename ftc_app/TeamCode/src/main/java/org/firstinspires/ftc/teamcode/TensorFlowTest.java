@@ -99,6 +99,7 @@ public class TensorFlowTest extends OpMode {
     @Override
     public void loop() {
         tensorFlow.getState();
+        telemetry.addData("Tensor Flow Stats", tensorFlow.getState());
     }
 
     /*
