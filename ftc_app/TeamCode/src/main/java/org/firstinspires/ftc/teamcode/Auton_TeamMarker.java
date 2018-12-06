@@ -78,6 +78,8 @@ public class Auton_TeamMarker extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
+    TensorFlow tensorFlow = new TensorFlow();
+
     int auto = 0;
     int turned = 0;
 
@@ -89,6 +91,7 @@ public class Auton_TeamMarker extends OpMode {
     public void init() {
 
         robot.init(hardwareMap, telemetry, false);
+        tensorFlow.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -121,6 +124,7 @@ public class Auton_TeamMarker extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        tensorFlow.start();
 
     }
 
@@ -137,12 +141,10 @@ public class Auton_TeamMarker extends OpMode {
              * Backwards
              * Right Strafe
              * 90 Degree Left Turn
-             * //Turn on tensor flow
-             * //Leftstrafe slowly
-             * //If detected center proceed down below.
-             * //If detected left, go back, 45 Degree Right Turn, strafe right, Drop Team Marker, Forward, and reset Hook Position.
-             * //If not detected, slowly Rightstrafe.
-             * //If detected right, go back, 45 Degree Right Turn, , and the proceed below.
+             * Turn on tensor flow
+             * Leftstrafe slowly
+             * Once Detected, go Backwards, then Forwards
+             * <------------------------------------------>
              * Backwards
              * Drop Team Marker
              * 45 Degree Left Turn
@@ -239,6 +241,46 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 11:
+                tensorFlow.getState();
+                robot.autonDrive(MovementEnum.LEFTSTRAFE, 1100 / 2);
+                robot.setPower(0.2);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT ||tensorFlow.getState() == TensorFlow.TFState.RIGHT ) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                    break;
+
+                } else {
+                    robot.autonMarkerTF();
+                    auto = 14;
+                }
+                break;
+
+            case 12:
+                if (tensorFlow.getState() == TensorFlow.TFState.LEFT) {
+                    robot.autonMarkerTF();
+                    auto++;
+                    break;
+
+                } else if (tensorFlow.getState() == TensorFlow.TFState.CENTER) {
+                    robot.autonMarkerTF();
+                    auto++;
+                    break;
+
+                } else {
+                    robot.autonMarkerTF();
+                    auto++;
+                    break;
+                }
+
+            case 13:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 14:
                 //45 degrees left turn
                 /*
                 robot.adjustHeading(-45);
@@ -260,13 +302,15 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
 
-            case 12:
+            case 15:
                 robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                if(robot.claw.getPosition() >= 0.7) auto++;
+
+                if(robot.claw.getPosition() >= 0.7)
+                    auto++;
                 break;
 
-            case 13:
+            case 16:
                 //45 degrees left turn
                 /*
                 robot.adjustHeading(-45);
@@ -288,7 +332,7 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
 
-            case 14:
+            case 17:
                 robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
                 robot.setPower(0.4);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -300,12 +344,12 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
 
-            case 15:
+            case 18:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 16:
+            case 19:
                 robot.hook.setTargetPosition(-24000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -317,7 +361,7 @@ public class Auton_TeamMarker extends OpMode {
                 }
                 break;
 
-            case 17:
+            case 20:
                 robot.autonDrive(MovementEnum.STOP, 0);
                 robot.setPower(0);
                 break;
@@ -325,10 +369,10 @@ public class Auton_TeamMarker extends OpMode {
             default: {
                 robot.drive(MovementEnum.STOP, 0);
             }
-
             break;
         }
         telemetry.addData("Team Marker Position", robot.claw.getPosition());
+        telemetry.addData("Posiiton", tensorFlow.getState());
         telemetry.addData("Case Number: ", auto);
         telemetry.update();
 /*

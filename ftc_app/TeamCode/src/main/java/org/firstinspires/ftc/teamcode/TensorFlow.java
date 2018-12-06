@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -8,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.State;
 import org.firstinspires.ftc.teamcode.Subsystem;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.List;
 
@@ -21,7 +24,9 @@ public class TensorFlow implements Subsystem {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
-    public TensorFlow() {}
+    Telemetry tele;
+
+ //  public TensorFlow() {}
 
     public enum TFState implements State {
         // crater angle, depot angle, crater distance, depot distance; all in degrees & cm
@@ -61,10 +66,12 @@ public class TensorFlow implements Subsystem {
             return depotDist;
         }
     }
+
     private TFState state;
 
     @Override
     public void init(HardwareMap hwMap) {
+        this.tele = tele;
         this.initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {

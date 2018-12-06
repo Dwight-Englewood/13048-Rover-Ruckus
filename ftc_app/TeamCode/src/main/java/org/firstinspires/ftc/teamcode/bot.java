@@ -404,6 +404,20 @@ public class bot {
             this.turn(0.0);
         }
     }
+
+    public void autonMarkerTF() {
+        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        autonDrive(MovementEnum.BACKWARD, 560 / 2);
+        setPower(0.5);
+        changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        autonDrive(MovementEnum.FORWARD, 560 / 2);
+        setPower(0.5);
+        changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 /*
     // Subtracts two angles in degrees
     public static double angleDiff(double alpha, double beta) {

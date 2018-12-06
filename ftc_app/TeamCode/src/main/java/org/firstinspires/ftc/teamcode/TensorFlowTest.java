@@ -27,14 +27,29 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.TensorFlow;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import org.firstinspires.ftc.teamcode.bot;
+
+import java.util.List;
+
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -50,35 +65,18 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
-@Disabled
-public class BasicOpMode_Iterative extends OpMode
-{
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+@TeleOp(name="TensorFlowTest", group="TeleOp")
+
+public class TensorFlowTest extends OpMode {
+    private ElapsedTime timer = new ElapsedTime();
+    TensorFlow tensorFlow = new TensorFlow();
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
+        tensorFlow.init(hardwareMap);
     }
 
     /*
@@ -93,7 +91,7 @@ public class BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void start() {
-        runtime.reset();
+        tensorFlow.start();
     }
 
     /*
@@ -101,32 +99,8 @@ public class BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double leftPower;
-        double rightPower;
-
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
-
-        // Send calculated power to wheels
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
-
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        tensorFlow.getState();
+        telemetry.addData("Posiiton", tensorFlow.getState());
     }
 
     /*
@@ -134,6 +108,6 @@ public class BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void stop() {
+        tensorFlow.stop();
     }
-
 }

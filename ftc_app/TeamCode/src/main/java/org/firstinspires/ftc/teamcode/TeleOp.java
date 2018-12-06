@@ -57,11 +57,9 @@ public class TeleOp extends OpMode {
     boolean Move2;
     int pos = 0;
     int extPos = 0;
-    int currentPosition;
-    int targetPosition;
     int command = 0;
     int command2 = 0;
-    int isPressed = 0;
+  //  int isPressed = 0;
 
     @Override
     public void init() {
