@@ -76,7 +76,7 @@ public class TensorFlowTest extends OpMode {
      */
     @Override
     public void init() {
-        tensorFlow.init(hardwareMap);
+        tensorFlow.init(hardwareMap, telemetry);
     }
 
     /*
@@ -93,14 +93,12 @@ public class TensorFlowTest extends OpMode {
     public void start() {
         tensorFlow.start();
     }
-
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
     public void loop() {
         tensorFlow.getState();
-        telemetry.addData("Posiiton", tensorFlow.getState());
     }
 
     /*

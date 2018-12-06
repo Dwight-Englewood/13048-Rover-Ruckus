@@ -95,14 +95,14 @@ public class Auton_Crater extends OpMode {
     public void init() {
 
         robot.init(hardwareMap, telemetry, false);
-        tensorFlow.init(hardwareMap);
+        tensorFlow.init(hardwareMap, telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -143,10 +143,10 @@ public class Auton_Crater extends OpMode {
             //FL AND FR HAVE REVERSED POWERS
             /**Auton_Crater Concept:
              * Drop
+             * Turn on tensor flow
              * Backwards
              * Right Strafe
              * 90 Degree Left Turn
-             * Turn on tensor flow
              * Leftstrafe slowly
              * Once Detected, go Backwards, then Forwards
              * <------------------------------------------>
@@ -178,6 +178,7 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 2:
+                tensorFlow.getState();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
@@ -248,7 +249,6 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 11:
-                tensorFlow.getState();
                 robot.autonDrive(MovementEnum.LEFTSTRAFE, 1100 / 2);
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -260,24 +260,24 @@ public class Auton_Crater extends OpMode {
                     break;
 
                 } else {
-                    robot.autonMarkerTF();
+                    robot.autonTF();
                     auto = 14;
                 }
                 break;
 
             case 12:
                 if (tensorFlow.getState() == TensorFlow.TFState.LEFT) {
-                    robot.autonMarkerTF();
+                    robot.autonTF();
                     auto++;
                     break;
 
                 } else if (tensorFlow.getState() == TensorFlow.TFState.CENTER) {
-                    robot.autonMarkerTF();
+                    robot.autonTF();
                     auto++;
                     break;
 
                 } else {
-                    robot.autonMarkerTF();
+                    robot.autonTF();
                     auto++;
                     break;
                 }

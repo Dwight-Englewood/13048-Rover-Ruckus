@@ -35,18 +35,17 @@ package org.firstinspires.ftc.teamcode;
 public class bot {
 
     //TODO add vex motor as a Servo for extension
-    // TODO change dump mechanism to a vex motor?
+    //TODO change dump mechanism to a vex motor?
     static DcMotor BL, BR, FL, FR, hook, lift, intake;
     Servo dump, claw;
     DigitalChannel liftLimit, hookLimit;
     HardwareMap map;
     Telemetry tele;
+    TensorFlow tensorFlow;
 
     Double powerModifier = 0.02;
     double turnSpeed = 0.25;
     final double proportionalValue = 0.000005;
-    double integralValue = 0;
-    double derivativeValue = 0;
 
     //   double error = 180 - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     //Double turnSpeed = 0.5;
@@ -55,9 +54,7 @@ public class bot {
     BNO055IMU.Parameters parameters;
     Orientation angles;
 
-
-    public bot() {
-    }
+    public bot() {}
 
     public void init(HardwareMap map, Telemetry tele, boolean auton) {
         this.map = map;
@@ -86,7 +83,7 @@ public class bot {
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
-        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        FR.setDirection(DcMotorSimple.Direction.FORWARD);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -95,7 +92,7 @@ public class bot {
         liftLimit.setMode(DigitalChannel.Mode.INPUT);
         hookLimit.setMode(DigitalChannel.Mode.INPUT);
 
-        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);  //TODO: Change to Run With Encoders Later
+        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -404,8 +401,7 @@ public class bot {
             this.turn(0.0);
         }
     }
-
-    public void autonMarkerTF() {
+    public void autonTF() {
         changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         autonDrive(MovementEnum.BACKWARD, 560 / 2);
         setPower(0.5);
@@ -417,6 +413,8 @@ public class bot {
         changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        tensorFlow.stop();
     }
 /*
     // Subtracts two angles in degrees

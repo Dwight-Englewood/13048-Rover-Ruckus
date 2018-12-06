@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -25,6 +26,7 @@ public class TensorFlow implements Subsystem {
     private TFObjectDetector tfod;
 
     Telemetry tele;
+    HardwareMap hwMap;
 
  //  public TensorFlow() {}
 
@@ -70,12 +72,14 @@ public class TensorFlow implements Subsystem {
     private TFState state;
 
     @Override
-    public void init(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap, Telemetry tele) {
         this.tele = tele;
         this.initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             this.initTfod(hwMap);
+
+            tele.addLine("TensorFlow Initiated");
         }
     }
 
@@ -83,6 +87,7 @@ public class TensorFlow implements Subsystem {
     public void start() {
         if (tfod != null) {
             tfod.activate();
+            tele.addLine("TensorFlow Activated");
         }
     }
 
@@ -147,6 +152,9 @@ public class TensorFlow implements Subsystem {
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+
+        //To change to webcam, comment out the top camera direction and uncomment the bottom.
+        //parameters.cameraName = hwMap.get(WebcamName.class, "Webcam 1");
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
