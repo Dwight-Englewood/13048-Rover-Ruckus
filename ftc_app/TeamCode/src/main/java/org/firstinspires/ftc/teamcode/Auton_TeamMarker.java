@@ -80,6 +80,7 @@ public class Auton_TeamMarker extends OpMode {
     bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
     TensorFlow.TFState BigThonk;
+    Thread thread;
     int auto = 0;
     int turned = 0;
 
@@ -309,7 +310,7 @@ public class Auton_TeamMarker extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(robot.claw.getPosition() >= 0.7)
-                    Thread.sleep(1000);
+                    thread.sleep(1000);
                     auto++;
                 break;
 
