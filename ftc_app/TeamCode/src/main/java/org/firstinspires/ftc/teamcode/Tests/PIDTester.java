@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Tests;
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Func;
@@ -58,10 +59,11 @@ import java.util.Locale;
  *
  * @see <a href="http://www.adafruit.com/products/2472">Adafruit IMU</a>
  */
-@Autonomous(name = "Gyro_Test", group = "Autonomous")
-public class Gyro_Test extends OpMode {
+@Autonomous(name = "PIDTester", group = "Autonomous")
+public class PIDTester extends OpMode {
 
     bot robot = new bot();
+    final double proportionalValue = 0.000005;
 
     @Override
     public void init() {
@@ -70,7 +72,6 @@ public class Gyro_Test extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
-
     }
 
     /*
@@ -93,15 +94,18 @@ public class Gyro_Test extends OpMode {
      */
     @Override
     public void loop() {
-        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-        telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
-        telemetry.update();
-        if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-            robot.adjustHeading(90);
+        robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
+        robot.motorSpeed();
+        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (robot.BR.getCurrentPosition() >= 6720 / 2) {
+            robot.drive(MovementEnum.STOP, 0);
+            telemetry.update();
         }
-        else if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3)
-           // robot.tankDrive(0, 0, 0, 0, false, false);
-            robot.drive(MovementEnum.STOP,0);
+
+        telemetry.addData("FL Power", robot.FL.getPower());
+        telemetry.addData("FL TargetPosition", robot.FL.getTargetPosition());
+        telemetry.addData("FL CurrentPosition", robot.FL.getCurrentPosition());
     }
 
 }

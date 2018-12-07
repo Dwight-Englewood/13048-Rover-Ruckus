@@ -446,7 +446,6 @@ public class bot {
         return false;
     }
 
-
     public void motorSpeed() {
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
         FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));

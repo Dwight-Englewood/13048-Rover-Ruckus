@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.TensorFlowStuff;
+package org.firstinspires.ftc.teamcode.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TenFlowTest", group="TeleOp")
+@TeleOp(name="TensorFlowTester", group="TeleOp")
 
 public class TensorFlowTest extends OpMode {
     private ElapsedTime timer = new ElapsedTime();

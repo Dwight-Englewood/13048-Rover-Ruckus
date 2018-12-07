@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
 
 
 @Autonomous(name = "TimeAuton", group = "Testing")
-//@Disabled
+
 public class AutonGyroTester extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

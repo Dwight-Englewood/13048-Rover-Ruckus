@@ -37,6 +37,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
@@ -56,7 +59,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
  */
 
 @Autonomous(name="AutonMarker ", group="Autonomous")
-//@Disabled
+
 public class Auton_TeamMarker extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -211,30 +214,17 @@ public class Auton_TeamMarker extends OpMode {
                 auto = 9;
                 break;
 
-
-                //leftstrafe
-
-
             case 9:
-                //45 degrees left turn
-                /*
-                robot.adjustHeading(-45);
-                if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
-                    auto++;
-                    break;
+                telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+                telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
+                telemetry.update();
+                if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(90);
                 }
-                break;
-           */
-                robot.autonDrive(MovementEnum.LEFTTURN, 1100 / 2);
-                robot.setPower(0.5);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.FR.getCurrentPosition() >= 1100 / 2) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0.0);
-                    telemetry.update();
+                else if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3)
+                    // robot.tankDrive(0, 0, 0, 0, false, false);
+                    robot.drive(MovementEnum.STOP,0);
                     auto++;
-                }
                 break;
 
             case 10:
@@ -286,15 +276,6 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 17:
-                //45 degrees left turn
-                /*
-                robot.adjustHeading(-45);
-                if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
-                    auto++;
-                    break;
-                }
-                break;
-           */
                 robot.autonDrive(MovementEnum.BACKWARD, 1750 / 2);
                 robot.setPower(0.2);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -324,25 +305,15 @@ public class Auton_TeamMarker extends OpMode {
                 break;
 
             case 19:
-                //45 degrees left turn
-                /*
-                robot.adjustHeading(-45);
-                if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
-                    auto++;
-                    break;
-                }j
-                break;
-           */
-                robot.autonDrive(MovementEnum.LEFTTURN, 500 / 2);
-                robot.setPower(0.5);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.FR.getCurrentPosition() >= 500 / 2) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    robot.claw.setPosition(0.0);
-                    telemetry.update();
-                    auto++;
+                telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+                telemetry.addData("Difference: ", Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
+                telemetry.update();
+                if(Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(45);
                 }
+                else if(Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3)
+                    // robot.tankDrive(0, 0, 0, 0, false, false);
+                    robot.drive(MovementEnum.STOP,0);
                 break;
 
             case 20:
@@ -388,33 +359,11 @@ public class Auton_TeamMarker extends OpMode {
         telemetry.addData("Position", tensorFlow.getState());
         telemetry.addData("BiggieThonk", BigThonk);
         telemetry.addData("Case Number: ", auto);
+
+        telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+        telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
         telemetry.update();
-/*
-        telemetry.addData("Hook Current Position", robot.hook.getCurrentPosition() / 1120);
-        telemetry.addData("Hook Revo Remaining", ((robot.hook.getTargetPosition() - robot.hook.getCurrentPosition()) / 1120));
-        telemetry.addData("Hook Target Position", robot.hook.getTargetPosition() / 1120);
-
-        telemetry.addData("FL Power", robot.FL.getPower());
-        telemetry.addData("FR Power", robot.FR.getPower());
-        telemetry.addData("BL Power", robot.BL.getPower());
-        telemetry.addData("BR Power", robot.BR.getPower());
-
-        telemetry.addData("FL Position", robot.FL.getCurrentPosition());
-        telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
-
-        telemetry.addData("Gyro Degrees ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-
-        telemetry.addData("Auto", auto);
-        */
     }
-
-    /*
-     * @param gyroTarget The target heading in degrees, between 0 and 360
-     * @param gyroRange The acceptable range off target in degrees, usually 1 or 2
-     * @param gyroActual The current heading in degrees, between 0 and 360
-     * @param minSpeed The minimum power to apply in order to turn (e.g. 0.05 when moving or 0.15 when stopped)
-     * @param addSpeed The maximum additional speed to apply in order to turn (proportional component), e.g. 0.3
-     */
 
     /*
      * Code to run ONCE after the driver hits STOP
