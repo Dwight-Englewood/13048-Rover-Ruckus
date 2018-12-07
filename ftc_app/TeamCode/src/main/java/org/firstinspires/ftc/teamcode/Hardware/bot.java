@@ -294,7 +294,7 @@ public class bot {
             case LEFTTURN:
                 FL.setPower(-power);
                 FR.setPower(power);
-                BL.setPower(power);
+                BL.setPower(-power);
                 BR.setPower(power);
                 break;
 
@@ -424,20 +424,25 @@ public class bot {
 */
     public boolean adjustHeading(int targetHeading) {
         double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        if (Math.abs(Math.abs(targetHeading) - Math.abs(curHeading)) < .5) {
-            FL.setPower(0);
-            BL.setPower(0);
-            FR.setPower(0);
-            BR.setPower(0);
-            return true;
-        }
         double headingError;
         headingError = targetHeading - curHeading;
         double driveScale = headingError;
-        bot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Range.clip(driveScale, -1, 1);
-        turn(driveScale);
-        bot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(headingError < -0.3)
+            driveScale = -0.15;
+        else if(headingError > 0.3)
+            driveScale = 0.15;
+        else {
+            driveScale = 0;
+            this.drive(MovementEnum.LEFTTURN, driveScale);
+            return true;
+        }
+
+            this.drive(MovementEnum.LEFTTURN, driveScale);
+        //    this.tele.addData("drive Scale",driveScale);
+         //   tele.update();
+     //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
+       // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         return false;
     }
 
