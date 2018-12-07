@@ -26,7 +26,7 @@ public class bot {
 
     Double powerModifier = 0.02;
     double turnSpeed = 0.25;
-    final double proportionalValue = 0.000005;
+    final double proportionalValue = 0.0003;
 
     //double error = 180 - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     //Double turnSpeed = 0.5;
@@ -379,9 +379,6 @@ public class bot {
         }
     }
 
-
-
-
 /*
     // Subtracts two angles in degrees
     public static double angleDiff(double alpha, double beta) {
@@ -448,12 +445,10 @@ public class bot {
 
     public void motorSpeed() {
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
-        FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));
-        FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));
-        BL.setPower(Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition() * proportionalValue));
-        BR.setPower(Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition() * proportionalValue));
-  //      tele.update();
-
+        FL.setPower((Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition()) * proportionalValue));
+        FR.setPower((Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition()) * proportionalValue));
+        BL.setPower((Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition()) * proportionalValue));
+        BR.setPower((Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition()) * proportionalValue));
         } else {
             autonDrive(MovementEnum.STOP, 0);
         }

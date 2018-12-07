@@ -346,18 +346,6 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 24:
-                robot.hook.setTargetPosition(-24000);
-                robot.hook.setPower(1);
-                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if (robot.hook.getCurrentPosition() <= -24000) {
-                    robot.hook.setPower(0);
-                    telemetry.update();
-                    auto++;
-                }
-                break;
-
-            case 25:
                 robot.autonDrive(MovementEnum.STOP, 0);
                 robot.setPower(0);
                 break;

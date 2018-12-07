@@ -94,11 +94,11 @@ public class PIDTester extends OpMode {
      */
     @Override
     public void loop() {
-        robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
+        robot.autonDrive(MovementEnum.FORWARD, 500);
         robot.motorSpeed();
         robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        if (robot.BR.getCurrentPosition() >= 6720 / 2) {
+        if (robot.BR.getCurrentPosition() >= 500) {
             robot.drive(MovementEnum.STOP, 0);
             telemetry.update();
         }
