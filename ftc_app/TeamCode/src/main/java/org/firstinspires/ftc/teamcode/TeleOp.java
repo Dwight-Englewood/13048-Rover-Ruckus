@@ -240,7 +240,7 @@ public class TeleOp extends OpMode {
             telemetry.addData("Lift State", robot.liftLimit.getState());
 
             telemetry.addData("Hook State", robot.hookLimit.getState());
-
+            telemetry.addData("Gyro Angle", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
             telemetry.addData("Command", command);
             telemetry.addData("Auto", command2);
 
