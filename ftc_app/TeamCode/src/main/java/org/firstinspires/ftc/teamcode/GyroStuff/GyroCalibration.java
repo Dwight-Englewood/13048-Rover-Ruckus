@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.GyroStuff;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -7,8 +7,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.State;
-import org.firstinspires.ftc.teamcode.Subsystem;
+import org.firstinspires.ftc.teamcode.Hardware.State;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystem;
 
 public class GyroCalibration implements Subsystem {
     private BNO055IMU gyro;

@@ -1,27 +1,18 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.ReadWriteFile;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-import org.firstinspires.ftc.teamcode.MovementEnum;
-import org.firstinspires.ftc.teamcode.bot;
-
-import java.io.File;
+import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
+import org.firstinspires.ftc.teamcode.Hardware.bot;
 
 /**
  * Created by Kevin on 10/19/18.
  */
 
 
-@Autonomous(name = "Auton Tester", group = "Testing")
+@Autonomous(name = "TimeAuton", group = "Testing")
 //@Disabled
 public class AutonGyroTester extends OpMode {
     // Declare OpMode members.
