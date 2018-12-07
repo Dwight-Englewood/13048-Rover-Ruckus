@@ -79,7 +79,7 @@ public class Auton_TeamMarker extends OpMode {
     private DigitalChannel DigChannel;
     bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
-    TensorFlow.TFState BigThonk;
+    TensorFlow.TFState BigThonk, actualState;
     int auto = 0;
     int turned = 0;
 
@@ -246,15 +246,19 @@ public class Auton_TeamMarker extends OpMode {
             case 11:
                 robot.autonDrive(MovementEnum.LEFTSTRAFE, 1100 / 2);
                 robot.setPower(0.2);
+                actualState = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT ||tensorFlow.getState() == TensorFlow.TFState.RIGHT ) {
+                if (actualState == TensorFlow.TFState.CENTER || actualState == TensorFlow.TFState.LEFT ||actualState == TensorFlow.TFState.RIGHT ) {
                     robot.drive(MovementEnum.STOP, 0);
+                    telemetry.addLine("We did it Chief");
                     telemetry.update();
                     auto++;
                     break;
 
-                } else {
+                } else if(actualState == TensorFlow.TFState.NOTVISIBLE){
+                    telemetry.addLine("It be like that sometimes");
+                    telemetry.update();
                     auto = 17;
                 }
                 break;
@@ -309,7 +313,13 @@ public class Auton_TeamMarker extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(robot.claw.getPosition() >= 0.7)
-                    Thread.sleep(1000);
+                    try {
+                        Thread.sleep(2000);
+                    }
+                    catch (InterruptedException e){
+                        telemetry.addLine("REEEEEEEEEEEEEEEEEEEEEEEEEE");
+                        telemetry.update();
+                    }
                     auto++;
                 break;
 
@@ -320,7 +330,7 @@ public class Auton_TeamMarker extends OpMode {
                 if(-45 - Math.abs(robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 5){
                     auto++;
                     break;
-                }
+                }j
                 break;
            */
                 robot.autonDrive(MovementEnum.LEFTTURN, 500 / 2);
