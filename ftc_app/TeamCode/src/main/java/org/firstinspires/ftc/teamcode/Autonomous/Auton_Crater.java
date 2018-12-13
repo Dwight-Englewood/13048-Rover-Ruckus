@@ -209,12 +209,16 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 7:
-                robot.autonTF();
+                if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
+                    robot.autonDriveUltimate(MovementEnum.BACKWARD, 280, 0.5);
+                }
                 auto++;
                 break;
 
             case 8:
-                robot.autonTF2();
+                if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
+                    robot.autonDriveUltimate(MovementEnum.FORWARD, 280, 0.5);
+                }
                 auto++;
                 break;
 
@@ -257,7 +261,7 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 15:
-                robot.encoderReset();
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.autonDriveUltimate(MovementEnum.STOP, 0, 0);
                 break;
 

@@ -98,8 +98,6 @@ public class bot {
         FL.setMode(runMode);
         FR.setMode(runMode);
         hook.setMode(runMode);
-//        left.setMode(runMode);
-//        right.setMode(runMode);
         lift.setMode(runMode);
         intake.setMode(runMode);
     }
@@ -177,107 +175,62 @@ public class bot {
         BR.setPower(power);
     }
 
- /*   public void twoDrive(MovementEnum movement, double power){
-        switch(movement){
-            case FORWARD:
-                left.setPower(power);
-                right.setPower(power);
-                break;
-
-            case BACKWARD:
-                left.setPower(-power);
-                right.setPower(-power);
-                break;
-
-            case LEFTTURN:
-                left.setPower(-power);
-                right.setPower(power);
-                break;
-
-            case RIGHTTURN:
-                left.setPower(power);
-                right.setPower(-power);
-                break;
-
-            case STOP:
-                left.setPower(0);
-                right.setPower(0);
-                break;
-        }
-    }
-
-  */
-
     public void autonDrive(MovementEnum movement, int target) {
         switch (movement) {
             case FORWARD:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
                 BR.setTargetPosition(BR.getCurrentPosition() + target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case BACKWARD:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
                 BR.setTargetPosition(BR.getCurrentPosition() - target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case LEFTSTRAFE:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
                 BR.setTargetPosition(BR.getCurrentPosition() - target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case RIGHTSTRAFE:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
                 BR.setTargetPosition(BR.getCurrentPosition() + target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case LEFTTURN:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
                 BR.setTargetPosition(BR.getCurrentPosition() + target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case RIGHTTURN:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
                 BR.setTargetPosition(BR.getCurrentPosition() - target);
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
 
             case STOP:
-                encoderReset();
+                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition());
                 FR.setTargetPosition(FR.getCurrentPosition());
                 BL.setTargetPosition(BL.getCurrentPosition());
                 BR.setTargetPosition(BR.getCurrentPosition());
-                encoderReset();
-                autonDrive(MovementEnum.STOP, 0);
                 break;
         }
     }
@@ -377,22 +330,12 @@ public class bot {
         return gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     }
 
-    public void autonTF() {
-        if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
-            autonDriveUltimate(MovementEnum.BACKWARD, 280, 0.5);
-        }
-    }
-
-    public void autonTF2() {
-        if (tensorFlow.getState() == TensorFlow.TFState.CENTER || tensorFlow.getState() == TensorFlow.TFState.LEFT || tensorFlow.getState() == TensorFlow.TFState.RIGHT) {
-            autonDriveUltimate(MovementEnum.FORWARD, 280, 0.5);
-        }
-    }
-
     public void autonDriveUltimate(MovementEnum movementEnum, int target, double power) {
         autonDrive(movementEnum, target);
         setPower(power);
         changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition()))
         drive(MovementEnum.STOP, 0);
         tele.update();
     }
@@ -401,10 +344,6 @@ public class bot {
         hook.setTargetPosition(targetPosition);
         hook.setPower(power);
         hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void encoderReset() {
-        changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void sleep(long time) {
