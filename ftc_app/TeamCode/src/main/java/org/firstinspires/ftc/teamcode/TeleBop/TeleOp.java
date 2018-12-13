@@ -49,12 +49,11 @@ public class TeleOp extends OpMode {
     int extPos = 0;
     int command = 0;
     int command2 = 0;
-  //  int isPressed = 0;
 
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-//      robot.resetServo();
+//        robot.resetServo();
         telemetry.addData("Status", "Initialized");
 
         telemetry.addData("Hook Power", robot.hook.getPower());
@@ -81,7 +80,7 @@ public class TeleOp extends OpMode {
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
-   //     robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //     robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 /*
         if (Move2) {
             robot.hook.setPower(gamepad2.right_trigger * 0.75);
@@ -103,13 +102,13 @@ public class TeleOp extends OpMode {
                     robot.hook.setPower(0);
                 }
 
-           //     if (isPressed % 2 == 0) {
-        //            telemetry.addData("isPressed", + isPressed);
-            //    } else
+                //     if (isPressed % 2 == 0) {
+                //            telemetry.addData("isPressed", + isPressed);
+                //    } else
 
                 if (!Move2) {
                     robot.hook.setPower(0);
-           //         isPressed++;
+                    //isPressed++;
                     command = 1;
                 }
                 break;
@@ -135,12 +134,10 @@ public class TeleOp extends OpMode {
         Move2 = robot.hookLimit.getState();
 
         if (Move){
-         //   robot.lift.setTargetPosition(2240);
             robot.lift.setPower(gamepad2.right_stick_y * 0.75);
         }
 
         else if(!Move){
-       //     robot.lift.setTargetPosition(-2240);
             robot.lift.setPower(Math.abs(gamepad2.right_stick_y * 0.75));
         }
         if (gamepad2.dpad_up){
@@ -149,93 +146,42 @@ public class TeleOp extends OpMode {
         if (gamepad2.dpad_down) {
             Move2 = true;
         }
-       // if(gamepad2.)
 
 
-
-        /*
-            switch (command) {
-                case 0:
-                    if (!robot.hookLimit.getState()) {
-                        command++;
-                        break;
-                    }
-
-                case 1:
-                    robot.hook.setPower(-1.0);
-                    if (gamepad1.a) {
-                    robot.hook.setPower(0);
-
-                    } else if(robot.hookLimit.getState()) {
-                        command2 = 0;
-                        break;
-                    }
-                    break;
-            }
-
-            switch (command2) {
-                case 0:
-                    if (!robot.liftLimit.getState()) {
-                        command2++;
-                        break;
-                    }
-                    if(gamepad2.right_stick_y > 0.3) {
-                        robot.lift.setPower(gamepad2.right_stick_y * -0.75);
-
-                    } else if(gamepad2.right_stick_y < -0.3) {
-                        robot.lift.setPower(gamepad2.right_stick_y * -0.75);
-
-
-                    } else {
-                        robot.lift.setPower(0);
-                    }
-
-                case 1:
-                    robot.lift.setPower(gamepad2.right_stick_y * -0.75);
-                    if (gamepad2.right_stick_y < -0.3) {
-                        robot.lift.setPower(0);
-
-                    } else if(robot.liftLimit.getState()) {
-                        command2 = 0;
-                        break;
-                    }
-                    break;
-            }
-    */
         if(gamepad2.left_stick_y > 0.3) {
             robot.intake.setPower(gamepad2.left_stick_y * -0.75);
         }
 
-            else if(gamepad2.left_stick_y < -0.3) {
-                robot.intake.setPower(gamepad2.left_stick_y * -0.75);
+        else if(gamepad2.left_stick_y < -0.3) {
+            robot.intake.setPower(gamepad2.left_stick_y * -0.75);
 
-                } else {
-                robot.intake.setPower(0);
-                }
+        } else {
+            robot.intake.setPower(0);
+        }
 
-            if (gamepad2.b) {
-                robot.claw.setPosition(0.0);
+        if (gamepad2.b) {
+            robot.claw.setPosition(0.0);
 
-            } else if (gamepad2.a) {
-                robot.claw.setPosition(0.7);
-            }
+        } else if (gamepad2.a) {
+            robot.claw.setPosition(0.7);
+        }
 
-            if (gamepad2.y) {
-                robot.dump.setPosition(0.75);
+        if (gamepad2.y) {
+            robot.dump.setPosition(0.75);
 
-            } else if (gamepad2.x) {
-                robot.dump.setPosition(-1);
-            }
+        } else if (gamepad2.x) {
+            robot.dump.setPosition(-1);
+        }
 
-            telemetry.addData("Lift State", robot.liftLimit.getState());
+        telemetry.addData("Lift State", robot.liftLimit.getState());
 
-            telemetry.addData("Hook State", robot.hookLimit.getState());
-            telemetry.addData("Gyro Angle", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-            telemetry.addData("Command", command);
-            telemetry.addData("Auto", command2);
+        telemetry.addData("Hook State", robot.hookLimit.getState());
+        telemetry.addData("Gyro Angle", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+        telemetry.addData("Command", command);
+        telemetry.addData("Auto", command2);
 
-            telemetry.addData("Lift Power", robot.lift.getPower());
-            telemetry.addData("Hook Power", robot.hook.getPower());
+        telemetry.addData("Lift Power", robot.lift.getPower());
+        telemetry.addData("Hook Power", robot.hook.getPower());
 
 //        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 //        telemetry.update();

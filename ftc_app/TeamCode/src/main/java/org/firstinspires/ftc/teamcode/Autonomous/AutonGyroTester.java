@@ -71,6 +71,7 @@ public class AutonGyroTester extends OpMode {
                 }
 
                 break;
+
             case 1 :
                 runtime.reset();
                 auto++;
@@ -94,6 +95,7 @@ public class AutonGyroTester extends OpMode {
                 runtime.reset();
                 auto++;
                 break;
+
             case 4:
                 // if (runtime.milliseconds() >= 12000) {
                 //enable for color sensor here using DogeCV or OpenCV (Preferably DogeCV)
@@ -112,8 +114,6 @@ public class AutonGyroTester extends OpMode {
 
 
                     break;
-
-
 
             case 34:
                 if (runtime.milliseconds() <= 10000) {

@@ -70,7 +70,6 @@ public class Gyro_Test extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
-
     }
 
     /*
@@ -85,7 +84,6 @@ public class Gyro_Test extends OpMode {
      */
     @Override
     public void start() {
-
     }
 
     /*

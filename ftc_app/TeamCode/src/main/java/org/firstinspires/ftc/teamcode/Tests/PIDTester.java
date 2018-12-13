@@ -48,6 +48,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
+import org.firstinspires.ftc.teamcode.Hardware.PID;
 
 import java.util.Locale;
 
@@ -62,16 +63,18 @@ import java.util.Locale;
 @Autonomous(name = "PIDTester", group = "Autonomous")
 public class PIDTester extends OpMode {
 
-    bot robot = new bot();
-    final double proportionalValue = 0.000005;
+   // bot robot = new bot();
+    PID pid = new PID();
 
     @Override
     public void init() {
-        robot.init(hardwareMap, telemetry, false);
-        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        pid.robot.init(hardwareMap, telemetry, false);
+        pid.robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        pid.robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        pid.robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        pid.robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        pid.robot.encoderReset();
+      //  robot.encoderReset();
     }
 
     /*
@@ -86,7 +89,6 @@ public class PIDTester extends OpMode {
      */
     @Override
     public void start() {
-
     }
 
     /*
@@ -94,18 +96,11 @@ public class PIDTester extends OpMode {
      */
     @Override
     public void loop() {
-        robot.autonDrive(MovementEnum.FORWARD, 500);
-        robot.motorSpeed();
-        robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        pid.pidutonDrive(MovementEnum.FORWARD, 1120);
 
-        if (robot.BR.getCurrentPosition() >= 500) {
-            robot.drive(MovementEnum.STOP, 0);
-            telemetry.update();
-        }
-
-        telemetry.addData("FL Power", robot.FL.getPower());
-        telemetry.addData("FL TargetPosition", robot.FL.getTargetPosition());
-        telemetry.addData("FL CurrentPosition", robot.FL.getCurrentPosition());
+        telemetry.addData("FL Power", pid.robot.FL.getPower());
+        telemetry.addData("FL TargetPosition", pid.robot.FL.getTargetPosition());
+        telemetry.addData("FL CurrentPosition", pid.robot.FL.getCurrentPosition());
     }
 
 }
