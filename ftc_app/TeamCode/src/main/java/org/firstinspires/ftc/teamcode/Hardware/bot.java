@@ -120,13 +120,6 @@ public class bot {
         FL.setPower(in);
     }
 
-    /*
-    public void tankDriveNoStrafe (double leftStick, double rightStick){
-       left.setPower(leftStick);
-       right.setPower(rightStick);
-
-    }
-    */
 
     public void notKevinDrive(double leftStick_y, double leftStick_x, double leftTrigger, double rightTrigger) {
         if (leftTrigger > .3) {
@@ -178,7 +171,7 @@ public class bot {
     public void autonDrive(MovementEnum movement, int target) {
         switch (movement) {
             case FORWARD:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
@@ -186,7 +179,7 @@ public class bot {
                 break;
 
             case BACKWARD:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
@@ -194,7 +187,7 @@ public class bot {
                 break;
 
             case LEFTSTRAFE:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
@@ -202,7 +195,7 @@ public class bot {
                 break;
 
             case RIGHTSTRAFE:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
@@ -210,7 +203,7 @@ public class bot {
                 break;
 
             case LEFTTURN:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() - target);
                 FR.setTargetPosition(FR.getCurrentPosition() + target);
                 BL.setTargetPosition(BL.getCurrentPosition() - target);
@@ -218,7 +211,7 @@ public class bot {
                 break;
 
             case RIGHTTURN:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition() + target);
                 FR.setTargetPosition(FR.getCurrentPosition() - target);
                 BL.setTargetPosition(BL.getCurrentPosition() + target);
@@ -226,7 +219,7 @@ public class bot {
                 break;
 
             case STOP:
-                changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition());
                 FR.setTargetPosition(FR.getCurrentPosition());
                 BL.setTargetPosition(BL.getCurrentPosition());
@@ -331,19 +324,13 @@ public class bot {
     }
 
     public void autonDriveUltimate(MovementEnum movementEnum, int target, double power) {
-        autonDrive(movementEnum, target);
-        setPower(power);
-        changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.autonDrive(movementEnum, target);
+        this.setPower(power);
+        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition()))
-        drive(MovementEnum.STOP, 0);
+        this.drive(MovementEnum.STOP, 0);
         tele.update();
-    }
-
-    public void hookCommand(int targetPosition, double power) {
-        hook.setTargetPosition(targetPosition);
-        hook.setPower(power);
-        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void sleep(long time) {

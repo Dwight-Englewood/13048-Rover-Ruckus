@@ -13,7 +13,7 @@ public class PID {
 
     public void pidutonDrive(MovementEnum movementEnum, int target) {
         robot.autonDrive(movementEnum, target);
-        motorSpeed();
+        this.motorSpeed();
         robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.drive(MovementEnum.STOP, 0);
         robot.tele.update();

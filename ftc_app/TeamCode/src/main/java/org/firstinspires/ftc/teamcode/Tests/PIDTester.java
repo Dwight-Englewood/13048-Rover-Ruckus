@@ -73,8 +73,7 @@ public class PIDTester extends OpMode {
         pid.robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         pid.robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
         pid.robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        pid.robot.encoderReset();
-      //  robot.encoderReset();
+        pid.robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     /*

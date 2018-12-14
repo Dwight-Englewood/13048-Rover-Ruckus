@@ -157,7 +157,9 @@ public class Auton_Crater extends OpMode {
                 break;
 
             case 2:
-                robot.hookCommand(50000, 1);
+                robot.hook.setTargetPosition(50000);
+                robot.hook.setPower(1);
+                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 BigThonk =  tensorFlow.getState();
 
                 if(!robot.hookLimit.getState()){
@@ -181,11 +183,11 @@ public class Auton_Crater extends OpMode {
             case 5:
                 if(Math.abs(90 - robot.fetchHeading()) > 3) {
                     robot.adjustHeading(90);
-                }
 
-                else if(Math.abs(90 - robot.fetchHeading()) < 3)
-                    robot.drive(MovementEnum.STOP,0);
-                auto++;
+                } else if(Math.abs(90 - robot.fetchHeading()) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
                 break;
 
             case 6:
@@ -225,9 +227,11 @@ public class Auton_Crater extends OpMode {
             case 9:
                 if(Math.abs(90 - robot.fetchHeading()) > 3) {
                     robot.adjustHeading(90);
+
+                } else if(Math.abs(90 - robot.fetchHeading()) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
                 }
-                else if(Math.abs(90 - robot.fetchHeading()) < 3)
-                    robot.drive(MovementEnum.STOP,0);
                 break;
 
             case 10:
@@ -238,9 +242,11 @@ public class Auton_Crater extends OpMode {
             case 11:
                 if(Math.abs(-135 - robot.fetchHeading()) > 3) {
                     robot.adjustHeading(-135);
-                }
-                else if(Math.abs(-135 - robot.fetchHeading()) < 3)
+
+                } else if(Math.abs(-135 - robot.fetchHeading()) < 3) {
                     robot.drive(MovementEnum.STOP,0);
+                    auto++;
+                }
                 break;
 
             case 12:
@@ -251,7 +257,6 @@ public class Auton_Crater extends OpMode {
             case 13:
                 robot.claw.setPosition(0.7);
                 robot.sleep(2000);
-
                 auto++;
                 break;
 
@@ -270,6 +275,7 @@ public class Auton_Crater extends OpMode {
             }
             break;
         }
+
         telemetry.addData("Team Marker Position", robot.claw.getPosition());
 
         telemetry.addData("Position", tensorFlow.getState());
