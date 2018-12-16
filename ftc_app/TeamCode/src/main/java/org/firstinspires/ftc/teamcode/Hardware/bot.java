@@ -26,6 +26,7 @@ public class bot {
 
     Double powerModifier = 0.02;
     double turnSpeed = 0.25;
+    final double proportionalValue = 0.000005;
 
     //double error = 180 - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     //Double turnSpeed = 0.5;
@@ -171,55 +172,48 @@ public class bot {
     public void autonDrive(MovementEnum movement, int target) {
         switch (movement) {
             case FORWARD:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() + target);
-                FR.setTargetPosition(FR.getCurrentPosition() + target);
-                BL.setTargetPosition(BL.getCurrentPosition() + target);
-                BR.setTargetPosition(BR.getCurrentPosition() + target);
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(target);
                 break;
 
             case BACKWARD:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() - target);
-                FR.setTargetPosition(FR.getCurrentPosition() - target);
-                BL.setTargetPosition(BL.getCurrentPosition() - target);
-                BR.setTargetPosition(BR.getCurrentPosition() - target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(-target);
                 break;
 
             case LEFTSTRAFE:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() - target);
-                FR.setTargetPosition(FR.getCurrentPosition() + target);
-                BL.setTargetPosition(BL.getCurrentPosition() + target);
-                BR.setTargetPosition(BR.getCurrentPosition() - target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
                 break;
 
             case RIGHTSTRAFE:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() + target);
-                FR.setTargetPosition(FR.getCurrentPosition() - target);
-                BL.setTargetPosition(BL.getCurrentPosition() - target);
-                BR.setTargetPosition(BR.getCurrentPosition() + target);
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(target);
                 break;
 
             case LEFTTURN:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() - target);
-                FR.setTargetPosition(FR.getCurrentPosition() + target);
-                BL.setTargetPosition(BL.getCurrentPosition() - target);
-                BR.setTargetPosition(BR.getCurrentPosition() + target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(target);
                 break;
 
             case RIGHTTURN:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                FL.setTargetPosition(FL.getCurrentPosition() + target);
-                FR.setTargetPosition(FR.getCurrentPosition() - target);
-                BL.setTargetPosition(BL.getCurrentPosition() + target);
-                BR.setTargetPosition(BR.getCurrentPosition() - target);
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
                 break;
 
             case STOP:
-                this.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FL.setTargetPosition(FL.getCurrentPosition());
                 FR.setTargetPosition(FR.getCurrentPosition());
                 BL.setTargetPosition(BL.getCurrentPosition());
@@ -328,10 +322,24 @@ public class bot {
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition()))
-        this.drive(MovementEnum.STOP, 0);
-        tele.update();
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
+            this.drive(MovementEnum.STOP, 0);
+            tele.update();
+        }
     }
+
+    /*
+                robot.autonDrive(MovementEnum.BACKWARD, 280 / 2);
+                robot.setPower(0.2);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                if(robot.BR.getCurrentPosition() <= -280 / 2){
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+                */
 
     public void sleep(long time) {
         try {
@@ -348,9 +356,9 @@ public class bot {
         headingError = targetHeading - curHeading;
         double driveScale = headingError;
         this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (headingError < -0.3)
+        if(headingError < -0.3)
             driveScale = -0.15;
-        else if (headingError > 0.3)
+        else if(headingError > 0.3)
             driveScale = 0.15;
         else {
             driveScale = 0;
@@ -365,7 +373,16 @@ public class bot {
         // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         return false;
     }
+    public void motorSpeed() {
+        if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
+            FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));
+            FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));
+            BL.setPower(Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition() * proportionalValue));
+            BR.setPower(Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition() * proportionalValue));
+            //      tele.update();
+
+        } else {
+            autonDrive(MovementEnum.STOP, 0);
+        }
+    }
 }
-
-
-

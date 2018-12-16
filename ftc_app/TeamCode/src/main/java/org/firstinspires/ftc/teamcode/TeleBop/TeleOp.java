@@ -78,7 +78,7 @@ public class TeleOp extends OpMode {
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
-        robot.tankDrive(-gamepad1.left_stick_y, -gamepad1.right_stick_y,  gamepad1.right_trigger, gamepad1.left_trigger,false, false);
+        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,false, false);
         //     robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 /*
         if (Move2) {
@@ -106,19 +106,19 @@ public class TeleOp extends OpMode {
             }
         }
 
-            if (!Command) {
+        if (!Command) {
+            robot.hook.setPower(0);
+
+            if (gamepad1.a) {
                 robot.hook.setPower(0);
 
-                if (gamepad1.a) {
-                    robot.hook.setPower(0);
+            } else if (gamepad1.b) {
+                robot.hook.setPower(-1);
 
-                } else if (gamepad1.b) {
-                    robot.hook.setPower(-1);
-
-                } else {
-                    robot.hook.setPower(0);
-                }
+            } else {
+                robot.hook.setPower(0);
             }
+        }
 
 
         Move = robot.liftLimit.getState();
