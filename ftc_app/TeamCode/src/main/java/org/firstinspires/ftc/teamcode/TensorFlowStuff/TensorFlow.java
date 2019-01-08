@@ -112,7 +112,33 @@ TensorFlow implements Subsystem {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
             if (updatedRecognitions != null) {
+                if (updatedRecognitions.size() == 2){
+                    int gold = -1;
+                    int silver1 = -1;
+                    // int silver2 = -1;
+                    for(Recognition recognition: updatedRecognitions){
+                        if(recognition.getLabel().equals(LABEL_GOLD_MINERAL)){
+                            gold = (int) recognition.getLeft();
+                        } else if(silver1 == -1){
+                            silver1 = (int) recognition.getLeft();
+                        }
+                    }
+                    if (gold != -1 || silver1 != -1) {
+                        if (gold < silver1 && gold != -1){
+                            this.state = TFState.CENTER;
+                         }else if (silver1 < gold) {
+                            this.state = TFState.LEFT;
+                        }else if (gold == -1){
+                            this.state = TFState.RIGHT;
+                        }
+                    }
+
+
+
+
+                /*
                 if (updatedRecognitions.size() == 3) {
                     int goldMineralX = -1;
                     int silverMineral1X = -1;
@@ -135,6 +161,7 @@ TensorFlow implements Subsystem {
                             this.state = TFState.CENTER;
                         }
                     }
+                    */
                 } else {
                     this.state = TFState.NOTVISIBLE;
                 }
