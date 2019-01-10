@@ -162,11 +162,11 @@ public class TeleOp extends OpMode {
             robot.dump.setPosition(0.75);
 
         } else if (gamepad2.x) {
-            robot.dump.setPosition(-1);
+            robot.dump.setPosition(0);
         }
 
         telemetry.addData("Lift State", robot.liftLimit.getState());
-
+        telemetry.addData("Dump Position", robot.dump.getPosition());
         telemetry.addData("Hook State", robot.hookLimit.getState());
         telemetry.addData("Gyro Angle", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
         telemetry.addData("Command", Command);
