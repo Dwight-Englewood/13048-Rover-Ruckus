@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -52,20 +53,29 @@ import org.firstinspires.ftc.teamcode.Hardware.PID;
 
 import java.util.Locale;
 
-@Autonomous(name = "PIDTester", group = "Autonomous")
-public class PIDTester extends OpMode {
+@Autonomous(name = "EncoderWrapperTest", group = "Autonomous")
+public class EncoderWrapperTest extends OpMode {
 
-   // bot robot = new bot();
-    PID pid = new PID();
+    bot robot = new bot();
+    int autonTest = 0;
 
     @Override
     public void init() {
-        pid.robot.init(hardwareMap, telemetry, false);
-        pid.robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
-        pid.robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        pid.robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        pid.robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        pid.robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.init(hardwareMap, telemetry, false);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.claw.setPosition(0.0);
     }
 
     /*
@@ -87,11 +97,31 @@ public class PIDTester extends OpMode {
      */
     @Override
     public void loop() {
-        pid.pidutonDrive(MovementEnum.FORWARD, 1120);
+        switch (autonTest) {
+            case 0:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                autonTest++;
+                break;
 
-        telemetry.addData("FL Power", pid.robot.FL.getPower());
-        telemetry.addData("FL TargetPosition", pid.robot.FL.getTargetPosition());
-        telemetry.addData("FL CurrentPosition", pid.robot.FL.getCurrentPosition());
+            case 1:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 1000, 0.3);
+
+                if (robot.FL.getCurrentPosition() >= robot.FL.getTargetPosition()) {
+                    autonTest++;
+                }
+                break;
+
+            case 2:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break;
+        }
+
+        telemetry.addData("FL Power", robot.FL.getPower());
+        telemetry.addData("FL Cur Pos", robot.FL.getCurrentPosition());
+        telemetry.addData("FL Target Pos", robot.FL.getTargetPosition());
+        telemetry.addData("Current Case Numbo:", autonTest );
     }
-
-}
+        @Override
+        public void stop() {
+        }
+    }
