@@ -321,25 +321,8 @@ public class bot {
         this.autonDrive(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
-            this.drive(MovementEnum.STOP, 0);
-            tele.update();
+        tele.update();
         }
-    }
-
-    /*
-                robot.autonDrive(MovementEnum.BACKWARD, 280 / 2);
-                robot.setPower(0.2);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.BR.getCurrentPosition() <= -280 / 2){
-                    robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-                    auto++;
-                }
-                break;
-                */
 
     public void sleep(long time) {
         try {
