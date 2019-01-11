@@ -239,10 +239,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 auto++;
                 break;
             case 18:
-                robot.autonDrive(MovementEnum.BACKWARD, 280/ 2);
+                robot.autonDrive(MovementEnum.BACKWARD, 1750/ 4);
                 robot.setPower(0.3);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                auto++;
+                if(robot.BR.getCurrentPosition() >= 1750 / 4) {
+                    auto++;
+                }
                 break;
             case 19:
                 if(Math.abs(100- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
