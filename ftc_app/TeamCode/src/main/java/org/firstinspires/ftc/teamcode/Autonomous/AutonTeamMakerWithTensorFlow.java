@@ -219,10 +219,10 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 auto++;
                 break;
             case 16:
-                robot.autonDrive(MovementEnum.FORWARD, 2500/4);
+                robot.autonDrive(MovementEnum.FORWARD, 2500/2);
                 robot.setPower(0.4);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 2500 / 4) {
+                if(robot.BR.getCurrentPosition() >= 2500 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -350,14 +350,18 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     // auto++;
-                    auto = 31;
+                    auto = 3444;
                 }
                 break;
+            case 3444:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto = 31;
+                break;
             case 31:
-                robot.autonDrive(MovementEnum.FORWARD, 313);
+                robot.autonDrive(MovementEnum.FORWARD, 2500/8);
                 robot.setPower(0.4);
                 robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 313) {
+                if(robot.BR.getCurrentPosition() >= 2500/8) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
