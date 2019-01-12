@@ -302,6 +302,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 24:
                 if(Math.abs(40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(40);
