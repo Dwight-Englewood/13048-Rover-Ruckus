@@ -321,8 +321,12 @@ public class bot {
         this.autonDrive(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-        tele.update();
+
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
+            drive(MovementEnum.STOP, 0);
+            tele.update();
         }
+    }
 
     public void sleep(long time) {
         try {
