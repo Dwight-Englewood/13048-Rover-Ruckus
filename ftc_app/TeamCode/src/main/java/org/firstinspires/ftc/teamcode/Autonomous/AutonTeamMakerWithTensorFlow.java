@@ -214,27 +214,6 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                 }
                 break;
-                /*
-
-           CASE FOR LEFT
-           */
-            case 13:
-                robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120/2);
-                robot.setPower(0.2);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(Math.abs(robot.BR.getCurrentPosition()) >= 1120 / 2) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-                    // auto++;
-                    auto=15;
-                }
-                break;
-                /*
-
-           CASE FOR RIGHT
-           */
-            case 14:
-                break;
             case 15:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
@@ -246,7 +225,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 if(robot.BR.getCurrentPosition() >= 2500 / 4) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
-                     auto++;
+                    auto++;
                 }
                 break;
             case 17:
@@ -326,7 +305,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 if(robot.BR.getCurrentPosition() >= 6720 / 2) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
-               //     auto++;
+                    //     auto++;
                 }
                 break;
             case 27:
@@ -354,10 +333,157 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 if(robot.BR.getCurrentPosition() >= 6720 / 3){
                     robot.drive(MovementEnum.STOP,0);
                     telemetry.update();
-                   // auto++;
+                    // auto++;
                 }
                 break;
 
+
+                /*
+
+           CASE FOR LEFT
+           */
+            case 13:
+                robot.autonDrive(MovementEnum.LEFTSTRAFE, 600);
+                robot.setPower(0.2);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(Math.abs(robot.BR.getCurrentPosition()) >= 600) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    // auto++;
+                    auto = 31;
+                }
+                break;
+            case 31:
+                robot.autonDrive(MovementEnum.FORWARD, 313);
+                robot.setPower(0.4);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.BR.getCurrentPosition() >= 313) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+            case 32:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 33:
+                robot.intake.setTargetPosition(313);
+                robot.setPower(1);
+                robot.intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.intake.getCurrentPosition() >= 313) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+            case 34:
+                if(Math.abs(45- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(45);
+                }
+                else if(Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+            case 35:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 36:
+                robot.autonDrive(MovementEnum.LEFTSTRAFE,560/2);
+                robot.setPower(0.3);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.BR.getCurrentPosition() >=560 /2){
+                    robot.autonDrive(MovementEnum.STOP,0);
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+            case 37:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 38:
+                robot.intake.setTargetPosition(-313);
+                robot.setPower(1);
+                robot.intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(Math.abs(robot.intake.getCurrentPosition()) >= -313) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+            case 39:
+                if(Math.abs(90- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(90);
+                }
+                else if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    // robot.tankDrive(0, 0, 0, 0, false, false);
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+            case 40:
+                robot.claw.setPosition(0.7);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                if(robot.claw.getPosition() >= 0.7) {
+                    auto++;
+                }
+                break;
+            case 41:
+                if(Math.abs(40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(40);
+                }
+                else if(Math.abs(40 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    // robot.tankDrive(0, 0, 0, 0, false, false);
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+            case 42:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 43:
+                robot.autonDrive(MovementEnum.RIGHTSTRAFE,560/8);
+                robot.setPower(0.3);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.BR.getCurrentPosition() >= 560/8){
+                    robot.drive(MovementEnum.STOP,0);
+                    telemetry.update();
+                     auto++;
+                }
+                break;
+            case 44:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 45:
+                robot.autonDrive(MovementEnum.FORWARD,6720 / 3);
+                robot.setPower(0.3);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.BR.getCurrentPosition() >= 6720 / 3){
+                    robot.drive(MovementEnum.STOP,0);
+                    telemetry.update();
+                    // auto++;
+                }
+                break;
+
+                /*
+
+           CASE FOR RIGHT
+           */
+            case 14:
+                break;
 
         }
         telemetry.addData("Team Marker Position", robot.claw.getPosition());
