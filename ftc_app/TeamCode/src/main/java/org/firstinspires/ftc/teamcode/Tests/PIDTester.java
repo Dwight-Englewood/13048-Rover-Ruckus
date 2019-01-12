@@ -249,7 +249,7 @@ public class PIDTester extends OpMode {
                 break;
 
             case 18:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 625, 0.3);
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 500, 0.3);
 
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
@@ -258,10 +258,10 @@ public class PIDTester extends OpMode {
                 break;
 
             case 19:
-                if(Math.abs(180- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(180);
+                if(Math.abs(-170- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-170);
                 }
-                else if(Math.abs(180 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
@@ -274,7 +274,7 @@ public class PIDTester extends OpMode {
                 break;
 
             case 21:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 500, 0.4);
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 1200, 0.4);
 
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
@@ -283,10 +283,10 @@ public class PIDTester extends OpMode {
                 break;
 
             case 69:
-                if(Math.abs(-40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-40);
+                if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-135);
                 }
-                else if(Math.abs(-40 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
@@ -330,10 +330,10 @@ public class PIDTester extends OpMode {
                 break;
 
             case 24:
-                if(Math.abs(40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(40);
+                if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-170);
                 }
-                else if(Math.abs(40 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
@@ -344,40 +344,13 @@ public class PIDTester extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 26:
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 3360, 0.3);
 
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
                     //  auto++;
-                }
-                break;
-
-            case 27:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 28:
-                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 70, 0.3);
-
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    telemetry.update();
-                    auto++;
-                }
-                break;
-
-            case 29:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 30:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 2240, 0.3);
-
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    telemetry.update();
-                //    auto++;
                 }
                 break;
 
