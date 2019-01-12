@@ -152,7 +152,7 @@ public class TeleOp extends OpMode {
 
         //claw
         if (gamepad2.b) {
-            robot.claw.setPosition(0.0);
+            robot.claw.setPosition(0.10);
 
         } else if (gamepad2.a) {
             robot.claw.setPosition(0.7);
