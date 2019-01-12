@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 
-@Autonomous(name="TensorFlow :O ", group="Autonomous")
-public class AutonTeamMakerWithTensorFlow extends OpMode {
+@Autonomous(name="TensorFlow uwuv", group="Autonomous")
+public class AutonCraterWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
@@ -36,12 +36,14 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.claw.setPosition(0.0);
 
         //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -62,7 +64,6 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         runtime.reset();
         tensorFlow.start();
         BigThonk = tensorFlow.getState();
-
     }
 
     /*
@@ -107,9 +108,10 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
             case 3:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto = 12345;
+                auto++;
                 break;
-            case 12345:
+
+            case 4:
                 if(Math.abs(0- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(0);
                 }
@@ -119,44 +121,41 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
-            case 12346:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto = 4;
-                break;
-            case 4:
-                robot.autonDrive(MovementEnum.BACKWARD, 280 / 2);
-                robot.setPower(0.5);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.BR.getCurrentPosition() <= -280 / 2){
-                    robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-                    auto++;
-                }
-                break;
 
             case 5:
-                BigThonk = tensorFlow.getState();
-                    if(BigThonk != TensorFlow.TFState.NOTVISIBLE){auto++;}
-                break;
-            case 6:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
+            case 6:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 140, 0.5);
 
-            case 7:
-                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 4);
-                robot.setPower(0.2);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                if(robot.BR.getCurrentPosition() >= 1120 / 4) {
-                    robot.drive(MovementEnum.STOP, 0);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
                     auto++;
                 }
                 break;
+
+            case 7:
+                BigThonk = tensorFlow.getState();
+                if(BigThonk != TensorFlow.TFState.NOTVISIBLE){auto++;}
+                break;
+
             case 8:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 9:
+                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 280, 0.2);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 10:
                 if(Math.abs(-80- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(-80);
                 }
@@ -166,21 +165,22 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
-            case 9:
+
+            case 11:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
-               break;
-            case 10:
-                robot.autonDrive(MovementEnum.FORWARD, 1120 / 4);
-                robot.setPower(0.6);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 1120 / 4) {
-                    robot.drive(MovementEnum.STOP, 0);
+                break;
+
+            case 12:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 280, 0.6);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
                     auto++;
                 }
                 break;
-            case 11:
+
+            case 13:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
               /*
                 try {
@@ -194,96 +194,172 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 if(BigThonk == TensorFlow.TFState.CENTER){
                     auto++;
                 }else if(BigThonk == TensorFlow.TFState.LEFT){
-                    auto = 13;
+                    auto = 100;
                 }else if(BigThonk == TensorFlow.TFState.RIGHT){
-                    auto = 14;
+                    auto = 1000;
                 }
                 break;
-           /*
 
+                /*
            CASE FOR CENTER
            */
-            case 12:
-                robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120 / 6);
-                robot.setPower(0.5);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(Math.abs(robot.BR.getCurrentPosition()) >= 1120 / 6) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    auto = 15;
-                    telemetry.update();
-
-                }
-                break;
-                /*
-
-           CASE FOR LEFT
-           */
-            case 13:
-                robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120/2);
-                robot.setPower(0.2);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(Math.abs(robot.BR.getCurrentPosition()) >= 1120 / 2) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-                    // auto++;
-                    auto=15;
-                }
-                break;
-                /*
-
-           CASE FOR RIGHT
-           */
             case 14:
-                break;
-            case 15:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-            case 16:
-                robot.autonDrive(MovementEnum.FORWARD, 2500/4);
-                robot.setPower(0.4);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 2500 / 4) {
-                    robot.drive(MovementEnum.STOP, 0);
+                robot.intake.setPower(0.5);
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 187, 0.5);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
-                     auto++;
-                }
-                break;
-            case 17:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-            case 18:
-                robot.autonDrive(MovementEnum.BACKWARD, 2500/ 4);
-                robot.setPower(0.3);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(Math.abs(robot.BR.getCurrentPosition()) >= 2500 / 4) {
                     auto++;
                 }
                 break;
-            case 19:
-                if(Math.abs(90- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(90);
+
+                /*
+           CASE FOR LEFT
+           */
+            case 100:
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 560, 0.2);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 15;
                 }
-                else if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                break;
+
+                /*
+           CASE FOR RIGHT
+           */
+            case 1000:
+                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 560, 0.2);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 15;
+                }
+                break;
+
+            case 15:
+                robot.intake.setPower(-1);
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 625, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.intake.setPower(0);
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 16:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 17:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 500, 0.3);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto++;
+                }
+                break;
+
+            case 18:
+                if(Math.abs(-170- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-170);
+                }
+                else if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
                 break;
-            case 20:
+
+            case 19:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
+                if(BigThonk == TensorFlow.TFState.CENTER){
+                    auto++;
+                }else if(BigThonk == TensorFlow.TFState.LEFT){
+                    auto = 200;
+                }else if(BigThonk == TensorFlow.TFState.RIGHT){
+                    auto = 2000;
+                }
                 break;
-            case 21:
-                robot.autonDrive(MovementEnum.BACKWARD, 2500/ 4);
-                robot.setPower(0.3);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(Math.abs(robot.BR.getCurrentPosition()) >= 2500 / 4) {
+
+                /*
+           CASE FOR CENTER
+           */
+            case 20:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 1200, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
                     auto++;
                 }
                 break;
+
+                /*
+           CASE FOR Left
+           */
+            case 200:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 1100, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 21;
+                }
+                break;
+
+                /*
+           CASE FOR Right
+           */
+            case 2000:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 1300, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 21;
+                }
+                break;
+
+            case 21:
+                if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-135);
+                }
+                else if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    // robot.tankDrive(0, 0, 0, 0, false, false);
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+
             case 22:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 23:
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 200, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 22;
+                }
+                break;
+
+            case 24:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 25:
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 200, 0.4);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto = 22;
+                }
+                break;
+
+            case 26:
                 robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -299,67 +375,52 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
-            case 23:
+
+            case 27:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 24:
-                if(Math.abs(40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(40);
+            case 28:
+                if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-170);
                 }
-                else if(Math.abs(40 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
                 break;
-            case 25:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-            case 26:
-                robot.autonDrive(MovementEnum.FORWARD, 6720 / 2);
-                robot.setPower(0.3);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if(robot.BR.getCurrentPosition() >= 6720 / 2) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    telemetry.update();
-               //     auto++;
-                }
-                break;
-            case 27:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-            case 28:
-                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120/16);
-                robot.setPower(0.3);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 1120/16){
-                    robot.drive(MovementEnum.STOP,0);
-                    telemetry.update();
-                    auto++;
-                }
-                break;
             case 29:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 30:
-                robot.autonDrive(MovementEnum.FORWARD,6720 / 3);
-                robot.setPower(0.3);
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.BR.getCurrentPosition() >= 6720 / 3){
-                    robot.drive(MovementEnum.STOP,0);
+                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 70, 0.3);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
-                   // auto++;
+                    auto = 22;
                 }
                 break;
 
+            case 31:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
 
+            case 32:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 3360, 0.3);
+
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    //  auto++;
+                }
+                break;
         }
+
         telemetry.addData("Team Marker Position", robot.claw.getPosition());
         telemetry.addData("Position", tensorFlow.getState());
         telemetry.addData("BiggieThonk", BigThonk);
