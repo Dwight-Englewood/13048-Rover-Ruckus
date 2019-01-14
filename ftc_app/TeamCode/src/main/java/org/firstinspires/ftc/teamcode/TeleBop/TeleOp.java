@@ -138,8 +138,7 @@ public class TeleOp extends OpMode {
         }
 */
         robot.lift.setPower(gamepad2.right_stick_y * 0.75);
-        if (gamepad2.dpad_up){robot.dumpEntry.setPosition(0.75);}
-        else if (gamepad2.dpad_down){robot.dumpEntry.setPosition(0);}
+
 
         //intake
         if(gamepad2.left_stick_y > 0.3) {
@@ -167,6 +166,10 @@ public class TeleOp extends OpMode {
         } else if (gamepad2.x) {
             robot.dump.setPosition(0);
         }
+
+
+        if (robot.intake.isBusy()){robot.dumpEntry.setPosition(0.75);}
+        else {robot.dumpEntry.setPosition(0);}
 
         telemetry.addData("Lift State", robot.liftLimit.getState());
         telemetry.addData("Dump Position", robot.dump.getPosition());
