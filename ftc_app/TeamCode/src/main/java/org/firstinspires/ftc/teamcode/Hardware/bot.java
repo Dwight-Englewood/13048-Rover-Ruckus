@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class bot {
     public static DcMotor BL, BR, FL, FR, hook, lift, intake;
-    public Servo dump, claw;
+    public Servo dump, claw , dumpEntry;
     public DigitalChannel liftLimit, hookLimit;
     HardwareMap map;
     Telemetry tele;
@@ -55,6 +55,7 @@ public class bot {
         hookLimit = this.map.get(DigitalChannel.class, "hookLimit");
         liftLimit = this.map.get(DigitalChannel.class, "liftLimit");
 
+        dumpEntry = this.map.get(Servo.class,"dump2");
         dump = this.map.get(Servo.class, "dump");
         claw = this.map.get(Servo.class, "claw");
 
