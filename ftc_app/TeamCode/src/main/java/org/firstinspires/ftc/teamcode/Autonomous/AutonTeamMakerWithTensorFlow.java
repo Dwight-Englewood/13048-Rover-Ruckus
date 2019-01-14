@@ -36,6 +36,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -373,10 +374,10 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 auto++;
                 break;
             case 33:
-                robot.intake.setTargetPosition(313);
+                robot.intake.setTargetPosition(560);
                 robot.setPower(1);
                 robot.intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.intake.getCurrentPosition() >= 313) {
+                if(robot.intake.getCurrentPosition() >= 560) {
                     robot.drive(MovementEnum.STOP, 0);
                     telemetry.update();
                     auto++;
@@ -442,10 +443,10 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 }
                 break;
             case 41:
-                if(Math.abs(40- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(40);
+                if(Math.abs(45- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(45);
                 }
-                else if(Math.abs(40 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     // robot.tankDrive(0, 0, 0, 0, false, false);
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
