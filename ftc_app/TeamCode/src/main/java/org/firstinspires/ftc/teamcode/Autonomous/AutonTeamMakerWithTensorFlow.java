@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 
-@Autonomous(name="TensorFLow :O ", group="Autonomous")
+@Autonomous(name="TensorFlow :O ", group="Autonomous")
 public class AutonTeamMakerWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

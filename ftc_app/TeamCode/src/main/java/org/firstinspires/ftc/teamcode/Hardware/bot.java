@@ -328,6 +328,17 @@ public class bot {
         }
     }
 
+    public void pidTest(MovementEnum movementEnum, int target) {
+        this.autonDrive(movementEnum, target);
+        this.setPower(motorSpeed());
+        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
+            drive(MovementEnum.STOP, 0);
+            tele.update();
+        }
+    }
+
     public void sleep(long time) {
         try {
             Thread.sleep(time);
@@ -352,7 +363,6 @@ public class bot {
             this.drive(MovementEnum.LEFTTURN, driveScale);
             return true;
         }
-
         this.drive(MovementEnum.LEFTTURN, driveScale);
         //    this.tele.addData("drive Scale",driveScale);
         //   tele.update();
@@ -360,16 +370,9 @@ public class bot {
         // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         return false;
     }
-    public void motorSpeed() {
-        if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
-            FL.setPower(Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue));
-            FR.setPower(Math.abs(FR.getTargetPosition()) - Math.abs(FR.getCurrentPosition() * proportionalValue));
-            BL.setPower(Math.abs(BL.getTargetPosition()) - Math.abs(BL.getCurrentPosition() * proportionalValue));
-            BR.setPower(Math.abs(BR.getTargetPosition()) - Math.abs(BR.getCurrentPosition() * proportionalValue));
-            //      tele.update();
 
-        } else {
-            autonDrive(MovementEnum.STOP, 0);
+    public double motorSpeed() {
+        if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
+    } return Math.abs(FL.getTargetPosition()) - Math.abs(FL.getCurrentPosition() * proportionalValue);
         }
-    }
 }
