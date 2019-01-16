@@ -120,7 +120,7 @@ public class TeleOp extends OpMode {
             }
         }
 
-
+/*
         Move = robot.liftLimit.getState();
 
         if (Move){
@@ -136,7 +136,10 @@ public class TeleOp extends OpMode {
         if (gamepad2.dpad_down) {
             Move2 = true;
         }
-
+*/
+        robot.lift.setPower(gamepad2.right_stick_y * 0.75);
+        if (gamepad2.dpad_up){robot.dumpEntry.setPosition(0.75);}
+        else if (gamepad2.dpad_down){robot.dumpEntry.setPosition(0);}
 
         //intake
         if(gamepad2.left_stick_y > 0.3) {
