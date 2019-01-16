@@ -149,7 +149,16 @@ public class Auton_Crater extends OpMode {
              */
 
             case 0:
-                robot.sleep(2000);
+                try {
+                    Thread.sleep(2000);
+                }
+                catch (InterruptedException e){
+                    telemetry.addLine("Sleep Failed");
+                    telemetry.update();
+                }
+
+                auto++;
+                break;
 
             case 1:
                 robot.claw.setPosition(0.0);
@@ -256,7 +265,15 @@ public class Auton_Crater extends OpMode {
 
             case 13:
                 robot.claw.setPosition(0.7);
-                robot.sleep(2000);
+
+                try {
+                    Thread.sleep(2000);
+                }
+                catch (InterruptedException e){
+                    telemetry.addLine("Sleep Failed");
+                    telemetry.update();
+                }
+
                 auto++;
                 break;
 

@@ -121,7 +121,6 @@ public class bot {
         FL.setPower(in);
     }
 
-
     public void notKevinDrive(double leftStick_y, double leftStick_x, double leftTrigger, double rightTrigger) {
         if (leftTrigger > .3) {
             drive(MovementEnum.LEFTSTRAFE, leftTrigger);
@@ -328,6 +327,17 @@ public class bot {
         }
     }
 
+    public void autonIntake(int target, double power) {
+        intake.setTargetPosition(target);
+        intake.setPower(power);
+        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (Math.abs(intake.getCurrentPosition()) >= Math.abs(intake.getTargetPosition())) {
+            intake.setPower(0);
+            tele.update();
+        }
+    }
+
     public void pidTest(MovementEnum movementEnum, int target) {
         this.autonDrive(movementEnum, target);
         this.setPower(motorSpeed());
@@ -335,15 +345,6 @@ public class bot {
 
         if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
             drive(MovementEnum.STOP, 0);
-            tele.update();
-        }
-    }
-
-    public void sleep(long time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            tele.addLine("Sleep Failed");
             tele.update();
         }
     }
@@ -369,6 +370,16 @@ public class bot {
         //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
         // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         return false;
+    }
+
+    public void headingAdjuster(int targetHeading) {
+    if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+        this.adjustHeading(targetHeading);
+    }
+    else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+        this.drive(MovementEnum.STOP, 0);
+        tele.update();
+    }
     }
 
     public double motorSpeed() {
