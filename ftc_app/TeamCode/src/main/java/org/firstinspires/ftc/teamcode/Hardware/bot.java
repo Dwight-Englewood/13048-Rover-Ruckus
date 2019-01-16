@@ -328,17 +328,6 @@ public class bot {
         }
     }
 
-    public void autonIntake(int target, double power) {
-        intake.setTargetPosition(target);
-        intake.setPower(power);
-        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        if (Math.abs(intake.getCurrentPosition()) >= Math.abs(intake.getTargetPosition())) {
-            intake.setPower(0);
-            tele.update();
-        }
-    }
-
     public void pidTest(MovementEnum movementEnum, int target) {
         this.autonDrive(movementEnum, target);
         this.setPower(motorSpeed());

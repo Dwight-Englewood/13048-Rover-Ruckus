@@ -168,8 +168,9 @@ public class TeleOp extends OpMode {
         }
 
 
-        if (robot.intake.isBusy()){robot.dumpEntry.setPosition(0.75);}
-        else {robot.dumpEntry.setPosition(0);}
+        if (robot.intake.getPower() != 0){
+            robot.dumpEntry.setPosition(0.0);}
+        else {robot.dumpEntry.setPosition(0.75);}
 
         telemetry.addData("Lift State", robot.liftLimit.getState());
         telemetry.addData("Dump Position", robot.dump.getPosition());
