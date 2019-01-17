@@ -95,10 +95,10 @@ public class TeleOp extends OpMode {
         Command = robot.hookLimit.getState();
 
         if (Command) {
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 robot.hook.setPower(1);
 
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 robot.hook.setPower(-1);
 
             } else {
@@ -109,10 +109,10 @@ public class TeleOp extends OpMode {
         if (!Command) {
             robot.hook.setPower(0);
 
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 robot.hook.setPower(0);
 
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 robot.hook.setPower(-1);
 
             } else {
@@ -153,10 +153,10 @@ public class TeleOp extends OpMode {
         }
 
         //claw
-        if (gamepad2.b) {
+        if (gamepad1.b) {
             robot.claw.setPosition(0.10);
 
-        } else if (gamepad2.a) {
+        } else if (gamepad1.a) {
             robot.claw.setPosition(0.7);
         }
 
@@ -171,22 +171,6 @@ public class TeleOp extends OpMode {
         if (robot.intake.getPower() != 0){
             robot.dumpEntry.setPosition(0.0);}
         else {robot.dumpEntry.setPosition(0.75);}
-
-        telemetry.addData("Lift State", robot.liftLimit.getState());
-        telemetry.addData("Dump Position", robot.dump.getPosition());
-        telemetry.addData("Hook State", robot.hookLimit.getState());
-        telemetry.addData("Gyro Angle", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-        telemetry.addData("Command", Command);
-
-        telemetry.addData("Lift Power", robot.lift.getPower());
-        telemetry.addData("Hook Power", robot.hook.getPower());
-
-//        telemetry.addData("degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-//        telemetry.update();
-//        robot.testServos(telemetry);
-//        telemetry.update();
-//        telemetry.addData("Status", "Run Time: " + runtime.toString());
-//        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
     /*
