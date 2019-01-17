@@ -252,7 +252,7 @@ public class PIDTester extends OpMode {
                           }
                           break;
                       case RIGHT:
-                          robot.autonDrive(MovementEnum.RIGHTSTRAFE, 250);
+                          robot.autonDrive(MovementEnum.RIGHTSTRAFE, 280);
                           robot.setPower(0.2);
                           robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
                           if(Math.abs(robot.BR.getCurrentPosition()) >= 250) {
@@ -351,7 +351,7 @@ public class PIDTester extends OpMode {
                 case 19:
                     switch (BigThonk){
                         case LEFT:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 700, 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1200, 0.4);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
