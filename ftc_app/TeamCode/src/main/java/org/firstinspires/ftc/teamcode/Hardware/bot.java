@@ -143,34 +143,27 @@ public class bot {
 
     }
 
-    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean sickoMode, boolean invert, boolean brake) {
-        double i = invert ? -0.65 : 0.65;
-        double s = sickoMode ? 0.4 : 1;
+    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
+        double i = invert ? 0.4 : 0.65;
+      //  double s = sickoMode ? 0.4 : 1;
 
         if (leftTrigger > .3) {
-            drive(MovementEnum.LEFTSTRAFE, leftTrigger * i * s);
+            drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
             return;
         }
 
         if (rightTrigger > .3) {
-            drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i * s);
+            drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i);
             return;
         }
+        leftStick *= i;
+        rightStick *= i;
 
-        if (sickoMode) {
-            FL.setPower(leftStick * s);
-            FR.setPower(rightStick * s);
-            BL.setPower(-leftStick * s);
-            BR.setPower(-rightStick * s);
+        FL.setPower(leftStick);
+        FR.setPower(rightStick);
+        BL.setPower(-leftStick);
+        BR.setPower(-rightStick);
 
-        } if (ElapsedTime.MILLIS_IN_NANO >= 5000) {
-            if (!sickoMode){
-                FL.setPower(leftStick);
-                FR.setPower(rightStick);
-                BL.setPower(-leftStick);
-                BR.setPower(-rightStick);
-            }
-        }
     }
 
     public void setPower(double power) {
