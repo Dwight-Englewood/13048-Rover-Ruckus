@@ -43,6 +43,7 @@ public class TeleOp extends OpMode {
     private ElapsedTime timer = new ElapsedTime();
     bot robot = new bot();
     boolean Command;
+    boolean wabbo = false;
 
     @Override
     public void init() {
@@ -73,13 +74,11 @@ public class TeleOp extends OpMode {
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
-        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,false, false, false);
+        if(gamepad1.x){wabbo = true; }
+        else if (gamepad1.y){wabbo = false;}
+        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,wabbo, false);
 
-        if (gamepad1.y) {
-            robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,true, false, false);
-        } else if (gamepad1.x) {
-            robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false, false);
-        }
+
         /*
         if (Move2) {
             robot.hook.setPower(gamepad2.right_trigger * 0.75);

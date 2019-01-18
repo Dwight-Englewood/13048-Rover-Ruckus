@@ -252,10 +252,10 @@ public class PIDTester extends OpMode {
                           }
                           break;
                       case RIGHT:
-                          robot.autonDrive(MovementEnum.RIGHTSTRAFE, 280);
+                          robot.autonDrive(MovementEnum.RIGHTSTRAFE, 400);
                           robot.setPower(0.2);
                           robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                          if(Math.abs(robot.BR.getCurrentPosition()) >= 250) {
+                          if(Math.abs(robot.BR.getCurrentPosition()) >= 400) {
                            //   if (Math.abs(-70 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) > 3) {
                                //   robot.adjustHeading(-70);
                              // } else if (Math.abs(-70 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 3) {
@@ -365,7 +365,7 @@ public class PIDTester extends OpMode {
                             }
                             break;
                         case CENTER:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 560 * 3, 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1960, 0.4);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
@@ -392,7 +392,7 @@ public class PIDTester extends OpMode {
                     auto++;
                     break;
                 case 22:
-                    robot.autonDriveUltimate(MovementEnum.BACKWARD, 1400, 0.4);
+                    robot.autonDriveUltimate(MovementEnum.BACKWARD, 1500, 0.4);
                     if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                         telemetry.update();
                         auto++;
@@ -402,20 +402,20 @@ public class PIDTester extends OpMode {
                     robot.claw.setPosition(0.7);
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-                    if(robot.claw.getPosition() >= 0.7)
+                    if(robot.claw.getPosition() >= 0.7) {
 
                         try {
                             Thread.sleep(2000);
-                        }
-                        catch (InterruptedException e){
+                        } catch (InterruptedException e) {
                             telemetry.addLine("Sleep Failed");
                             telemetry.update();
                         }
-                    auto++;
+                        auto++;
+                    }
                     break;
 
                 case 24:
-                    robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.5);
+                    robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.3);
                     if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                         telemetry.update();
                       //  auto++;
@@ -448,13 +448,13 @@ public class PIDTester extends OpMode {
             // telemetry.addData("FL Power", pid.robot.FL.getPower());
             // telemetry.addData("FL TargetPosition", pid.robot.FL.getTargetPosition());
             // telemetry.addData("FL CurrentPosition", pid.robot.FL.getCurrentPosition());
-        telemetry.addData("Team Marker Position", robot.claw.getPosition());
-        telemetry.addData("Position", tensorFlow.getState());
-        telemetry.addData("BiggieThonk", BigThonk);
-        telemetry.addData("Case Number: ", auto);
+        //telemetry.addData("Team Marker Position", robot.claw.getPosition());
+        telemetry.addData("Position:", tensorFlow.getState());
+        telemetry.addData("Biggie Thonk:", BigThonk);
+      //  telemetry.addData("Case Number: ", auto);
         telemetry.addData("BR POSITION", robot.BR.getCurrentPosition());
-        telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-        telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
+        // telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+      //  telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
         telemetry.update();
 
         }
