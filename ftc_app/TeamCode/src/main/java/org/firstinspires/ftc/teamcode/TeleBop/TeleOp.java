@@ -42,12 +42,7 @@ public class TeleOp extends OpMode {
     // Declare OpMode members.
     private ElapsedTime timer = new ElapsedTime();
     bot robot = new bot();
-    double liftPower = 0;
-    boolean Move;
-    boolean Move2;
     boolean Command;
-    int pos = 0;
-    int extPos = 0;
 
     @Override
     public void init() {
@@ -78,9 +73,14 @@ public class TeleOp extends OpMode {
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
-        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,false, false);
-        //     robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-/*
+        robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,false, false, false);
+
+        if (gamepad1.y) {
+            robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,true, false, false);
+        } else if (gamepad1.x) {
+            robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false, false);
+        }
+        /*
         if (Move2) {
             robot.hook.setPower(gamepad2.right_trigger * 0.75);
 
@@ -171,7 +171,10 @@ public class TeleOp extends OpMode {
         if (robot.intake.getPower() != 0){
             robot.dumpEntry.setPosition(0.0);}
         else {robot.dumpEntry.setPosition(0.75);}
+
+        telemetry.addData("power", robot.FL.getPower());
     }
+
 
     /*
      * Code to run ONCE after the driver hits STOP

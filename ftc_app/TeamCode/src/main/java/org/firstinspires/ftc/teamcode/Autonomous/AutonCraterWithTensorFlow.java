@@ -373,7 +373,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 32:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 2250, 0.5);//haha penis
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 1700, 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }

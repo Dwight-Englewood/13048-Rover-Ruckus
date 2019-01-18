@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -131,6 +132,7 @@ public class bot {
             drive(MovementEnum.RIGHTSTRAFE, rightTrigger);
             return;
         }
+
         //   leftStick *= i;
         //     rightStick *= i;
         FL.setPower(leftStick_y);
@@ -141,25 +143,34 @@ public class bot {
 
     }
 
-    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
+    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean sickoMode, boolean invert, boolean brake) {
         double i = invert ? -0.65 : 0.65;
+        double s = sickoMode ? 0.4 : 1;
+
         if (leftTrigger > .3) {
-            drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
+            drive(MovementEnum.LEFTSTRAFE, leftTrigger * i * s);
             return;
         }
 
         if (rightTrigger > .3) {
-            drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i);
+            drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i * s);
             return;
         }
 
-        leftStick *= i;
-        rightStick *= i;
+        if (sickoMode) {
+            FL.setPower(leftStick * s);
+            FR.setPower(rightStick * s);
+            BL.setPower(-leftStick * s);
+            BR.setPower(-rightStick * s);
 
-        FL.setPower(leftStick);
-        FR.setPower(rightStick);
-        BL.setPower(-leftStick);
-        BR.setPower(-rightStick);
+        } if (ElapsedTime.MILLIS_IN_NANO >= 5000) {
+            if (!sickoMode){
+                FL.setPower(leftStick);
+                FR.setPower(rightStick);
+                BL.setPower(-leftStick);
+                BR.setPower(-rightStick);
+            }
+        }
     }
 
     public void setPower(double power) {
