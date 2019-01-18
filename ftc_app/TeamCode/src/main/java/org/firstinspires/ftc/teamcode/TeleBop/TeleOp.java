@@ -89,12 +89,7 @@ public class TeleOp extends OpMode {
 
         }
 */
-        //true is nothing
-        //false is something
 
-        Command = robot.hookLimit.getState();
-
-        if (Command) {
             if (gamepad2.a) {
                 robot.hook.setPower(1);
 
@@ -104,21 +99,7 @@ public class TeleOp extends OpMode {
             } else {
                 robot.hook.setPower(0);
             }
-        }
 
-        if (!Command) {
-            robot.hook.setPower(0);
-
-            if (gamepad2.a) {
-                robot.hook.setPower(0);
-
-            } else if (gamepad2.b) {
-                robot.hook.setPower(-1);
-
-            } else {
-                robot.hook.setPower(0);
-            }
-        }
 
 /*
         Move = robot.liftLimit.getState();
