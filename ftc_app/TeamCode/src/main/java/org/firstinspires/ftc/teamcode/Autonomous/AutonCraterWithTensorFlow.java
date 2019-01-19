@@ -27,12 +27,12 @@ public class AutonCraterWithTensorFlow extends OpMode {
     int auto = 0;
 
     int center = 150;
-    int left = 560;
-    int right = 500;
+    int left = 600;
+    int right = 350;
 
-    int centerBack = 900;
+    int centerBack = 1100;
     int leftBack = 800;
-    int rightBack = 1400;
+    int rightBack = 1750;
 
     public void init() {
         robot.init(hardwareMap, telemetry, false);
@@ -112,6 +112,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
 
             case 3:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                tensorFlow.stop();
                 auto++;
                 break;
 
@@ -240,7 +241,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 18:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 400, 0.4);
+                robot.autonDriveUltimate(MovementEnum.BACKWARD, 375, 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
@@ -321,7 +322,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 25:
-                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 400, 0.5);
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 350, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
@@ -373,7 +374,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 32:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 1700, 0.4);
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 2200, 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
