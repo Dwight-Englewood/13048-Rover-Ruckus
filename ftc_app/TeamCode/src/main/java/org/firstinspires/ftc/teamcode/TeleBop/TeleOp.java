@@ -143,11 +143,12 @@ public class TeleOp extends OpMode {
         if (gamepad2.y) {
             robot.dump.setPosition(0.75);
 
-        } else if (gamepad2.x) {
+        } else{
+            //if (gamepad2.x) {
             robot.dump.setPosition(0);
         }
 
-
+        // 
         if (robot.intake.getPower() != 0){
             robot.dumpEntry.setPosition(0.0);}
         else {robot.dumpEntry.setPosition(0.75);}
