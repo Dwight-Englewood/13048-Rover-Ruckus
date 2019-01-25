@@ -166,39 +166,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 11:
-                switch(BigThonk){
-                    case LEFT:
-                    //    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, left, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case RIGHT:
-                    //    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, right, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case CENTER:
-                    //    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, center, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case NOTVISIBLE:
-                    //    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
-                        BigThonk = TensorFlow.TFState.LEFT;
-                        break;
-                }
-                break;
-
-       /*
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(BigThonk == TensorFlow.TFState.CENTER){
@@ -213,8 +180,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 /*
            CASE FOR CENTER
            */
-
-       /*
             case 12:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -225,8 +190,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 /*
            CASE FOR LEFT
            */
-
-       /*
             case 100:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -237,8 +200,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 /*
            CASE FOR RIGHT
            */
-
-       /*
             case 1000:
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -246,7 +207,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 }
                 break;
 
-*/
             case 13:
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -301,36 +261,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 20:
-                switch(BigThonk){
-                    case LEFT:
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, leftBack, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case RIGHT:
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, rightBack, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case CENTER:
-                        robot.autonDriveUltimate(MovementEnum.BACKWARD, centerBack, 0.5);
-                        if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                            auto = 23;
-                        }
-                        break;
-
-                    case NOTVISIBLE:
-                        BigThonk = TensorFlow.TFState.LEFT;
-                        break;
-                }
-                break;
-
-                /*
-                robot.changeRunMode(DcMotor.Ru0nMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(BigThonk == TensorFlow.TFState.CENTER){
                     auto++;
@@ -340,13 +271,10 @@ public class AutonCraterWithTensorFlow extends OpMode {
                     auto = 2000;
                 }
                 break;
-*/
-
 
                 /*
            CASE FOR CENTER
            */
- /*
             case 22:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, centerBack, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -357,8 +285,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 /*
            CASE FOR LEFT
            */
-
- /*
             case 200:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, leftBack, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -369,15 +295,12 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 /*
            CASE FOR RIGHT
            */
-
- /*
             case 2000:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, rightBack, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 23;
                 }
                 break;
-*/
 
             case 23:
                 if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
