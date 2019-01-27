@@ -127,9 +127,9 @@ TensorFlow implements Subsystem {
                     }
                     if (gold != -1 || silver1 != -1) {
                         if (gold < silver1 && gold != -1){
-                            this.state = TFState.LEFT;
-                         }else if (silver1 < gold) {
                             this.state = TFState.CENTER;
+                         }else if (silver1 < gold) {
+                            this.state = TFState.LEFT;
                         }else if (gold == -1){
                             this.state = TFState.RIGHT;
                         }

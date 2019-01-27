@@ -75,10 +75,10 @@ public class PIDTester extends OpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -140,17 +140,19 @@ public class PIDTester extends OpMode {
 
                 case 1:
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.hook.setDirection(DcMotorSimple.Direction.REVERSE);
                     robot.claw.setPosition(0.0);
                     auto++;
                     break;
 
                 case 2:
-                    robot.hook.setTargetPosition(50000);
-                    robot.hook.setPower(1);
+                    robot.hook.setTargetPosition(7055);
+                    robot.hook.setPower(0.5);
                     robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     BigThonk = (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
 
-                    if (!robot.hookLimit.getState()) {
+                    if (!robot.hookLimit.getState() || Math.abs(robot.hook.getCurrentPosition()) >= 7055) {
                         //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
                         robot.hook.setPower(0);
                         telemetry.update();
@@ -173,41 +175,37 @@ public class PIDTester extends OpMode {
                     break;
                 case 12346:
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    auto = 4;
+                    auto = 5;
                     break;
                 case 4:
-                    robot.autonDrive(MovementEnum.BACKWARD, 280 / 2);
-                    robot.setPower(0.5);
-                    robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                    if (robot.BR.getCurrentPosition() <= -280 / 2) {
-                        robot.drive(MovementEnum.STOP, 0);
+                    tensorFlow.stop();
+                    robot.autonDriveUltimate(MovementEnum.BACKWARD, 280 / 2, 0.5);
+                    if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())) {
                         telemetry.update();
-                        auto++;
+                        auto = 6;
                     }
+
                     break;
 
                 case 5:
                     BigThonk =  (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ?  BigThonk: tensorFlow.getState();
                     if (BigThonk != TensorFlow.TFState.NOTVISIBLE) {
-                        auto++;
+                        auto = 4;
                    }
+
                     break;
                 case 6:
+                   // tensorFlow.stop();
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     auto++;
                     break;
 
 
                 case 7:
-                    robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1120 / 4);
-                    robot.setPower(0.2);
-                    robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                    if (robot.BR.getCurrentPosition() >= 1120 / 4) {
-                        robot.drive(MovementEnum.STOP, 0);
+                    robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 560 / 2, 0.2);
+                    if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                         telemetry.update();
-                        auto++;
+                          auto++;
                     }
                     break;
                 case 8:
@@ -224,14 +222,12 @@ public class PIDTester extends OpMode {
                     auto++;
                     break;
                 case 10:
-                    robot.autonDrive(MovementEnum.FORWARD, 1120 / 4);
-                    robot.setPower(0.6);
-                    robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    if (robot.BR.getCurrentPosition() >= 1120 / 4) {
-                        robot.drive(MovementEnum.STOP, 0);
+                    robot.autonDriveUltimate(MovementEnum.FORWARD, 1120 / 4, 0.6);
+                    if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                         telemetry.update();
-                        auto++;
+                          auto++;
                     }
+
                     break;
                 case 11:
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -240,55 +236,33 @@ public class PIDTester extends OpMode {
                 case 12:
                   switch(BigThonk){
                       case LEFT:
-                          robot.autonDrive(MovementEnum.LEFTSTRAFE, 600);
-                          robot.setPower(0.2);
-                          robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                          if(Math.abs(robot.BR.getCurrentPosition()) >= 600) {
-                              robot.drive(MovementEnum.STOP, 0);
+                          robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 300, 0.2);
+                          if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                               telemetry.update();
                               auto++;
-                              // auto++;
-                             // auto = 3444;
                           }
                           break;
                       case RIGHT:
-                          robot.autonDrive(MovementEnum.RIGHTSTRAFE, 400);
-                          robot.setPower(0.2);
-                          robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                          if(Math.abs(robot.BR.getCurrentPosition()) >= 400) {
-                           //   if (Math.abs(-70 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) > 3) {
-                               //   robot.adjustHeading(-70);
-                             // } else if (Math.abs(-70 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) < 3) {
-                                  // robot.tankDrive(0, 0, 0, 0, false, false);
-                                //  robot.drive(MovementEnum.STOP, 0);
-                                 // auto++;
-
-                                  robot.drive(MovementEnum.STOP, 0);
-                                  telemetry.update();
-                                  auto++;
-                                  // auto++;
-                                  // auto = 3444;
-                              //}
+                          robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400, 0.2);
+                          if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                              telemetry.update();
+                              auto++;
                           }
+
                           break;
                       case CENTER:
-                          robot.autonDrive(MovementEnum.LEFTSTRAFE, 1120 / 6);
-                          robot.setPower(0.5);
-                          robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-                          if(Math.abs(robot.BR.getCurrentPosition()) >= 1120 / 6) {
-                              robot.drive(MovementEnum.STOP, 0);
-                            //  auto = 15;
-                              auto++;
+                          robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 1120 / 6, 0.2);
+                          if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                               telemetry.update();
-
+                              auto++;
                           }
+
                           break;
                       case NOTVISIBLE:
-                          //int yeet = rand.nextInt(3)+1;
-                         // if (yeet == 1 ){BigThonk = TensorFlow.TFState.CENTER;}
-                         // else if (yeet ==2){BigThonk = TensorFlow.TFState.LEFT;}
-                         // else if(yeet ==3){BigThonk = TensorFlow.TFState.RIGHT;}
-                          BigThonk = TensorFlow.TFState.LEFT;
+                          int yeet = rand.nextInt(2)+1;
+                          if (yeet == 1 ){BigThonk = TensorFlow.TFState.CENTER;}
+                          else if(yeet ==2){BigThonk = TensorFlow.TFState.RIGHT;}
+                          else {BigThonk = TensorFlow.TFState.LEFT;}
                           break;
                           }
                           break;
@@ -299,21 +273,22 @@ public class PIDTester extends OpMode {
                 case 14:
                     switch(BigThonk){
                         case LEFT:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 980 , 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 980, 0.3);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
                             }
+
                             break;
                         case RIGHT:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 840 , 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 840  , 0.3);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
                             }
                             break;
                         case CENTER:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 840 , 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 840  , 0.3);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
@@ -351,21 +326,21 @@ public class PIDTester extends OpMode {
                 case 19:
                     switch (BigThonk){
                         case LEFT:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1200, 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1200 , 0.4);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
                             }
                             break;
                         case RIGHT:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1820, 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1820 , 0.4);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
                             }
                             break;
                         case CENTER:
-                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1960, 0.4);
+                            robot.autonDriveUltimate(MovementEnum.FORWARD, 1960 , 0.4);
                             if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                                 telemetry.update();
                                 auto++;
@@ -415,7 +390,18 @@ public class PIDTester extends OpMode {
                     break;
 
                 case 24:
-                    robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.3);
+                    robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 560  , 0.3);
+                    if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                        telemetry.update();
+                        auto++;
+                    }
+                    break;
+                case 25:
+                    robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    auto++;
+                    break;
+                case 26:
+                    robot.autonDriveUltimate(MovementEnum.FORWARD, 2100 , 0.2);
                     if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                         telemetry.update();
                       //  auto++;
@@ -449,10 +435,10 @@ public class PIDTester extends OpMode {
             // telemetry.addData("FL TargetPosition", pid.robot.FL.getTargetPosition());
             // telemetry.addData("FL CurrentPosition", pid.robot.FL.getCurrentPosition());
         //telemetry.addData("Team Marker Position", robot.claw.getPosition());
-        telemetry.addData("Position:", tensorFlow.getState());
-        telemetry.addData("Biggie Thonk:", BigThonk);
-      //  telemetry.addData("Case Number: ", auto);
-        telemetry.addData("BR POSITION", robot.BR.getCurrentPosition());
+        //telemetry.addData("Position:", tensorFlow.getState());
+       // telemetry.addData("Biggie Thonk:", BigThonk);
+        //telemetry.addData("Case Number: ", auto);
+       // telemetry.addData("BR POSITION", robot.BR.getCurrentPosition());
         // telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
       //  telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
         telemetry.update();

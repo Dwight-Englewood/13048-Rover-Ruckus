@@ -89,10 +89,10 @@ public class TeleOp extends OpMode {
         }
 */
 
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 robot.hook.setPower(1);
 
-            } else if (gamepad2.b) {
+            } else if (gamepad1.b) {
                 robot.hook.setPower(-1);
 
             } else {
@@ -133,11 +133,13 @@ public class TeleOp extends OpMode {
         }
 
         //claw
-        if (gamepad1.b) {
-            robot.claw.setPosition(0.10);
+        if (gamepad2.b) {
+            //robot.claw.setPosition(0.10);
+            robot.dumpEntry.setPosition(0.0);
 
-        } else if (gamepad1.a) {
-            robot.claw.setPosition(0.7);
+        } else if (gamepad2.a) {
+           // robot.claw.setPosition(0.7);
+            robot.dumpEntry.setPosition(0.75);
         }
 
         if (gamepad2.y) {
@@ -148,7 +150,7 @@ public class TeleOp extends OpMode {
             robot.dump.setPosition(0);
         }
 
-        // 
+        //
         if (robot.intake.getPower() != 0){
             robot.dumpEntry.setPosition(0.0);}
         else {robot.dumpEntry.setPosition(0.75);}
