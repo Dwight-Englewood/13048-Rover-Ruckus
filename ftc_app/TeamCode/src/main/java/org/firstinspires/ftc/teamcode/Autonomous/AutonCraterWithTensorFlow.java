@@ -342,13 +342,6 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(robot.claw.getPosition() >= 0.7) {
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        telemetry.addLine("Sleep Failed");
-                        telemetry.update();
-                    }
                     auto++;
                 }
                 break;
@@ -371,7 +364,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 31:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 2200, 0.4);
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.3);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     //auto++;
                 }
