@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
         import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="TensorFlow uwu", group="Autonomous")
+@Autonomous(name="b(owo)b", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -51,9 +51,9 @@ public class DoubleSampleCrater extends OpMode {
     int leftBack = 800;
     int rightBack = 1750;
 
-    int centerForward = 200;
-    int leftForward = 100;
-    int rightForward = 300;
+    int centerForward = 100;
+    int leftForward = 50;
+    int rightForward = 150;
 
     public void init() {
         robot.init(hardwareMap, telemetry, false);
@@ -134,7 +134,6 @@ public class DoubleSampleCrater extends OpMode {
 
             case 3:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                tensorFlow.stop();
                 auto++;
                 break;
 
@@ -151,6 +150,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 6:
+                tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
@@ -414,10 +414,10 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 30:
-                if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-135);
+                if(Math.abs(0 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(0);
                 }
-                else if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(0 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -512,7 +512,8 @@ public class DoubleSampleCrater extends OpMode {
                 }
                 break;
         }
-        telemetry.addData("Hook Position", robot.hook.getCurrentPosition());
+        telemetry.addData("BigThonk", BigThonk);
+        telemetry.addData("Daggers", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
         telemetry.update();
     }
 }
