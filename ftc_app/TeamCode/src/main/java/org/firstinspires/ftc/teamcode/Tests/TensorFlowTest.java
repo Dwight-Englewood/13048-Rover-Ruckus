@@ -33,8 +33,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
+import java.util.List;
 
+import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.Hardware.bot;
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -53,6 +56,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class TensorFlowTest extends OpMode {
     private ElapsedTime timer = new ElapsedTime();
+   // bot boot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
 
     /*
@@ -82,6 +86,26 @@ public class TensorFlowTest extends OpMode {
      */
     @Override
     public void loop() {
+
+
+
+        List<Recognition> dab = tensorFlow.getD();
+
+        telemetry.addData("number", dab);
+        for (int i = 0; i < dab.size(); i++) {
+            telemetry.addData("recognition", i);
+            telemetry.addData("recognitionX", (int) dab.get(i).getLeft());
+            telemetry.addData("recognitionY", dab.get(i).getLeft()-(int)dab.get(i).getLeft());
+           // telemetry.addData("area", dab.get(i).getWidth() * dab.get(i).getHeight());
+            telemetry.addData("recognition", dab.get(i).getLabel());
+            telemetry.addData("CDOO", dab.get(i).getConfidence());
+
+        }
+
+
+
+
+
         tensorFlow.getState();
         telemetry.addData("Tensor Flow Stats", tensorFlow.getState());
     }
