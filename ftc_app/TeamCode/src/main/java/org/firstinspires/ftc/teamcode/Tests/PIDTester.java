@@ -134,7 +134,6 @@ public class PIDTester extends OpMode {
                         telemetry.addLine("Sleep Failed");
                         telemetry.update();
                     }
-
                     auto++;
                     break;
 
@@ -147,7 +146,7 @@ public class PIDTester extends OpMode {
                     break;
 
                 case 2:
-                    robot.hook.setTargetPosition(7055);
+                    robot.hook.setTargetPosition(-7055);
                     robot.hook.setPower(0.5);
                     robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     BigThonk = (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
