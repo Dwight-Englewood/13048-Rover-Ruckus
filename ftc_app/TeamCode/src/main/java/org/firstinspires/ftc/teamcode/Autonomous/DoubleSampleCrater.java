@@ -1,5 +1,61 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+/*
+* Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float awayFramed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+*
+*
+*
+* */
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -47,7 +103,7 @@ public class DoubleSampleCrater extends OpMode {
     int left = 600;
     int right = 350;
 
-    int centerBack = 1100;
+    int centerBack = 1000;
     int leftBack = 800;
     int rightBack = 1750;
 
@@ -198,6 +254,32 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR CENTER
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 12:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
@@ -208,6 +290,32 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR LEFT
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 100:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
@@ -218,6 +326,32 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR RIGHT
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 1000:
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
@@ -293,6 +427,32 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR CENTER
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 21:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, centerBack, 0.5);
@@ -313,6 +473,33 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR RIGHT
+
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 2000:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, rightBack, 0.5);
@@ -419,6 +606,33 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR CENTER
+
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 33:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
@@ -429,6 +643,7 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR LEFT
+
            */
             case 400:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
@@ -439,6 +654,32 @@ public class DoubleSampleCrater extends OpMode {
 
                 /*
            CASE FOR RIGHT
+           Framed as icicles
+Numerous and gray
+I will do as spiders do
+Then watch you float away
+
+As the night is young
+The frostbite lingers
+Drips like faucets
+From my fingers
+And everything you gave to me
+I tossed it to the wind
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
+
+Climbed across my back
+Cut into the flesh
+Burdened by my heart
+Turned and hung my head
+
+And I will float away
+And I will float away
+And I will float away
+And I will float away
            */
             case 4000:
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
@@ -505,7 +746,32 @@ public class DoubleSampleCrater extends OpMode {
                 break;
         }
         telemetry.addData("BigThonk", BigThonk);
-        telemetry.addData("Daggers", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+        telemetry.addData("Framed as icicles\n" +
+                "Numerous and gray\n" +
+                "I will do as spiders do\n" +
+                "Then watch you float away\n" +
+                "\n" +
+                "As the night is young\n" +
+                "The frostbite lingers\n" +
+                "Drips like faucets\n" +
+                "From my fingers\n" +
+                "And everything you gave to me\n" +
+                "I tossed it to the wind\n" +
+                "\n" +
+                "And I will float away\n" +
+                "And I will float away\n" +
+                "And I will float away\n" +
+                "And I will float away\n" +
+                "\n" +
+                "Climbed across my back\n" +
+                "Cut into the flesh\n" +
+                "Burdened by my heart\n" +
+                "Turned and hung my head\n" +
+                "\n" +
+                "And I will float away\n" +
+                "And I will float away\n" +
+                "And I will float away\n" +
+                "And I will float away", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
         telemetry.update();
     }
 }
