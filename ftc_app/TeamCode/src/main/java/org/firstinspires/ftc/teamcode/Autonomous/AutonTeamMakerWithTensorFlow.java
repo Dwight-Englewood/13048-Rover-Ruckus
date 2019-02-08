@@ -16,28 +16,27 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import java.util.Random;
 
-@Autonomous(name="TensorFlow owo ", group="Autonomous")
+@Autonomous(name="TensorFlow owo (It work)", group="Autonomous")
 public class AutonTeamMakerWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
+    int auto = 1;
+    TensorFlow.TFState BigThonk, actualState;
     Random rand = new Random();
 
-    TensorFlow.TFState BigThonk, actualState;
 
-    int auto = 1;
-    int turned = 0;
     public void init() {
         robot.init(hardwareMap, telemetry, false);
         tensorFlow.init(hardwareMap, telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.BR.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,7 +45,6 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.claw.setPosition(0.0);
-
         //hinge.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
@@ -90,14 +88,14 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
             case 1:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.hook.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
             case 2:
                 robot.hook.setTargetPosition(7055);
-                robot.hook.setPower(0.5);
+                robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 BigThonk = (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
 
@@ -365,7 +363,9 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         telemetry.addData("Position", tensorFlow.getState());
         telemetry.addData("BiggieThonk", BigThonk);
         telemetry.addData("Case Number: ", auto);
-        telemetry.addData("BR POSITION", robot.BR.getCurrentPosition());
+        telemetry.addData("YET", robot.hook.getPower());
+        telemetry.addData("twtr", robot.hook.getCurrentPosition());
+        telemetry.addData("EWT",robot.hookLimit.getState());
         telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
         telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
         telemetry.update();
