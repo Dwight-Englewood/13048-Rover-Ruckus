@@ -1,61 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-
-/*
-* Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float awayFramed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-*
-*
-*
-* */
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -96,14 +39,14 @@ public class DoubleSampleCrater extends OpMode {
 
     TensorFlow.TFState BigThonk, actualState;
     //RevBlinkinLedDriver blinkin;
-
+//
     int auto = 0;
 
     int center = 150;
-    int left = 600;
+    int left = 550;
     int right = 350;
 
-    int centerBack = 1000;
+    int centerBack = 1150;
     int leftBack = 800;
     int rightBack = 1750;
 
@@ -253,33 +196,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
                 /*
-           CASE FOR CENTER
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
+           CASE FOR CENTER uno
            */
             case 12:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
@@ -289,33 +206,7 @@ And I will float away
                 break;
 
                 /*
-           CASE FOR LEFT
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
+           CASE FOR LEFT uno
            */
             case 100:
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
@@ -325,33 +216,7 @@ And I will float away
                 break;
 
                 /*
-           CASE FOR RIGHT
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
+           CASE FOR RIGHT uno
            */
             case 1000:
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
@@ -426,33 +291,7 @@ And I will float away
                 break;
 
                 /*
-           CASE FOR CENTER
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
+           CASE FOR CENTER dos
            */
             case 21:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, centerBack, 0.5);
@@ -462,7 +301,7 @@ And I will float away
                 break;
 
                 /*
-           CASE FOR LEFT
+           CASE FOR LEFT dos
            */
             case 200:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, leftBack, 0.5);
@@ -472,34 +311,7 @@ And I will float away
                 break;
 
                 /*
-           CASE FOR RIGHT
-
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
+           CASE FOR RIGHT dos
            */
             case 2000:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, rightBack, 0.5);
@@ -559,28 +371,6 @@ And I will float away
                 break;
 
             case 28:
-                if(Math.abs(179 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(179);
-                }
-                else if(Math.abs(179 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    auto++;
-                }
-                break;
-
-            case 29:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 30:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 280, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto++;
-                }
-                break;
-
-            case 31:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(BigThonk == TensorFlow.TFState.CENTER){
@@ -592,161 +382,162 @@ And I will float away
                 }
                 break;
 
-            case 32:
+               /*
+           CASE FOR CENTER tres
+           */
+            case 29:
+                if(Math.abs(179 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(179);
+                }
+                else if(Math.abs(179 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+
+            case 30:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
 
-                if(BigThonk == TensorFlow.TFState.CENTER){
+            case 31:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 500, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
-                }else if(BigThonk == TensorFlow.TFState.LEFT){
-                    auto = 400;
-                }else if(BigThonk == TensorFlow.TFState.RIGHT){
-                    auto = 4000;
                 }
                 break;
 
-                /*
-           CASE FOR CENTER
+            case 32:
+                if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(90);
+                }
+                else if(Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
 
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-           */
             case 33:
-                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto++;
-                }
-                break;
-
-                /*
-           CASE FOR LEFT
-
-           */
-            case 400:
-                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto = 34;
-                }
-                break;
-
-                /*
-           CASE FOR RIGHT
-           Framed as icicles
-Numerous and gray
-I will do as spiders do
-Then watch you float away
-
-As the night is young
-The frostbite lingers
-Drips like faucets
-From my fingers
-And everything you gave to me
-I tossed it to the wind
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-
-Climbed across my back
-Cut into the flesh
-Burdened by my heart
-Turned and hung my head
-
-And I will float away
-And I will float away
-And I will float away
-And I will float away
-           */
-            case 4000:
-                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto = 34;
-                }
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
                 break;
 
             case 34:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 1000, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    auto = 10000;
+                }
+                break;
+
+                /*
+           CASE FOR LEFT tres
+           */
+            case 300:
+                if(Math.abs(23 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(23);
+                }
+                else if(Math.abs(23 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+
+            case 301:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 35:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 280, 0.4);
+            case 302:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 500, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
                 break;
 
-            case 36:
+            case 303:
+                if(Math.abs(-80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-80);
+                }
+                else if(Math.abs(-80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+
+            case 304:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 37:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 375, 0.4);
+            case 305:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 500, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    auto = 10000;
+                }
+                break;
+
+                /*
+           CASE FOR RIGHT tres
+           */
+            case 3000:
+                if(Math.abs(-23 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(-23);
+                }
+                else if(Math.abs(-23 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
+                    auto++;
+                }
+                break;
+
+            case 3001:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 3002:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 800, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
                 break;
 
-            case 38:
-            if(Math.abs(-45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                robot.adjustHeading(-45);
-            }
-            else if(Math.abs(-45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                robot.drive(MovementEnum.STOP, 0);
-                auto++;
-            }
-            break;
-
-            case 39:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 40:
-                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 200, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+            case 3003:
+                if(Math.abs(60 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(60);
+                }
+                else if(Math.abs(60 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
                 break;
 
-            case 41:
+            case 3004:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
-            case 42:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 1000, 0.4);
+            case 3005:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 1000, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    auto = 10000;
                 }
+                break;
+
+
+            /**
+             * BIG CHANGE HERE----------------------------------------------------------------------------------------------------------
+            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
+            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
+            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
+             **/
+
+            case 10000:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
-        telemetry.addData("BigThonk", BigThonk);
-        telemetry.addData("Framed as icicles\n" +
+        telemetry.addData("KEvin is a furry", BigThonk);
+        telemetry.addData(
+                "Framed as icicles\n" +
                 "Numerous and gray\n" +
                 "I will do as spiders do\n" +
                 "Then watch you float away\n" +
