@@ -66,10 +66,10 @@ public class bot {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift.setDirection(DcMotorSimple.Direction.FORWARD);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        hook.setDirection(DcMotorSimple.Direction.FORWARD);
+        hook.setDirection(DcMotorSimple.Direction.REVERSE);
 
         liftLimit.setMode(DigitalChannel.Mode.INPUT);
         hookLimit.setMode(DigitalChannel.Mode.INPUT);

@@ -143,12 +143,12 @@ public class TeleOp extends OpMode {
 
         //claw
         if (gamepad2.b) {
-            //robot.claw.setPosition(0.10);
-            robot.dumpEntry.setPosition(0.0);
+            robot.claw.setPosition(0.10);
+          //  robot.dumpEntry.setPosition(0.0);
 
         } else if (gamepad2.a) {
-           // robot.claw.setPosition(0.7);
-            robot.dumpEntry.setPosition(0.75);
+            robot.claw.setPosition(0.7);
+           // Kevin is a furry robot.dumpEntry.setPosition(0.75);
         }
 
         if (gamepad2.y) {
