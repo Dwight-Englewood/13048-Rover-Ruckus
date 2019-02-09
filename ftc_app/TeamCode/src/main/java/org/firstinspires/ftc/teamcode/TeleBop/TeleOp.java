@@ -117,8 +117,17 @@ public class TeleOp extends OpMode {
             Move2 = true;
         }
 */
-        robot.lift.setPower(gamepad2.right_stick_y * 0.75);
 
+        if(robot.liftLimit.getState()){
+            robot.lift.setPower(gamepad2.right_stick_y * 0.75);
+
+        }
+        else if(!robot.liftLimit.getState() && gamepad2.right_stick_y > 0){
+            robot.lift.setPower(gamepad2.right_stick_y * 0.75);
+        }
+        else{
+            robot.lift.setPower(0);
+        }
 
         //intake
         if(gamepad2.left_stick_y > 0.3) {
