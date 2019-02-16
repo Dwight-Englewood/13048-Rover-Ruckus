@@ -347,6 +347,7 @@ public class bot {
         double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double headingError;
         headingError = targetHeading - curHeading;
+   //     previousHeading = targetHeading + curHeading;
         double driveScale = headingError;
         this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if(headingError < -0.3)
@@ -364,16 +365,6 @@ public class bot {
         //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
         // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         return false;
-    }
-
-    public void headingAdjuster(int targetHeading) {
-    if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-        this.adjustHeading(targetHeading);
-    }
-    else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-        this.drive(MovementEnum.STOP, 0);
-        tele.update();
-    }
     }
 
     public double motorSpeed() {
