@@ -125,9 +125,9 @@ TensorFlow implements Subsystem {
                     // int silver2 = -1;
                     for(Recognition recognition: updatedRecognitions){
                         if(recognition.getLabel().equals(LABEL_GOLD_MINERAL)){
-                            gold = (int) recognition.getRight();
+                            gold = (int) recognition.getBottom();
                         } else if(silver1 == -1){
-                            silver1 = (int) recognition.getRight();
+                            silver1 = (int) recognition.getBottom();
                         }
                     }
                     if (gold != -1 || silver1 != -1) {
@@ -139,30 +139,7 @@ TensorFlow implements Subsystem {
                             this.state = TFState.RIGHT;
                         }
                     }
-                /*
-                if (updatedRecognitions.size() == 3) {
-                    int goldMineralX = -1;
-                    int silverMineral1X = -1;
-                    int silverMineral2X = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                        } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getLeft();
-                        } else {
-                            silverMineral2X = (int) recognition.getLeft();
-                        }
-                    }
-                    if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                        if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                            this.state = TFState.LEFT;
-                        } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            this.state = TFState.RIGHT;
-                        } else {
-                            this.state = TFState.CENTER;
-                        }
-                    }
-                    */
+
                 } else {
                     this.state = TFState.NOTVISIBLE;
                 }
