@@ -23,6 +23,11 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
     bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
     int auto = 1;
+
+    int center = 150;
+    int left = 550;
+    int right = 350;
+
     TensorFlow.TFState BigThonk, actualState;
     Random rand = new Random();
 
@@ -183,14 +188,14 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
             case 12:
                 switch(BigThonk){
                     case LEFT:
-                        robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 300, 0.2);
+                        robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 300 + 250, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
                             auto++;
                         }
                         break;
                     case RIGHT:
-                        robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400, 0.2);
+                        robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400 - 50, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
                             auto++;
@@ -198,7 +203,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                         break;
                     case CENTER:
-                        robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 1120 / 6, 0.2);
+                        robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 1120 / 6 -36, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
                             auto++;

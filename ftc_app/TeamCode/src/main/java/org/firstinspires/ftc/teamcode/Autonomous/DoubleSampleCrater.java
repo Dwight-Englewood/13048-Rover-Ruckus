@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
         import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="b(owo)b", group="Autonomous")
+@Autonomous(name="bobo`", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -41,6 +41,8 @@ public class DoubleSampleCrater extends OpMode {
     //RevBlinkinLedDriver blinkin;
 //
     int auto = 0;
+
+    int curVal = 0;
 
     int center = 150;
     int left = 550;
@@ -64,7 +66,6 @@ public class DoubleSampleCrater extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -99,11 +100,14 @@ public class DoubleSampleCrater extends OpMode {
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
+
     @Override
     public void loop() {
         switch (auto) {
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.claw.setPosition(0.0);
                 auto++;
                 break;
@@ -166,6 +170,7 @@ public class DoubleSampleCrater extends OpMode {
                     robot.adjustHeading(-80);
                 }
                 else if(Math.abs(-80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal = -80;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -269,10 +274,11 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 19:
-                if(Math.abs(-170- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-170);
+                if(Math.abs(this.curVal-90- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal-90);
                 }
-                else if(Math.abs(-170 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal-90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += -90;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -321,10 +327,11 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 22:
-                if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-135);
+                if(Math.abs(this.curVal+45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal+45);
                 }
-                else if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal+45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += 45;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -389,10 +396,11 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR CENTER tres
            */
             case 29:
-                if(Math.abs(-200 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-200);
+                if(Math.abs(this.curVal-65 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal-65);
                 }
-                else if(Math.abs(-200 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal-65 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += -65;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -411,10 +419,11 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 32:
-                if(Math.abs(-250 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-250);
+                if(Math.abs(this.curVal-50 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal-50);
                 }
-                else if(Math.abs(-250 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal-50 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += -50;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -436,10 +445,11 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR LEFT tres
            */
             case 300:
-                if(Math.abs(-225 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-225);
+                if(Math.abs(this.curVal-90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal-90);
                 }
-                else if(Math.abs(-225 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal-90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += -90;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -473,10 +483,11 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR RIGHT tres
            */
             case 3000:
-                if(Math.abs(-180 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-180);
+                if(Math.abs(this.curVal-55 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal-60);
                 }
-                else if(Math.abs(-180 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal-55 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                    this.curVal += -55;
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -495,10 +506,10 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 3003:
-                if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-135);
+                if(Math.abs(this.curVal+80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+                    robot.adjustHeading(this.curVal+65);
                 }
-                else if(Math.abs(-135 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+                else if(Math.abs(this.curVal+80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
                     robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
@@ -516,19 +527,12 @@ public class DoubleSampleCrater extends OpMode {
                 }
                 break;
 
-
-            /**
-             * BIG CHANGE HERE----------------------------------------------------------------------------------------------------------
-            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
-            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
-            BIG CHANGE HERE-------------------------------------------------------------------------------------------------------------
-             **/
-
             case 10000:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
-        telemetry.addData("KEvin is a furry", BigThonk);
+
+        telemetry.addData("Dagers", BigThonk);
         telemetry.addData(
                 "Framed as icicles\n" +
                 "Numerous and gray\n" +
