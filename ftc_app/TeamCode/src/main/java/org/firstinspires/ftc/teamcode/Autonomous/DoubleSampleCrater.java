@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
         import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="bobo`", group="Autonomous")
+@Autonomous(name="bobo sell rice", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -483,12 +483,8 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR RIGHT tres
            */
             case 3000:
-                if(Math.abs(this.curVal-55 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(this.curVal-60);
-                }
-                else if(Math.abs(this.curVal-55 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                    this.curVal += -55;
-                    robot.drive(MovementEnum.STOP, 0);
+                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 100, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
                 break;
@@ -499,18 +495,8 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 3002:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 800, 0.5);
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 800, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto++;
-                }
-                break;
-
-            case 3003:
-                if(Math.abs(this.curVal+80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(this.curVal+65);
-                }
-                else if(Math.abs(this.curVal+80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                    robot.drive(MovementEnum.STOP, 0);
                     auto++;
                 }
                 break;
@@ -521,7 +507,19 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 3005:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 1000, 0.5);
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 100, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    auto++;
+                }
+                break;
+
+            case 3006:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 3007:
+                robot.autonDriveUltimate(MovementEnum.FORWARD, 800, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 10000;
                 }
