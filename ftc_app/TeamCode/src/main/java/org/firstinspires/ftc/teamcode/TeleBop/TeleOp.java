@@ -36,6 +36,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleBop",group="Teleop")
 //@Disabled
 public class TeleOp extends OpMode {
@@ -44,6 +46,7 @@ public class TeleOp extends OpMode {
     bot robot = new bot();
     boolean Command;
     boolean wabbo = false;
+    RevBlinkinLedDriver blinkin;
 
     @Override
     public void init() {
@@ -53,6 +56,8 @@ public class TeleOp extends OpMode {
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         telemetry.addData("Claw Position", robot.claw.getPosition());
+
+        blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "rgbReady");
     }
 
     @Override
@@ -63,6 +68,8 @@ public class TeleOp extends OpMode {
     public void start() {
         timer.reset();
         robot.claw.setPosition(0.0);
+
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
     }
 
     /*
@@ -74,8 +81,12 @@ public class TeleOp extends OpMode {
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
         //TODO: After competition, comment out tankDriveNoStrafe and enable normal tankDrive for strafable Mechanum Wheels.
-        if(gamepad1.x){wabbo = true; }
-        else if (gamepad1.y){wabbo = false;}
+        if(gamepad1.x){wabbo = true;
+            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
+        }
+        else if (gamepad1.y){wabbo = false;
+            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
+        }
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,wabbo, false);
 
 
@@ -86,16 +97,17 @@ public class TeleOp extends OpMode {
             robot.hook.setPower(-(gamepad2.left_trigger * 0.75));
 
         }
-
-
             if (gamepad1.a) {
                 robot.hook.setPower(1);
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.LAWN_GREEN);
 
             } else if (gamepad1.b) {
                 robot.hook.setPower(-1);
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_RED);
 
             } else {
                 robot.hook.setPower(0);
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
             }
 
 
@@ -152,10 +164,12 @@ public class TeleOp extends OpMode {
 
         if (gamepad2.y) {
             robot.dump.setPosition(0.75);
+            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
 
         } else{
             //if (gamepad2.x) {
             robot.dump.setPosition(0);
+            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
         }
 
         //

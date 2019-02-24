@@ -25,7 +25,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
     TensorFlow tensorFlow = new TensorFlow();
 
     TensorFlow.TFState BigThonk, actualState;
-    //RevBlinkinLedDriver blinkin;
+    RevBlinkinLedDriver blinkin;
 
     int auto = 0;
 
@@ -58,7 +58,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
         robot.intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.claw.setPosition(0.0);
 
-     //   blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "rgbReady");
+        blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "rgbReady");
     }
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -76,7 +76,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
         tensorFlow.start();
         BigThonk = tensorFlow.getState();
 
-     //   blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
     }
 
     /*
@@ -98,6 +98,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
 
                 if(!robot.hookLimit.getState() || robot.hook.getCurrentPosition() >= robot.hook.getTargetPosition()){
+                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_GREEN);
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -105,6 +106,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 2:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 if(Math.abs(0- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(0);
                 }
@@ -128,7 +130,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 5:
-                BigThonk = tensorFlow.getState();
+                BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
                 if(BigThonk != TensorFlow.TFState.NOTVISIBLE){auto++;}
                 break;
 
@@ -182,6 +184,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
            CASE FOR CENTER
            */
             case 12:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
@@ -192,6 +195,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
            CASE FOR LEFT
            */
             case 100:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 13;
@@ -202,6 +206,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
            CASE FOR RIGHT
            */
             case 1000:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 13;
@@ -209,6 +214,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 13:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
@@ -342,6 +348,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 if(robot.claw.getPosition() >= 0.7) {
+                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
                     auto++;
                 }
                 break;
@@ -352,6 +359,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 29:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 100, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
@@ -366,7 +374,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
             case 31:
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.3);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    //auto++;
+                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_LAVA_PALETTE);
                 }
                 break;
 

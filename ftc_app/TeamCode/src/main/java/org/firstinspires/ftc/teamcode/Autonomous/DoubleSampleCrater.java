@@ -38,8 +38,8 @@ public class DoubleSampleCrater extends OpMode {
     TensorFlow tensorFlow = new TensorFlow();
 
     TensorFlow.TFState BigThonk, actualState;
-    //RevBlinkinLedDriver blinkin;
-//
+    RevBlinkinLedDriver blinkin;
+
     int auto = 0;
 
     int curVal = 0;
@@ -76,7 +76,7 @@ public class DoubleSampleCrater extends OpMode {
         robot.intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.claw.setPosition(0.0);
 
-        //   blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "rgbReady");
+        blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "rgbReady");
     }
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -94,7 +94,7 @@ public class DoubleSampleCrater extends OpMode {
         tensorFlow.start();
         BigThonk = tensorFlow.getState();
 
-        //   blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
     }
 
     /*
@@ -119,6 +119,7 @@ public class DoubleSampleCrater extends OpMode {
                 BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
 
                 if(!robot.hookLimit.getState() || robot.hook.getCurrentPosition() >= robot.hook.getTargetPosition()){
+                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_GREEN);
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -126,6 +127,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 2:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 if(Math.abs(0- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(0);
                 }
@@ -204,6 +206,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR CENTER uno
            */
             case 12:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, center, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
@@ -214,6 +217,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR LEFT uno
            */
             case 100:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, left, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 13;
@@ -224,6 +228,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR RIGHT uno
            */
             case 1000:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, right, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto = 13;
@@ -231,6 +236,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 13:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
@@ -377,6 +383,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 28:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
                 if(BigThonk == TensorFlow.TFState.CENTER){
                     auto++;
                 }else if(BigThonk == TensorFlow.TFState.LEFT){
@@ -393,6 +400,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR CENTER tres
            */
             case 29:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 if(Math.abs(this.curVal+110 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(this.curVal+110);
                 }
@@ -465,6 +473,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR LEFT tres
            */
             case 300:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 if(Math.abs(this.curVal+85- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(this.curVal+85);
                 }
@@ -526,6 +535,7 @@ public class DoubleSampleCrater extends OpMode {
            CASE FOR RIGHT tres
            */
             case 3000:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
@@ -569,6 +579,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 10000:
+                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_LAVA_PALETTE);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
