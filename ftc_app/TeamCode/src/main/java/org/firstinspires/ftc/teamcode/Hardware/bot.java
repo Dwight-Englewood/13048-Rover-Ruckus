@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.*;
@@ -21,6 +22,7 @@ public class bot {
     public static DcMotor BL, BR, FL, FR, hook, lift, intake;
     public Servo dump, claw , dumpEntry;
     public DigitalChannel liftLimit, hookLimit;
+    public RevBlinkinLedDriver blinkin;
     HardwareMap map;
     Telemetry tele;
     TensorFlow tensorFlow;
@@ -59,6 +61,9 @@ public class bot {
         dumpEntry = this.map.get(Servo.class,"dump2");
         dump = this.map.get(Servo.class, "dump");
         claw = this.map.get(Servo.class, "claw");
+
+        blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
+
 
 //        left.setDirection(DcMotorSimple.Direction.FORWARD);
 //        right.setDirection(DcMotorSimple.Direction.REVERSE);

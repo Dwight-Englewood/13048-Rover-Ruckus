@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.Tests;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,7 +57,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
 
 public class TensorFlowTest extends OpMode {
     private ElapsedTime timer = new ElapsedTime();
-   // bot boot = new bot();
+    bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
 
     /*
@@ -65,6 +66,7 @@ public class TensorFlowTest extends OpMode {
     @Override
     public void init() {
         tensorFlow.init(hardwareMap, telemetry);
+        robot.init(hardwareMap, telemetry, false);
     }
 
     /*
@@ -86,9 +88,6 @@ public class TensorFlowTest extends OpMode {
      */
     @Override
     public void loop() {
-
-
-
         List<Recognition> dab = tensorFlow.getD();
 
         telemetry.addData("number", dab);
@@ -99,12 +98,7 @@ public class TensorFlowTest extends OpMode {
            // telemetry.addData("area", dab.get(i).getWidth() * dab.get(i).getHeight());
             telemetry.addData("recognition", dab.get(i).getLabel());
             telemetry.addData("CDOO", dab.get(i).getConfidence());
-
         }
-
-
-
-
 
         tensorFlow.getState();
         telemetry.addData("Tensor Flow Stats", tensorFlow.getState());
