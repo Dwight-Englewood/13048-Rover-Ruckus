@@ -59,7 +59,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutonCrater", group="Autonomous")
+@Autonomous(name="[OLD]AutonCrater", group="Autonomous")
 
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.

@@ -6,17 +6,17 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.Bot2;
+import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp 2: Electric Boogaloo",group="Teleop")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleBoBo: Electric Boboloo",group="Teleop")
 
-public class TeleOP2 extends OpMode{
+public class TeleBoBo extends OpMode{
     // Declare OpMode members.
     private ElapsedTime timer = new ElapsedTime();
-    Bot2 robot = new Bot2();
+    BoBot robot = new BoBot();
     boolean Command;
     boolean wabbo = false;
 
@@ -27,7 +27,7 @@ public class TeleOP2 extends OpMode{
         telemetry.addData("Status", "Initialized");
 
         telemetry.addData("Hook Power", robot.hook.getPower());
-     //   telemetry.addData("Claw Position", robot.claw.getPosition());
+        //   telemetry.addData("Claw Position", robot.claw.getPosition());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TeleOP2 extends OpMode{
         robot.lift.setPower(gamepad2.left_stick_y);
 
         if(gamepad1.b){
-        robot.joint.setPower(-1.);}
+            robot.joint.setPower(-1.);}
         else if (gamepad1.a){robot.joint.setPower(1.);}
         else{robot.joint.setPower(0);}
 

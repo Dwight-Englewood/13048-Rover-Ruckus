@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
  */
 
 
-@Autonomous(name = "TimeAuton", group = "Testing")
+@Autonomous(name = "[OLD]TimeAuton", group = "Testing")
 
 public class AutonGyroTester extends OpMode {
     // Declare OpMode members.
