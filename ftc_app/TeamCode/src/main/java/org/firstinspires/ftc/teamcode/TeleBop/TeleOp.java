@@ -130,11 +130,11 @@ public class TeleOp extends OpMode {
 
         //intake
         if(gamepad2.left_stick_y > 0.3) {
-            robot.intake.setPower(gamepad2.left_stick_y * -0.75);
+            robot.intake.setPower(gamepad2.left_stick_y * -1);
         }
 
         else if(gamepad2.left_stick_y < -0.3) {
-            robot.intake.setPower(gamepad2.left_stick_y * -0.75);
+            robot.intake.setPower(gamepad2.left_stick_y * -1);
 
         } else {
             robot.intake.setPower(0);
