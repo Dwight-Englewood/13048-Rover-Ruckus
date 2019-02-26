@@ -102,7 +102,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 robot.hook.setTargetPosition(7055);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                BigThonk = (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
+          //      BigThonk = (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
 
                 if (!robot.hookLimit.getState() || Math.abs(robot.hook.getCurrentPosition()) >= 7055) {
                     //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
@@ -142,6 +142,10 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
             case 5:
                 BigThonk =  (tensorFlow.getState() == TensorFlow.TFState.NOTVISIBLE) ?  BigThonk: tensorFlow.getState();
                 if (BigThonk != TensorFlow.TFState.NOTVISIBLE) {
+                    auto = 4;
+                }
+                else{
+                    BigThonk = TensorFlow.TFState.LEFT;
                     auto = 4;
                 }
 
@@ -211,10 +215,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                         break;
                     case NOTVISIBLE:
-                        int yeet = rand.nextInt(2)+1;
-                        if (yeet == 1 ){BigThonk = TensorFlow.TFState.CENTER;}
-                        else if(yeet ==2){BigThonk = TensorFlow.TFState.RIGHT;}
-                        else {BigThonk = TensorFlow.TFState.LEFT;}
+                        BigThonk = TensorFlow.TFState.LEFT;
                         break;
                 }
                 break;
@@ -359,20 +360,16 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     //  auto++;
                 }
                 break;
-
-
-
-
         }
-        telemetry.addData("Team Marker Position", robot.claw.getPosition());
-        telemetry.addData("Position", tensorFlow.getState());
-        telemetry.addData("BiggieThonk", BigThonk);
-        telemetry.addData("Case Number: ", auto);
-        telemetry.addData("YET", robot.hook.getPower());
-        telemetry.addData("twtr", robot.hook.getCurrentPosition());
-        telemetry.addData("EWT",robot.hookLimit.getState());
-        telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
-        telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
+   //     telemetry.addData("Team Marker Position", robot.claw.getPosition());
+   //     telemetry.addData("Position", tensorFlow.getState());
+   //     telemetry.addData("BiggieThonk", BigThonk);
+   //     telemetry.addData("Case Number: ", auto);
+   //     telemetry.addData("YET", robot.hook.getPower());
+   //     telemetry.addData("twtr", robot.hook.getCurrentPosition());
+   //     telemetry.addData("EWT",robot.hookLimit.getState());
+   //     telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+   //     telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
         telemetry.update();
     }
 }
