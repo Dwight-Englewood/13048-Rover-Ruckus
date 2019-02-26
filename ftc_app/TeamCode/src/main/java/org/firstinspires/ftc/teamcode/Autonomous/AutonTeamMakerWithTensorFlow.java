@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import java.util.Random;
 
-@Autonomous(name="[OLD]TensorFlow owo (It work)", group="Autonomous")
+@Autonomous(name="[OLD]AutonDepotSingleSample", group="Autonomous")
 public class AutonTeamMakerWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

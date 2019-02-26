@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="BoBoDouble", group="Autonomous")
+@Autonomous(name="BoBo Sells Rice", group="Autonomous")
 public class BoBoDouble extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

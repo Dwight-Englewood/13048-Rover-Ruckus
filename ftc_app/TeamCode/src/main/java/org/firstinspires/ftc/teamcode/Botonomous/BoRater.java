@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="BoRater", group="Autonomous")
+@Autonomous(name="BoBo Grows Rice", group="Autonomous")
 public class BoRater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

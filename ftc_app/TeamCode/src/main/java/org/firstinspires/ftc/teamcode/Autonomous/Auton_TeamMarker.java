@@ -58,7 +58,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="[OLD]AutonMarker ", group="Autonomous")
+@Autonomous(name="[OLD]DepotNoSample ", group="Autonomous")
 
 public class Auton_TeamMarker extends OpMode {
     // Declare OpMode members.

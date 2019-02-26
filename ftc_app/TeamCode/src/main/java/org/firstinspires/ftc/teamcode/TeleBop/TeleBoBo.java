@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleBoBo: Electric Boboloo",group="Teleop")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="BoBo Consumes Rice",group="Teleop")
 
 public class TeleBoBo extends OpMode{
     // Declare OpMode members.
