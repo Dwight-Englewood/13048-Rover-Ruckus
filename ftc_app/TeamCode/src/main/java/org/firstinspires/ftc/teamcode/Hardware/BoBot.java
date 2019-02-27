@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
-public class BoBot{
+public class BoBot {
     public static DcMotor BL, BR, FL, FR, hook, lift, intake, joint;
     public Servo door;
     public DigitalChannel liftLimit, hookLimit;
@@ -75,9 +75,7 @@ public class BoBot{
         joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
     }
-
 
     public static void changeRunMode(DcMotor.RunMode runMode) {
         BL.setMode(runMode);
@@ -112,8 +110,6 @@ public class BoBot{
         FR.setPower(leftStick_y);
         BL.setPower(-leftStick_y);
         BR.setPower(-leftStick_y);
-
-
     }
 
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
@@ -136,7 +132,6 @@ public class BoBot{
         FR.setPower(rightStick);
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
-
     }
 
     public void setPower(double power) {
@@ -197,6 +192,75 @@ public class BoBot{
                 BR.setTargetPosition(BR.getCurrentPosition());
                 break;
         }
+    }
+
+    public void BoBosEncoders(MovementEnum movement, int target) {
+        switch (movement) {
+            case FORWARD:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case BACKWARD:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case LEFTSTRAFE:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case RIGHTSTRAFE:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case LEFTTURN:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case RIGHTTURN:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case STOP:
+                FL.setTargetPosition(FL.getCurrentPosition());
+                FR.setTargetPosition(FR.getCurrentPosition());
+                BL.setTargetPosition(BL.getCurrentPosition());
+                BR.setTargetPosition(BR.getCurrentPosition());
+                break;
+        }
+    }
+
+    public int FLcurPos() {
+        return FL.getCurrentPosition();
+    }
+
+    public int FRcurPos() {
+        return FR.getCurrentPosition();
+    }
+
+    public int BLcurPos() {
+        return BL.getCurrentPosition();
+    }
+
+    public int BRcurPos() {
+        return BR.getCurrentPosition();
     }
 
     //TODO fix the the driver values and restrict the motor values
@@ -285,6 +349,17 @@ public class BoBot{
 
     public void autonDriveUltimate(MovementEnum movementEnum, int target, double power) {
         this.autonDrive(movementEnum, target);
+        this.setPower(power);
+        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
+            drive(MovementEnum.STOP, 0);
+            tele.update();
+        }
+    }
+
+    public void BoBoTractor(MovementEnum movementEnum, int target, double power) {
+        this.BoBosEncoders(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
