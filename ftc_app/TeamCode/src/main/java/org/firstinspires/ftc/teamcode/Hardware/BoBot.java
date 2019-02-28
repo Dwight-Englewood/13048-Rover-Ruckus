@@ -194,7 +194,7 @@ public class BoBot {
         }
     }
 
-    public void BoBosAntimatterDefuser(MovementEnum movement, int target) {
+    public void BoBosEncoders(MovementEnum movement, int target) {
         switch (movement) {
             case FORWARD:
                 this.getPos();
@@ -372,7 +372,7 @@ public class BoBot {
     }
 
     public void BoBoTractor(MovementEnum movementEnum, int target, double power) {
-      //  this.BoBosEncoders(movementEnum, target);
+        this.BoBosEncoders(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
