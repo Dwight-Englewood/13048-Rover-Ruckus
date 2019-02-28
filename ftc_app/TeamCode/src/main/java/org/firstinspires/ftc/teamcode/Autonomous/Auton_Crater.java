@@ -27,7 +27,7 @@
          * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          */
 
-        package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -59,7 +59,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutonCrater", group="Autonomous")
+@Autonomous(name="[OLD]CraterNoSample", group="Autonomous")
 
 public class Auton_Crater extends OpMode {
     // Declare OpMode members.

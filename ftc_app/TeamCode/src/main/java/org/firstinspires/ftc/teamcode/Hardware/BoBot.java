@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.*;
@@ -12,10 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
-public class Bot2{
+public class BoBot {
     public static DcMotor BL, BR, FL, FR, hook, lift, intake, joint;
     public Servo door;
     public DigitalChannel liftLimit, hookLimit;
+    public RevBlinkinLedDriver blinkin;
     HardwareMap map;
     Telemetry tele;
     TensorFlow tensorFlow;
@@ -31,15 +33,13 @@ public class Bot2{
     BNO055IMU.Parameters parameters;
     Orientation angles;
 
-    public Bot2() {
+    public BoBot() {
     }
 
     public void init(HardwareMap map, Telemetry tele, boolean auton) {
         this.map = map;
         this.tele = tele;
 
-//        left = this.map.get(DcMotor.class, "left");
-//        right = this.map.get(DcMotor.class, "right");
         hook = this.map.get(DcMotor.class, "hook");
         BR = this.map.get(DcMotor.class, "BR");
         BL = this.map.get(DcMotor.class, "BL");
@@ -49,16 +49,9 @@ public class Bot2{
         intake = this.map.get(DcMotor.class, "intake");
         joint = this.map.get(DcMotor.class, "joint");
 
-     //   hookLimit = this.map.get(DigitalChannel.class, "hookLimit");
-      //  liftLimit = this.map.get(DigitalChannel.class, "liftLimit");
-
-    //    dumpEntry = this.map.get(Servo.class,"dump2");
-  //      dump = this.map.get(Servo.class, "dump");
-//        claw = this.map.get(Servo.class, "claw");
         door = this.map.get(Servo.class, "door");
+        blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
 
-//        left.setDirection(DcMotorSimple.Direction.FORWARD);
-//        right.setDirection(DcMotorSimple.Direction.REVERSE);
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -67,9 +60,6 @@ public class Bot2{
         joint.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.REVERSE);
-
-     //   liftLimit.setMode(DigitalChannel.Mode.INPUT);
-      //  hookLimit.setMode(DigitalChannel.Mode.INPUT);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -80,17 +70,12 @@ public class Bot2{
         gyro.initialize(parameters);
         tele.addData(">", "Gyro Calibrating. Do Not Move!");
         tele.update();
-//        this.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
 
     public static void changeRunMode(DcMotor.RunMode runMode) {
         BL.setMode(runMode);
@@ -101,17 +86,6 @@ public class Bot2{
         lift.setMode(runMode);
         intake.setMode(runMode);
     }
-
-//    public void setRunMode(DcMotor.RunMode encoderRunMode) {
-//        BR.setMode(runMode);
-//        BL.setMode(runMode);
-//        FL.setMode(runMode);
-//        FR.setMode(runMode);
-//        left.setMode(encoderRunMode);
-//        right.setMode(encoderRunMode);
-//        lift.setMode(encoderRunMode);
-//        intake.setMode(encoderRunMode);
-//    }
 
     public void drive(double in) {
         BL.setPower(in);
@@ -136,8 +110,6 @@ public class Bot2{
         FR.setPower(leftStick_y);
         BL.setPower(-leftStick_y);
         BR.setPower(-leftStick_y);
-
-
     }
 
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
@@ -160,7 +132,6 @@ public class Bot2{
         FR.setPower(rightStick);
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
-
     }
 
     public void setPower(double power) {
@@ -221,6 +192,75 @@ public class Bot2{
                 BR.setTargetPosition(BR.getCurrentPosition());
                 break;
         }
+    }
+
+    public void BoBosEncoders(MovementEnum movement, int target) {
+        switch (movement) {
+            case FORWARD:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case BACKWARD:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case LEFTSTRAFE:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case RIGHTSTRAFE:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case LEFTTURN:
+                FL.setTargetPosition(FLcurPos()-target);
+                FR.setTargetPosition(FRcurPos()+target);
+                BL.setTargetPosition(BLcurPos()-target);
+                BR.setTargetPosition(BRcurPos()+target);
+                break;
+
+            case RIGHTTURN:
+                FL.setTargetPosition(FLcurPos()+target);
+                FR.setTargetPosition(FRcurPos()-target);
+                BL.setTargetPosition(BLcurPos()+target);
+                BR.setTargetPosition(BRcurPos()-target);
+                break;
+
+            case STOP:
+                FL.setTargetPosition(FL.getCurrentPosition());
+                FR.setTargetPosition(FR.getCurrentPosition());
+                BL.setTargetPosition(BL.getCurrentPosition());
+                BR.setTargetPosition(BR.getCurrentPosition());
+                break;
+        }
+    }
+
+    public int FLcurPos() {
+        return FL.getCurrentPosition();
+    }
+
+    public int FRcurPos() {
+        return FR.getCurrentPosition();
+    }
+
+    public int BLcurPos() {
+        return BL.getCurrentPosition();
+    }
+
+    public int BRcurPos() {
+        return BR.getCurrentPosition();
     }
 
     //TODO fix the the driver values and restrict the motor values
@@ -297,17 +337,6 @@ public class Bot2{
         return (int) (hookDistance);
     }
 
-    public int hookCurrentPosition() {
-        hook.getTargetPosition();
-        return (hook.getCurrentPosition() / 1120);
-    }
-
-    public int hookRevolutionsRemaining() {
-        hook.getTargetPosition();
-        hook.getCurrentPosition();
-        return ((hook.getTargetPosition() - hook.getCurrentPosition()) / 1120);
-    }
-
     private int distanceToRevs(double distance) {
         final double wheelCircumference = 31.9185813;
         final double gearMotorTickCount = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
@@ -320,6 +349,17 @@ public class Bot2{
 
     public void autonDriveUltimate(MovementEnum movementEnum, int target, double power) {
         this.autonDrive(movementEnum, target);
+        this.setPower(power);
+        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
+            drive(MovementEnum.STOP, 0);
+            tele.update();
+        }
+    }
+
+    public void BoBoTractor(MovementEnum movementEnum, int target, double power) {
+        this.BoBosEncoders(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 

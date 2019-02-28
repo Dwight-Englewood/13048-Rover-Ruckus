@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Botonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -13,15 +13,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
-import org.firstinspires.ftc.teamcode.Hardware.bot;
+import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="[OLD]AutonCraterSingleSample", group="Autonomous")
-public class AutonCraterWithTensorFlow extends OpMode {
+@Autonomous(name="BoBo Grows Rice", group="Autonomous")
+public class BoRater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    bot robot = new bot();
+    BoBot robot = new BoBot();
     TensorFlow tensorFlow = new TensorFlow();
 
     TensorFlow.TFState BigThonk, actualState;
@@ -55,8 +55,8 @@ public class AutonCraterWithTensorFlow extends OpMode {
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.claw.setPosition(0.0);
-        }
+   //     robot.claw.setPosition(0.0);
+    }
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
@@ -72,7 +72,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
         runtime.reset();
         tensorFlow.start();
         BigThonk = tensorFlow.getState();
-        }
+    }
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -84,7 +84,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.claw.setPosition(0.0);
+      //          robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
@@ -345,13 +345,13 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 27:
-                robot.claw.setPosition(0.7);
+       //         robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-                if(robot.claw.getPosition() >= 0.7) {
+       //         if(robot.claw.getPosition() >= 0.7) {
                     robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
                     auto++;
-                }
+       //         }
                 break;
 
             case 28:

@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
         import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@Autonomous(name="bobo sell rice", group="Autonomous")
+@Autonomous(name="[OLD]AutonCraterDoubleSample", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
