@@ -194,9 +194,10 @@ public class BoBot {
         }
     }
 
-    public void BoBosEncoders(MovementEnum movement, int target) {
+    public void BoBosAntimatterDefuser(MovementEnum movement, int target) {
         switch (movement) {
             case FORWARD:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()+target);
                 FR.setTargetPosition(FRcurPos()+target);
                 BL.setTargetPosition(BLcurPos()+target);
@@ -204,6 +205,7 @@ public class BoBot {
                 break;
 
             case BACKWARD:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()-target);
                 FR.setTargetPosition(FRcurPos()-target);
                 BL.setTargetPosition(BLcurPos()-target);
@@ -211,6 +213,7 @@ public class BoBot {
                 break;
 
             case LEFTSTRAFE:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()-target);
                 FR.setTargetPosition(FRcurPos()+target);
                 BL.setTargetPosition(BLcurPos()+target);
@@ -218,6 +221,7 @@ public class BoBot {
                 break;
 
             case RIGHTSTRAFE:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()+target);
                 FR.setTargetPosition(FRcurPos()-target);
                 BL.setTargetPosition(BLcurPos()-target);
@@ -225,6 +229,7 @@ public class BoBot {
                 break;
 
             case LEFTTURN:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()-target);
                 FR.setTargetPosition(FRcurPos()+target);
                 BL.setTargetPosition(BLcurPos()-target);
@@ -232,6 +237,7 @@ public class BoBot {
                 break;
 
             case RIGHTTURN:
+                this.getPos();
                 FL.setTargetPosition(FLcurPos()+target);
                 FR.setTargetPosition(FRcurPos()-target);
                 BL.setTargetPosition(BLcurPos()+target);
@@ -261,6 +267,13 @@ public class BoBot {
 
     public int BRcurPos() {
         return BR.getCurrentPosition();
+    }
+
+    public void getPos() {
+        FLcurPos();
+        FRcurPos();
+        BLcurPos();
+        BRcurPos();
     }
 
     //TODO fix the the driver values and restrict the motor values
