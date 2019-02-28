@@ -63,7 +63,7 @@ public class BoBoEncodes extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
     BoBot robot = new BoBot();
-    int autonTest = 2;
+    int autonTest = 1;
 
     @Override
     public void init() {
@@ -104,9 +104,15 @@ public class BoBoEncodes extends OpMode {
     @Override
     public void loop() {
         switch (autonTest) {
+            case 1:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.getPos();
+                autonTest++;
+
             case 2:
                 robot.BoBoTractor(MovementEnum.FORWARD, 750, 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.getPos();
                     autonTest += 2;
                 }
                 break;
@@ -114,6 +120,7 @@ public class BoBoEncodes extends OpMode {
             case 4:
                 robot.BoBoTractor(MovementEnum.BACKWARD, 750, 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.getPos();
                     autonTest += 2;
                 }
                 break;
@@ -121,6 +128,7 @@ public class BoBoEncodes extends OpMode {
             case 6:
                 robot.BoBoTractor(MovementEnum.LEFTSTRAFE, 750, 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.getPos();
                     autonTest += 2;
                 }
                 break;
@@ -128,6 +136,7 @@ public class BoBoEncodes extends OpMode {
             case 8:
                 robot.BoBoTractor(MovementEnum.RIGHTSTRAFE, 750, 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.getPos();
                     autonTest += 2;
                 }
                 break;
@@ -135,6 +144,7 @@ public class BoBoEncodes extends OpMode {
             case 10:
                 robot.BoBoTractor(MovementEnum.RIGHTTURN, 750, 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    robot.getPos();
                     autonTest += 2;
                 }
                 break;
