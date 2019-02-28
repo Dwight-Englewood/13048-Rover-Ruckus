@@ -113,7 +113,7 @@ public class BoBot {
     }
 
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
-        double i = invert ? 0.4 : 0.65;
+        double i = invert ? 0.4 : 0.9;
         //  double s = sickoMode ? 0.4 : 1;
 
         if (leftTrigger > .3) {
@@ -372,7 +372,7 @@ public class BoBot {
     }
 
     public void BoBoTractor(MovementEnum movementEnum, int target, double power) {
-        this.BoBosEncoders(movementEnum, target);
+      //  this.BoBosEncoders(movementEnum, target);
         this.setPower(power);
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 

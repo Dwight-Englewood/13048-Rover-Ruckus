@@ -57,7 +57,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 import java.util.Locale;
 
-@Autonomous(name = "EncoderWrapperTest", group = "Autonomous")
+@Autonomous(name = "ENCODER WERPPAR TESTS", group = "Autonomous")
 public class EncoderWrapperTest extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
