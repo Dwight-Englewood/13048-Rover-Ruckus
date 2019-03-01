@@ -51,7 +51,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
-import org.firstinspires.ftc.teamcode.Hardware.bot;
+import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
@@ -62,7 +62,7 @@ public class EncoderWrapperTest extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    bot robot = new bot();
+    BoBot robot = new BoBot();
 
     int autonTest = 0;
 
@@ -82,7 +82,6 @@ public class EncoderWrapperTest extends OpMode {
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.claw.setPosition(0.0);
     }
 
     /*
@@ -119,12 +118,11 @@ public class EncoderWrapperTest extends OpMode {
 
             case 1:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.claw.setPosition(0.0);
                 autonTest++;
                 break;
 
             case 2:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.FORWARD, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }
@@ -136,7 +134,7 @@ public class EncoderWrapperTest extends OpMode {
                 break;
 
             case 4:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.BACKWARD, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }
@@ -148,7 +146,7 @@ public class EncoderWrapperTest extends OpMode {
                 break;
 
             case 6:
-                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.LEFTSTRAFE, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }
@@ -160,7 +158,7 @@ public class EncoderWrapperTest extends OpMode {
                 break;
 
             case 8:
-                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.RIGHTSTRAFE, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }
@@ -172,7 +170,7 @@ public class EncoderWrapperTest extends OpMode {
                 break;
 
             case 10:
-                robot.autonDriveUltimate(MovementEnum.RIGHTTURN, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.RIGHTTURN, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }
@@ -184,7 +182,7 @@ public class EncoderWrapperTest extends OpMode {
                 break;
 
             case 12:
-                robot.autonDriveUltimate(MovementEnum.LEFTTURN, 750, 0.2);
+                robot.BoBoTractor(MovementEnum.LEFTTURN, 750);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     autonTest++;
                 }

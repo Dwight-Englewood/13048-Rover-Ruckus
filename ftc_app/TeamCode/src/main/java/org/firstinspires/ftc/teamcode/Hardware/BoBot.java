@@ -18,6 +18,7 @@ public class BoBot {
     public Servo door;
     public DigitalChannel liftLimit, hookLimit;
     public RevBlinkinLedDriver blinkin;
+    int originTick;
     HardwareMap map;
     Telemetry tele;
     TensorFlow tensorFlow;
@@ -337,6 +338,20 @@ public class BoBot {
         FL.setPower(in);
     }
 
+    public void drivePower(double power) {
+        FL.setPower(power);
+        FR.setPower(power);
+        BL.setPower(power);
+        BR.setPower(power);
+    }
+
+    public void strafePower(double power) {
+        FL.setPower(-power);
+        FR.setPower(power);
+        BL.setPower(-power);
+        BR.setPower(power);
+    }
+
     public void getDrivePosition() {
         FL.getCurrentPosition();
         FR.getCurrentPosition();
@@ -371,26 +386,59 @@ public class BoBot {
         }
     }
 
-    public void BoBoTractor(MovementEnum movementEnum, int target, double power) {
+    public void BoBoTractor(MovementEnum movementEnum, int target) {
         this.BoBosEncoders(movementEnum, target);
-        this.setPower(power);
+  //      scalePower();
+        this.BoBoPID();
         this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+  //      this.originTick = FL.getCurrentPosition();
 
         if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
             drive(MovementEnum.STOP, 0);
             tele.update();
         }
     }
+/*
+    public void scalePower() {
+        double power;
+        int target = FL.getTargetPosition();
+        int current = FL.getCurrentPosition();
+        int sign = target < current ? -1 : 1;
+        int diff = Math.abs(target - current);
+        int originDiff = Math.abs(this.originTick - current);
 
-    public void pidTest(MovementEnum movementEnum, int target) {
-        this.autonDrive(movementEnum, target);
-        this.setPower(motorSpeed());
-        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
-            drive(MovementEnum.STOP, 0);
-            tele.update();
+        if (originDiff < 75) {
+            power = .1;
+        } else if (originDiff < 250) {
+            power = .3;
+        } else if (originDiff < 400) {
+            power = .5;
+        } else {
+            power = 1;
         }
+
+        if (diff < 100) {
+            power = .1;
+        } else if (diff < 300) {
+            power = .3;
+        } else if (diff < 500) {
+            power = .5;
+        } else if (diff < 750) {
+            power = .7;
+        }
+
+        this.drivePower(sign * power);
+    }
+*/
+
+    public void BoBoPID() {
+        if (Math.abs(FL.getCurrentPosition() / 1000) <= FL.getTargetPosition()) {setPower(1);}
+        else if ((Math.abs(FL.getCurrentPosition() / 800) <= FL.getTargetPosition())) {setPower(0.8);}
+        else if ((Math.abs(FL.getCurrentPosition() / 650) <= FL.getTargetPosition())) {setPower(0.65);}
+        else if ((Math.abs(FL.getCurrentPosition() / 500) <= FL.getTargetPosition())) {setPower(0.5);}
+        else if ((Math.abs(FL.getCurrentPosition() / 450) <= FL.getTargetPosition())) {setPower(0.45);}
+        else if ((Math.abs(FL.getCurrentPosition() / 200) <= FL.getTargetPosition())) {setPower(0.2);}
+        else if ((Math.abs(FL.getCurrentPosition()) >= FL.getTargetPosition())) {setPower(0);}
     }
 
     public boolean adjustHeading(int targetHeading) {

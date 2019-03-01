@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
-import org.firstinspires.ftc.teamcode.Hardware.bot;
+import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import java.util.Random;
@@ -62,7 +62,7 @@ import java.util.Locale;
 public class PIDTester extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    bot robot = new bot();
+    BoBot robot = new BoBot();
     TensorFlow tensorFlow = new TensorFlow();
     int auto = 1;
     TensorFlow.TFState BigThonk, actualState;
@@ -93,7 +93,7 @@ public class PIDTester extends OpMode {
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.claw.setPosition(0.0);
+  //      robot.claw.setPosition(0.0);
 
 
         /*
@@ -134,7 +134,7 @@ public class PIDTester extends OpMode {
             switch (auto) {
                 case 0:
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    robot.claw.setPosition(0.0);
+      //              robot.claw.setPosition(0.0);
                     auto++;
                     break;
 
@@ -350,11 +350,11 @@ public class PIDTester extends OpMode {
                 case 26:
                     robot.autonDriveUltimate(MovementEnum.BACKWARD, 1000, 0.5);
                     if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                        auto++;
+                        auto+=2;
                     }
                     break;
 
-                case 27:
+        /*        case 27:
                     robot.claw.setPosition(0.7);
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -369,7 +369,7 @@ public class PIDTester extends OpMode {
                         auto++;
                     }
                     break;
-
+*/
                 case 28:
                     robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     auto++;
