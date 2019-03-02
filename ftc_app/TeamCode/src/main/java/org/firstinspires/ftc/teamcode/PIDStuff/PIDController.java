@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.PIDStuff;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
+import org.firstinspires.ftc.teamcode.PIDStuff.PID;
 
 @Disabled
 public class PIDController extends PID{

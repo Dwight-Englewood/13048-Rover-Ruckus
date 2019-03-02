@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.PIDStuff;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
+import org.firstinspires.ftc.teamcode.PIDStuff.PID;
 
 @Disabled
 public class PIDGyro extends PID {
@@ -25,7 +25,7 @@ public class PIDGyro extends PID {
         double pow = this.getPower();if (robot.FL.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
             robot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        this.robot.turn(pow);
+        this.robot.turnPower(pow);
     }
 
     public double correction() {

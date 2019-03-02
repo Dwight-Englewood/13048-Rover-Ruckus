@@ -277,6 +277,13 @@ public class BoBot {
         BRcurPos();
     }
 
+    public void getDrivePosition() {
+        FL.getCurrentPosition();
+        FR.getCurrentPosition();
+        BL.getCurrentPosition();
+        BR.getCurrentPosition();
+    }
+
     //TODO fix the the driver values and restrict the motor values
     public void drive(MovementEnum movement, double power) {
         switch (movement) {
@@ -331,11 +338,11 @@ public class BoBot {
         }
     }
 
-    public void turn(double in) {
-        BL.setPower(in);
-        BR.setPower(-in);
-        FR.setPower(-in);
-        FL.setPower(in);
+    public void turnPower(double power) {
+        BL.setPower(power);
+        BR.setPower(-power);
+        FR.setPower(-power);
+        FL.setPower(power);
     }
 
     public void drivePower(double power) {
@@ -350,13 +357,6 @@ public class BoBot {
         FR.setPower(power);
         BL.setPower(-power);
         BR.setPower(power);
-    }
-
-    public void getDrivePosition() {
-        FL.getCurrentPosition();
-        FR.getCurrentPosition();
-        BL.getCurrentPosition();
-        BR.getCurrentPosition();
     }
 
     public int hookTarget() {
