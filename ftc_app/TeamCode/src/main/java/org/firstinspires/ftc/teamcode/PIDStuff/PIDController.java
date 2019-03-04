@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.PIDStuff;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
+<<<<<<< HEAD:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Hardware/PIDController.java
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+=======
+import org.firstinspires.ftc.teamcode.PIDStuff.PID;
+>>>>>>> dc654ac7e5749e1816169ca58db0066117909110:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/PIDStuff/PIDController.java
 
 //@Disabled
 public class PIDController {

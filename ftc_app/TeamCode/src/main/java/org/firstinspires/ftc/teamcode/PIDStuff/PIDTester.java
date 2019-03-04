@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Tests;
+package org.firstinspires.ftc.teamcode.PIDStuff;
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,29 +28,19 @@ package org.firstinspires.ftc.teamcode.Tests;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
+<<<<<<< HEAD:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Tests/PIDTester.java
 import org.firstinspires.ftc.teamcode.Hardware.PID;
 import org.firstinspires.ftc.teamcode.Hardware.PIDController;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
@@ -59,6 +49,12 @@ import java.util.Random;
 import java.util.Locale;
 
 @TeleOp(name = "BOBO has Arm cramps", group="Teleop")
+=======
+import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
+import java.util.Random;
+
+@Autonomous(name = "BIG YOTE Fixing Kevin's Code", group = "Autonomous")
+>>>>>>> dc654ac7e5749e1816169ca58db0066117909110:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/PIDStuff/PIDTester.java
 
 public class PIDTester extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
