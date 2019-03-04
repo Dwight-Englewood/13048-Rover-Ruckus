@@ -14,7 +14,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class BoBot {
-    public static DcMotor BL, BR, FL, FR, hook, lift, intake, joint;
+    public static DcMotor BL, BR, FL, FR, hook, lift,  joint;
+    public CRServo inBOBO;
     public Servo door;
     public DigitalChannel liftLimit, hookLimit;
     public RevBlinkinLedDriver blinkin;
@@ -47,11 +48,11 @@ public class BoBot {
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
         lift = this.map.get(DcMotor.class, "lift");
-        intake = this.map.get(DcMotor.class, "intake");
+        inBOBO = this.map.get(CRServo.class,"Bintake");
         joint = this.map.get(DcMotor.class, "joint");
 
         door = this.map.get(Servo.class, "door");
-        blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
+      //  blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
 
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -59,13 +60,14 @@ public class BoBot {
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
         joint.setDirection(DcMotorSimple.Direction.FORWARD);
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
         gyro = this.map.get(BNO055IMU.class, "gyro");
         gyro.initialize(parameters);
@@ -74,7 +76,7 @@ public class BoBot {
 
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
@@ -85,7 +87,8 @@ public class BoBot {
         FR.setMode(runMode);
         hook.setMode(runMode);
         lift.setMode(runMode);
-        intake.setMode(runMode);
+        joint.setMode(runMode);
+       // intake.setMode(runMode);
     }
 
     public void drive(double in) {

@@ -46,7 +46,7 @@ public class BoRater extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
+     //   robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -54,7 +54,7 @@ public class BoRater extends OpMode {
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // robot.intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
    //     robot.claw.setPosition(0.0);
     }
     /*
@@ -230,24 +230,24 @@ public class BoRater extends OpMode {
 
             case 15:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
+           //     robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto+=2;
                 break;
 
             case 16:
-                robot.intake.setPower(1);
-                robot.intake.setTargetPosition(560);
-                robot.intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+         //       robot.intake.setPower(1);
+        //        robot.intake.setTargetPosition(560);
+        //        robot.intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                if (Math.abs(robot.intake.getCurrentPosition()) >= Math.abs(robot.intake.getTargetPosition())){
-                    robot.intake.setPower(0);
-                    auto++;
-                }
+          //      if (Math.abs(robot.intake.getCurrentPosition()) >= Math.abs(robot.intake.getTargetPosition())){
+            //        robot.intake.setPower(0);
+             //       auto++;
+               // }
                 break;
 
             case 17:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+         //       robot.intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 

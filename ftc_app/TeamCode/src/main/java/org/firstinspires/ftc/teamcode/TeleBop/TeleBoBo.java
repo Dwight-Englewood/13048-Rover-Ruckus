@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.TeleBop;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Hardware.PIDController;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,17 +19,24 @@ public class TeleBoBo extends OpMode{
     // Declare OpMode members.
     private ElapsedTime timer = new ElapsedTime();
     BoBot robot = new BoBot();
+    double kp = 2;
+    double kd = 5;
+    double ki = 0.0005;
+    PIDController pid = new PIDController(kp, ki,kd);
     boolean Command;
     boolean wabbo = false;
 
     @Override
     public void init() {
+        robot.joint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.init(hardwareMap, telemetry, false);
 //        robot.resetServo();
         telemetry.addData("Status", "Initialized");
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         //   telemetry.addData("Claw Position", robot.claw.getPosition());
+    //    robot.joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     @Override
@@ -48,6 +57,7 @@ public class TeleBoBo extends OpMode{
 //        double leftPower = Range.clip(gamepad1.left_stick_y, -0.75,0.75);
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
+        ;
 
         if(gamepad1.x){wabbo = true; }
         else if (gamepad1.y){wabbo = false;}
@@ -64,10 +74,12 @@ public class TeleBoBo extends OpMode{
         else if(gamepad2.b){robot.hook.setPower(-1);}
         else{robot.hook.setPower(0);}
 
+      //  robot.lift.setPower(gamepad2.left_stick_y);
 
-        if(gamepad2.x){robot.door.setPosition(0.7);}
-        else if (gamepad2.y){robot.door.setPosition(0);}
-        robot.intake.setPower(gamepad2.right_stick_y);
+        robot.inBOBO.setPower(gamepad2.right_stick_y *0.7);
+      //  robot.intake.setPower(gamepad2.right_stick_y);
+
+       // robot.inBOBO.setPower(gamepad2.right_stick_y);
         telemetry.addData("power", robot.FL.getPower());
     }
 

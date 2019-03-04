@@ -42,7 +42,8 @@ public class BoPot extends OpMode {
         robot.BL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
+     //   robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
