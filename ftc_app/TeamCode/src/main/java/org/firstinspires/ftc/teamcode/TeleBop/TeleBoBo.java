@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleBop;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.PIDController;
+import org.firstinspires.ftc.teamcode.PIDStuff.PIDController;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;

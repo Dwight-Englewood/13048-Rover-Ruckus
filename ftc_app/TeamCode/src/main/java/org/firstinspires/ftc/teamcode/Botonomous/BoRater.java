@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.vuforia.CameraDevice;
 
 @Autonomous(name="BoBo Grows Rice", group="Autonomous")
 public class BoRater extends OpMode {
@@ -80,6 +81,7 @@ public class BoRater extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -134,6 +136,7 @@ public class BoRater extends OpMode {
                 break;
 
             case 6:
+                CameraDevice.getInstance().setFlashTorchMode(false);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.vuforia.CameraDevice;
 
 @Autonomous(name="[OLD]AutonCraterDoubleSample", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {

@@ -28,7 +28,7 @@ package org.firstinspires.ftc.teamcode.PIDStuff;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -40,21 +40,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
-<<<<<<< HEAD:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Tests/PIDTester.java
-import org.firstinspires.ftc.teamcode.Hardware.PID;
-import org.firstinspires.ftc.teamcode.Hardware.PIDController;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import java.util.Random;
 
 import java.util.Locale;
 
 @TeleOp(name = "BOBO has Arm cramps", group="Teleop")
-=======
-import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
-import java.util.Random;
-
-@Autonomous(name = "BIG YOTE Fixing Kevin's Code", group = "Autonomous")
->>>>>>> dc654ac7e5749e1816169ca58db0066117909110:ftc_app/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/PIDStuff/PIDTester.java
 
 public class PIDTester extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -76,6 +77,7 @@ public class BoPot extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 // BigThonk = tensorFlow.getState();
 
                 try {
@@ -149,6 +151,7 @@ public class BoPot extends OpMode {
 
                 break;
             case 6:
+                CameraDevice.getInstance().setFlashTorchMode(false);
                 // tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;

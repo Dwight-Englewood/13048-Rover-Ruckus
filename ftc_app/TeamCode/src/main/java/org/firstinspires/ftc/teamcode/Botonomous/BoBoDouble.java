@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.Botonomous;
+import android.graphics.Camera;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.vuforia.CameraDevice;
 
 @Autonomous(name="BoBo Sells Rice", group="Autonomous")
 public class BoBoDouble extends OpMode {
@@ -79,6 +82,7 @@ public class BoBoDouble extends OpMode {
         BigThonk = tensorFlow.getState();
 
         robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
+
     }
 
     /*
@@ -89,6 +93,7 @@ public class BoBoDouble extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -143,6 +148,7 @@ public class BoBoDouble extends OpMode {
                 break;
 
             case 6:
+                CameraDevice.getInstance().setFlashTorchMode(false);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
