@@ -28,10 +28,11 @@ public class TeleBoBo extends OpMode{
 
     @Override
     public void init() {
-        robot.joint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         robot.init(hardwareMap, telemetry, false);
 //        robot.resetServo();
         telemetry.addData("Status", "Initialized");
+        robot.joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         //   telemetry.addData("Claw Position", robot.claw.getPosition());

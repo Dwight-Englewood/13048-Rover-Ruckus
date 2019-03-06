@@ -58,8 +58,6 @@ public class PIDTester extends OpMode {
    PIDController weeb = new PIDController(kp, ki,kd);
    int ticks = 280 ;
 
-
-
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
@@ -74,15 +72,12 @@ public class PIDTester extends OpMode {
       //  robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.joint.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
   //      robot.claw.setPosition(0.0);
-
-
 
     }
 
@@ -100,7 +95,6 @@ public class PIDTester extends OpMode {
     public void start() {
         runtime.reset();
         weeb.setGoal(ticks);
-
     }
 
     /*
