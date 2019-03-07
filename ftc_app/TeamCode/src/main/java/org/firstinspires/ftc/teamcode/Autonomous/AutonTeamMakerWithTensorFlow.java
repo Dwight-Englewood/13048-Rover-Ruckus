@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -88,6 +89,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 break;
 
             case 1:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -148,7 +150,8 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                 break;
             case 6:
-                // tensorFlow.stop();
+                CameraDevice.getInstance().setFlashTorchMode(false);
+                tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;

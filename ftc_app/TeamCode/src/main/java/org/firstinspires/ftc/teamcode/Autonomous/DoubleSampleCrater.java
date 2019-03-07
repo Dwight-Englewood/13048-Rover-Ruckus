@@ -89,15 +89,16 @@ public class DoubleSampleCrater extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.hook.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.claw.setPosition(0.0);
                 auto++;
                 break;
 
             case 1:
-                robot.hook.setTargetPosition(23000);
+                robot.hook.setTargetPosition(20000);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
               //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
@@ -143,6 +144,7 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 6:
+                CameraDevice.getInstance().setFlashTorchMode(false);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
@@ -576,6 +578,8 @@ public class DoubleSampleCrater extends OpMode {
         telemetry.addData("getState", tensorFlow.getState());
         telemetry.addData("Case Number:", auto);
         telemetry.addData("CurVal:", curVal);
+
+        telemetry.addData("HookStat", robot.hookLimit.getState());
         telemetry.update();
     }
 }

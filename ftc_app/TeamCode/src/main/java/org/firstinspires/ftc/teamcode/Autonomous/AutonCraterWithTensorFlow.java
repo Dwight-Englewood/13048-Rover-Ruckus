@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.vuforia.CameraDevice;
 
 @Autonomous(name="[OLD]AutonCraterSingleSample", group="Autonomous")
 public class AutonCraterWithTensorFlow extends OpMode {
@@ -80,9 +81,10 @@ public class AutonCraterWithTensorFlow extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
+                CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.hook.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.claw.setPosition(0.0);
                 auto++;
                 break;
@@ -134,6 +136,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 6:
+                CameraDevice.getInstance().setFlashTorchMode(false);
                 tensorFlow.stop();
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;

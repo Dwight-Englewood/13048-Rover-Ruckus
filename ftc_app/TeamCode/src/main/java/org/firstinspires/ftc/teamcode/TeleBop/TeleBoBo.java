@@ -58,7 +58,6 @@ public class TeleBoBo extends OpMode{
 //        double leftPower = Range.clip(gamepad1.left_stick_y, -0.75,0.75);
 //        double rightPower = Range.clip(gamepad1.right_stick_y, -0.75, 0.75);
 //        robot.tankDriveNoStrafe(gamepad1.left_stick_y, gamepad1.right_stick_y);
-        ;
 
         if(gamepad1.x){wabbo = true; }
         else if (gamepad1.y){wabbo = false;}
