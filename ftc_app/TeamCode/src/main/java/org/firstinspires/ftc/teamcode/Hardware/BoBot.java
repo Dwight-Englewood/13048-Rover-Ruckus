@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class BoBot {
-    public static DcMotor BL, BR, FL, FR, hook, lift,  joint;
+    public static DcMotor BL, BR, FL, FR, hook, lift, joint;
     public CRServo inBOBO;
     public Servo door;
     public DigitalChannel liftLimit, hookLimit;
@@ -90,7 +90,7 @@ public class BoBot {
         hook.setMode(runMode);
         lift.setMode(runMode);
         joint.setMode(runMode);
-       // intake.setMode(runMode);
+      //  intake.setMode(runMode);
     }
 
     public void drive(double in) {

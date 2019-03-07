@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -67,6 +68,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
         tensorFlow.start();
         BigThonk = tensorFlow.getState();
 
+        robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
     }
 
     /*
@@ -105,6 +107,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                 if (!robot.hookLimit.getState() || Math.abs(robot.hook.getCurrentPosition()) >= 7055) {
                     //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
+                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
                     robot.hook.setPower(0);
                     telemetry.update();
                     auto++;
@@ -112,9 +115,11 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 break;
 
             case 3:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto = 12345;
                 break;
+
             case 12345:
                 if (Math.abs(0 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) > 3) {
                     robot.adjustHeading(0);
@@ -124,10 +129,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 12346:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto = 5;
                 break;
+
             case 4:
                 tensorFlow.stop();
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, 280 / 2, 0.5);
@@ -149,6 +156,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 }
 
                 break;
+
             case 6:
                 CameraDevice.getInstance().setFlashTorchMode(false);
                 tensorFlow.stop();
@@ -164,6 +172,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 8:
                 if (Math.abs(-80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) > 3) {
                     robot.adjustHeading(-80);
@@ -173,10 +182,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 9:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 10:
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 1120 / 4, 0.6);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -185,13 +196,16 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 }
 
                 break;
+
             case 11:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 12:
                 switch(BigThonk){
                     case LEFT:
+                        robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.LIME);
                         robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 300 + 250, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
@@ -199,6 +213,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                         }
                         break;
                     case RIGHT:
+                        robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED_ORANGE);
                         robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400 - 50, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
@@ -207,6 +222,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                         break;
                     case CENTER:
+                        robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.CONFETTI);
                         robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE, 1120 / 6 -36, 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
@@ -219,10 +235,13 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                         break;
                 }
                 break;
+
             case 13:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 14:
                 switch(BigThonk){
                     case LEFT:
@@ -252,10 +271,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
 
                 }
                 break;
+
             case 15:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 16:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, 840 , 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -263,6 +284,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 17:
                 if (Math.abs(0 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) > 3) {
                     robot.adjustHeading(0);
@@ -272,10 +294,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 18:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 19:
                 switch (BigThonk){
                     case LEFT:
@@ -304,7 +328,9 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                         break;
                 }
                 break;
+
             case 20:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 if(Math.abs(45 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
                     robot.adjustHeading(45);
                 }
@@ -315,10 +341,12 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 21:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 22:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, 1500, 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
@@ -326,6 +354,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                     auto++;
                 }
                 break;
+
             case 23:
                 robot.claw.setPosition(0.7);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -343,17 +372,22 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 break;
 
             case 24:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
                 robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 560  , 0.3);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
                     auto++;
                 }
                 break;
+
             case 25:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
+
             case 26:
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 2100 , 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();

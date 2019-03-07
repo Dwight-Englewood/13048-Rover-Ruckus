@@ -39,7 +39,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
-import org.firstinspires.ftc.teamcode.Hardware.BoBot;
+import org.firstinspires.ftc.teamcode.Hardware.bot;
 import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import java.util.Random;
 
@@ -50,18 +50,18 @@ import java.util.Locale;
 public class PIDTester extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
-    BoBot robot = new BoBot();
+    bot robot = new bot();
     TensorFlow tensorFlow = new TensorFlow();
-   double kp = 2;
-   double kd = 0;
-   double ki = 0;
+   double kp = 0.65; //owo| proportion |\owo\
+   double kd = 0; //| derivative |\\
+   double ki = 0; //| integral |\\
    PIDController weeb = new PIDController(kp, ki,kd);
-   int ticks = 280 ;
+   int ticks = 7000 ;
 
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-        tensorFlow.init(hardwareMap, telemetry);
+   //     tensorFlow.init(hardwareMap, telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -70,7 +70,7 @@ public class PIDTester extends OpMode {
         robot.FL.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.FR.setDirection(DcMotorSimple.Direction.FORWARD);
       //  robot.intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.joint.setDirection(DcMotorSimple.Direction.REVERSE);
+      //  robot.joint.setDirection(DcMotorSimple.Direction.REVERSE);
 
         robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -103,16 +103,16 @@ public class PIDTester extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.a) {
-            double currentSum = robot.joint.getCurrentPosition();
+            double currentSum = robot.hook.getCurrentPosition();
             currentSum = currentSum / 4;
             weeb.updateError(currentSum);
             if (weeb.goalReached(10)) { //checks if delta is out of range
                 telemetry.addData("Done", 0);
-               robot.joint.setPower(0);
+               robot.hook.setPower(0);
             } else {
                 double pidcorrect = weeb.correction();
                 telemetry.addData("Correction", pidcorrect);
-                robot.joint.setPower(pidcorrect / ticks);
+                robot.hook.setPower(pidcorrect / ticks);
             }
             telemetry.addData("PID Error", weeb.error);
             telemetry.addData("Current Dist", currentSum);
@@ -120,11 +120,11 @@ public class PIDTester extends OpMode {
         }
         if(gamepad1.b){
             weeb.reset();
-            robot.joint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             weeb.setGoal(ticks);
         }
         if(gamepad1.x){
-            robot.joint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
     }
