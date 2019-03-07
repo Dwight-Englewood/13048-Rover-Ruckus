@@ -90,7 +90,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 1:
-                robot.hook.setTargetPosition(23000);
+                robot.hook.setTargetPosition(7055);
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();

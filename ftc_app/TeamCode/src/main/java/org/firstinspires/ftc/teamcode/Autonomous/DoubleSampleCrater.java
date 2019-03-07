@@ -98,7 +98,11 @@ public class DoubleSampleCrater extends OpMode {
                 break;
 
             case 1:
+<<<<<<< HEAD
                 robot.hook.setTargetPosition(20000);
+=======
+                robot.hook.setTargetPosition(7000);
+>>>>>>> 468e4af17bd7e6dcef48ea5420fe6f5c795312b1
                 robot.hook.setPower(1);
                 robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
               //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();

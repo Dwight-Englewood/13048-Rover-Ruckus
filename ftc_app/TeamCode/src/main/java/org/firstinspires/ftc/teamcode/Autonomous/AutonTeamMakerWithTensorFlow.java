@@ -92,7 +92,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 CameraDevice.getInstance().setFlashTorchMode(true);
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.hook.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.hook.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.claw.setPosition(0.0);
                 auto++;
                 break;
