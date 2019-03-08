@@ -389,6 +389,18 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 33:
+                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 100, 0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    auto++;
+                }
+                break;
+
+            case 34:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 35:
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 2100, 0.3);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);

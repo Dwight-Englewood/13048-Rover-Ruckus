@@ -85,8 +85,7 @@ public class TeleOp extends OpMode {
         }
         else if (gamepad1.y){wabbo = false;}
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,wabbo, false);
-
-
+        
         if (robot.hookLimit.getState()) {
             robot.hook.setPower(gamepad2.right_trigger * 0.75);
 
