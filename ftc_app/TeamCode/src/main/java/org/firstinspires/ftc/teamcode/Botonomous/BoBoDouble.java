@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Botonomous;
 import android.graphics.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -19,7 +20,8 @@ import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.vuforia.CameraDevice;
 
-@Autonomous(name="BoBo Sells Rice", group="Autonomous")
+@Disabled
+@Autonomous(name="[OLD]BoBo Sells Rice", group="Autonomous")
 public class BoBoDouble extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

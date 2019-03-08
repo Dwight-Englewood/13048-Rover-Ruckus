@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import java.util.Random;
 
-@Autonomous(name="[OLD]AutonDepotSingleSample", group="Autonomous")
+@Autonomous(name="[New]AutonDepotSingleSample", group="Autonomous")
 public class AutonTeamMakerWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -348,10 +348,22 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 break;
 
             case 22:
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE,100,0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                    telemetry.update();
+                    auto=1234567;
+                }
+                break;
+            case 1234567:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+
+            case 1234568:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, 1500, 0.4);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     telemetry.update();
-                    auto++;
+                    auto=23;
                 }
                 break;
 
@@ -387,6 +399,17 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 break;
 
             case 26:
+                robot.autonDriveUltimate(MovementEnum.LEFTSTRAFE,100,0.5);
+                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                telemetry.update();
+                  auto++;
+            }
+            break;
+            case 27:
+                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                auto++;
+                break;
+            case 28:
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
                 robot.autonDriveUltimate(MovementEnum.FORWARD, 2100 , 0.2);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){

@@ -29,6 +29,7 @@ package org.firstinspires.ftc.teamcode.TeleBop;/* Copyright (c) 2017 FIRST. All 
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.bot;
@@ -52,6 +53,7 @@ public class TeleOp extends OpMode {
         robot.init(hardwareMap, telemetry, false);
 //        robot.resetServo();
         telemetry.addData("Status", "Initialized");
+        robot.lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addData("Hook Power", robot.hook.getPower());
         telemetry.addData("Claw Position", robot.claw.getPosition());

@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.vuforia.CameraDevice;
 
-@Autonomous(name="[OLD]AutonCraterDoubleSample", group="Autonomous")
+@Autonomous(name="[New]AutonCraterDoubleSample", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;

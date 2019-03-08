@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.BoBot;
 import java.util.Random;
 
-@Autonomous(name="BoBo Buys Rice", group="Autonomous")
+@Autonomous(name="[OLD]BoBo Buys Rice", group="Autonomous")
 public class BoPot extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
