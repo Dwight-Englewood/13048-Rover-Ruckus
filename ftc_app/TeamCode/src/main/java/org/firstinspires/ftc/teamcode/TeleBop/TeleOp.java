@@ -85,7 +85,7 @@ public class TeleOp extends OpMode {
         }
         else if (gamepad1.y){wabbo = false;}
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,   gamepad1.left_trigger,gamepad1.right_trigger,wabbo, false);
-        
+
         if (robot.hookLimit.getState()) {
             robot.hook.setPower(gamepad2.right_trigger * 0.75);
 
@@ -166,12 +166,11 @@ public class TeleOp extends OpMode {
             robot.dump.setPosition(0);
         }
 
-        //
         if (robot.intake.getPower() != 0){
             robot.dumpEntry.setPosition(0.0);}
         else {robot.dumpEntry.setPosition(0.75);}
 
-        telemetry.addData("power", robot.FL.getPower());
+//        telemetry.addData("power", robot.FL.getPower());
     }
 
 

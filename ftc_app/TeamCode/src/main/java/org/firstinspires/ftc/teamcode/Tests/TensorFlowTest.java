@@ -33,6 +33,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.vuforia.CameraDevice;
 
 import java.util.List;
 
@@ -88,8 +89,11 @@ public class TensorFlowTest extends OpMode {
      */
     @Override
     public void loop() {
+        CameraDevice.getInstance().setFlashTorchMode(true);
         List<Recognition> dab = tensorFlow.getD();
-
+        if(gamepad1.a){robot.hook.setPower(1);}
+        else if (gamepad1.b){robot.hook.setPower(-1);}
+        else {robot.hook.setPower(0);}
         telemetry.addData("number", dab);
         for (int i = 0; i < dab.size(); i++) {
             telemetry.addData("recognition", i);
@@ -102,6 +106,7 @@ public class TensorFlowTest extends OpMode {
 
         tensorFlow.getState();
         telemetry.addData("Tensor Flow Stats", tensorFlow.getState());
+//        telemetry.addData("`YERT", tensorFlow.getz());
     }
 
     /*

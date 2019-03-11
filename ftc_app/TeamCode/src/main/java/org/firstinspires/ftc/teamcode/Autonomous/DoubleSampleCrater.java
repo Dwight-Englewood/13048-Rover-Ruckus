@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.vuforia.CameraDevice;
 
-@Autonomous(name="[New]AutonCraterDoubleSample", group="Autonomous")
+@Autonomous(name="AutonCrateDoub", group="Autonomous")
 public class DoubleSampleCrater extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -610,12 +610,12 @@ public class DoubleSampleCrater extends OpMode {
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
-        telemetry.addData("Big Thonk", BigThonk);
-        telemetry.addData("getState", tensorFlow.getState());
-        telemetry.addData("Case Number:", auto);
-        telemetry.addData("CurVal:", curVal);
+//        telemetry.addData("Big Thonk", BigThonk);
+  //      telemetry.addData("getState", tensorFlow.getState());
+    //    telemetry.addData("Case Number:", auto);
+      //  telemetry.addData("CurVal:", curVal);
 
-        telemetry.addData("HookStat", robot.hookLimit.getState());
-        telemetry.update();
+        //telemetry.addData("HookStat", robot.hookLimit.getState());
+        //telemetry.update();
     }
 }

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Hardware.bot;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.vuforia.CameraDevice;
 
-@Autonomous(name="[New]AutonCraterSingleSample", group="Autonomous")
+@Autonomous(name="AutonCrate", group="Autonomous")
 public class AutonCraterWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
