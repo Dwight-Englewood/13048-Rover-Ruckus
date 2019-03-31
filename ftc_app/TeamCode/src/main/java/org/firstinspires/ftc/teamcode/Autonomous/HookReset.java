@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 
-@Autonomous(name="[New]HookResetter", group="Autonomous")
+@Autonomous(name="Hook", group="Autonomous")
 
 public class HookReset extends OpMode {
     bot robot = new bot();

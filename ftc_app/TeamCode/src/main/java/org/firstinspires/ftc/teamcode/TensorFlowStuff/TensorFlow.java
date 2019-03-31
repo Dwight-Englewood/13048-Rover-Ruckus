@@ -112,6 +112,8 @@ TensorFlow implements Subsystem {
         return state;
     }
 
+
+
     private void updateState() {
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
@@ -126,7 +128,7 @@ TensorFlow implements Subsystem {
                     for(Recognition recognition: updatedRecognitions){
                         if(recognition.getLabel().equals(LABEL_GOLD_MINERAL)){
                             gold = (int) recognition.getBottom();
-                        } else if(silver1 == -1){
+                        } else if(silver1 == -1 && recognition.getConfidence() > .6){
                             silver1 = (int) recognition.getBottom();
                         }
                     }
@@ -146,6 +148,7 @@ TensorFlow implements Subsystem {
             }
         }
     }
+
 
     private void initVuforia() {
         /*

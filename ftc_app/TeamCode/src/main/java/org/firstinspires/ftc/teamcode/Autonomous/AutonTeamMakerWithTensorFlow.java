@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.bot;
 import java.util.Random;
 
-@Autonomous(name="[New]AutonDepotSingleSample", group="Autonomous")
+@Autonomous(name="AutonDepo", group="Autonomous")
 public class AutonTeamMakerWithTensorFlow extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DigitalChannel DigChannel;
@@ -214,7 +214,7 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                         break;
                     case RIGHT:
                         robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED_ORANGE);
-                        robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400 - 50, 0.2);
+                        robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 400 , 0.2);
                         if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                             telemetry.update();
                             auto++;
@@ -418,15 +418,15 @@ public class AutonTeamMakerWithTensorFlow extends OpMode {
                 }
                 break;
         }
-   //     telemetry.addData("Team Marker Position", robot.claw.getPosition());
+  //     telemetry.addData("Team Marker Position", robot.claw.getPosition());
    //     telemetry.addData("Position", tensorFlow.getState());
-   //     telemetry.addData("BiggieThonk", BigThonk);
+    //    telemetry.addData("BiggieThonk", BigThonk);
    //     telemetry.addData("Case Number: ", auto);
    //     telemetry.addData("YET", robot.hook.getPower());
    //     telemetry.addData("twtr", robot.hook.getCurrentPosition());
    //     telemetry.addData("EWT",robot.hookLimit.getState());
    //     telemetry.addData("Degrees: ", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
    //     telemetry.addData("Difference: ", Math.abs(90 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ));
-        telemetry.update();
+   //     telemetry.update();
     }
 }
