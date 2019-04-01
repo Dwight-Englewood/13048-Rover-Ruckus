@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
-@TeleOp(name="EXPO COOL ",group="Teleop")
+@TeleOp(name="EXPO COOL",group="Teleop")
 public class ExpoBop extends OpMode {
     botExpo bot = new botExpo();
 
@@ -35,7 +35,7 @@ public class ExpoBop extends OpMode {
         bot.FlyR.setPower(1);
     }
 
-    
+
     }
 
 
